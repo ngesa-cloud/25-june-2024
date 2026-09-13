@@ -1,0 +1,2964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>25 June — What Happened at Parliament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://www.youtube.com/iframe_api"></script>
+<style>
+  :root{
+    --bg: #12140F;
+    --bg-raised: #181B14;
+    --paper: #EAE6DA;
+    --paper-dim: #A9A599;
+    --rule: #34372C;
+    --accent: #B4472F;
+    --accent-dim: #7A3325;
+    --green: #6C7A5A;
+    --focus: #D6C79E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--paper);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3, .serif{
+    font-family:'Newsreader', serif;
+    font-weight:500;
+    color:var(--paper);
+    margin:0;
+  }
+  a{ color:var(--focus); }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+  }
+  ::selection{ background:var(--accent); color:var(--paper); }
+
+  .wrap{ max-width:920px; margin:0 auto; padding:0 28px; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    position:relative;
+    padding:120px 28px 80px;
+    border-bottom:1px solid var(--rule);
+  }
+  .hero .kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--paper-dim);
+    margin-bottom:22px;
+    max-width:560px;
+  }
+  .hero .date{
+    font-size:clamp(64px, 13vw, 140px);
+    line-height:0.92;
+    letter-spacing:-0.02em;
+    color:var(--paper);
+    max-width:820px;
+  }
+  .hero .date em{ font-style:italic; color:var(--accent); }
+  /* ---------- Dynamic Living Blood Drip Systems on Hero Date ---------- */
+  .drip-anchor{
+    position:relative;
+    display:inline-block;
+    line-height:inherit;
+  }
+  .drip-system{
+    position:absolute;
+    pointer-events:none;
+    overflow:visible;
+    top:0.68em;
+  }
+  .drip-system-2{
+    left:0.465em;
+    width:0.055em;
+    height:0.6em;
+  }
+  .drip-system-5{
+    left:0.222em;
+    width:0.062em;
+    height:0.6em;
+  }
+  .drip-system-6{
+    left:0.275em;
+    width:0.050em;
+    height:0.6em;
+  }
+
+  /* Attached stem surface tension elasticity & recoil */
+  .drip-stem{
+    transform-origin:top center;
+  }
+  .drip-system-2 .drip-stem{
+    animation:stemRecoil2 4.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+  .drip-system-5 .drip-stem{
+    animation:stemRecoil5 4.6s cubic-bezier(0.4, 0, 0.2, 1) infinite 1.8s;
+  }
+  .drip-system-6 .drip-stem{
+    animation:stemRecoil6 4.6s cubic-bezier(0.4, 0, 0.2, 1) infinite 3.2s;
+  }
+
+  @keyframes stemRecoil2{
+    0%, 100%{ transform:scaleY(1); }
+    30%{ transform:scaleY(1.18); }
+    36%{ transform:scaleY(0.92); } /* recoil upon drop release */
+    46%{ transform:scaleY(1.04); }
+    58%{ transform:scaleY(1); }
+  }
+  @keyframes stemRecoil5{
+    0%, 100%{ transform:scaleY(1); }
+    30%{ transform:scaleY(1.22); }
+    36%{ transform:scaleY(0.90); }
+    46%{ transform:scaleY(1.05); }
+    58%{ transform:scaleY(1); }
+  }
+  @keyframes stemRecoil6{
+    0%, 100%{ transform:scaleY(1); }
+    28%{ transform:scaleY(1.15); }
+    34%{ transform:scaleY(0.93); }
+    44%{ transform:scaleY(1.03); }
+    56%{ transform:scaleY(1); }
+  }
+
+  /* Gravity accelerated falling blood droplets */
+  .drip-drop{
+    transform-origin:center top;
+  }
+  .drip-system-2 .drip-drop{
+    animation:bloodDripFall2 4.6s cubic-bezier(0.45, 0, 0.85, 0.4) infinite;
+  }
+  .drip-system-5 .drip-drop{
+    animation:bloodDripFall5 4.6s cubic-bezier(0.45, 0, 0.85, 0.4) infinite 1.8s;
+  }
+  .drip-system-6 .drip-drop{
+    animation:bloodDripFall6 4.6s cubic-bezier(0.45, 0, 0.85, 0.4) infinite 3.2s;
+  }
+
+  @keyframes bloodDripFall2{
+    0%{
+      transform:translateY(0) scale(0.2, 0.2);
+      opacity:0;
+    }
+    16%{
+      transform:translateY(0) scale(0.9, 0.9);
+      opacity:1;
+    }
+    30%{
+      transform:translateY(0.035em) scale(0.72, 1.4);
+      opacity:1;
+    }
+    36%{
+      transform:translateY(0.10em) scale(0.78, 1.35);
+      opacity:1;
+    }
+    50%{
+      transform:translateY(0.28em) scale(0.62, 1.55);
+      opacity:0.85;
+    }
+    62%{
+      transform:translateY(0.42em) scale(0.4, 1.7);
+      opacity:0;
+    }
+    100%{
+      transform:translateY(0.42em) scale(0.1, 0.1);
+      opacity:0;
+    }
+  }
+
+  @keyframes bloodDripFall5{
+    0%{
+      transform:translateY(0) scale(0.2, 0.2);
+      opacity:0;
+    }
+    16%{
+      transform:translateY(0) scale(0.95, 0.95);
+      opacity:1;
+    }
+    30%{
+      transform:translateY(0.045em) scale(0.7, 1.45);
+      opacity:1;
+    }
+    36%{
+      transform:translateY(0.12em) scale(0.78, 1.35);
+      opacity:1;
+    }
+    50%{
+      transform:translateY(0.32em) scale(0.62, 1.6);
+      opacity:0.85;
+    }
+    62%{
+      transform:translateY(0.46em) scale(0.38, 1.75);
+      opacity:0;
+    }
+    100%{
+      transform:translateY(0.46em) scale(0.1, 0.1);
+      opacity:0;
+    }
+  }
+
+  @keyframes bloodDripFall6{
+    0%{
+      transform:translateY(0) scale(0.2, 0.2);
+      opacity:0;
+    }
+    14%{
+      transform:translateY(0) scale(0.85, 0.85);
+      opacity:1;
+    }
+    28%{
+      transform:translateY(0.03em) scale(0.68, 1.35);
+      opacity:1;
+    }
+    34%{
+      transform:translateY(0.09em) scale(0.72, 1.3);
+      opacity:1;
+    }
+    48%{
+      transform:translateY(0.25em) scale(0.55, 1.5);
+      opacity:0.85;
+    }
+    60%{
+      transform:translateY(0.38em) scale(0.35, 1.65);
+      opacity:0;
+    }
+    100%{
+      transform:translateY(0.38em) scale(0.1, 0.1);
+      opacity:0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .drip-stem, .drip-drop{
+      animation:none !important;
+    }
+    .drip-drop{
+      display:none !important;
+    }
+    .drip-stem{
+      transform:none !important;
+    }
+  }
+  .hero .dek{
+    max-width:560px;
+    margin-top:32px;
+    font-size:19px;
+    color:var(--paper-dim);
+  }
+  /* ---------- Scroll Cue (Bottom of Hero) ---------- */
+  .hero-scroll-cue{
+    position:absolute;
+    bottom:36px;
+    left:28px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--paper-dim);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    z-index:10;
+    pointer-events:none;
+  }
+  .hero-scroll-cue .line{ width:28px; height:1px; background:var(--paper-dim); }
+
+  /* ---------- Pinned Top Soundtrack Shuffle Button ---------- */
+  .soundtrack-toggle-btn{
+    position:fixed;
+    top:20px;
+    left:28px;
+    bottom:auto !important;
+    z-index:1000;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:rgba(24, 27, 20, 0.94);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border:1px solid var(--accent);
+    color:var(--paper);
+    padding:8px 16px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    cursor:pointer;
+    border-radius:2px;
+    transition:all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow:0 4px 16px rgba(0,0,0,0.6), 0 0 0 1px rgba(52, 55, 44, 0.6);
+    user-select:none;
+  }
+  .soundtrack-toggle-btn:hover{
+    background:var(--accent);
+    color:var(--paper);
+    transform:translateY(-1px);
+    box-shadow:0 6px 20px rgba(180, 71, 47, 0.45);
+  }
+  .soundtrack-toggle-btn.is-playing{
+    background:rgba(28, 34, 24, 0.95);
+    border-color:var(--green);
+    color:var(--paper);
+  }
+  .soundtrack-toggle-btn.is-playing:hover{
+    background:var(--accent);
+    border-color:var(--accent);
+  }
+  .soundtrack-toggle-btn .btn-icon{
+    font-size:11px;
+    color:var(--accent);
+    display:inline-block;
+    line-height:1;
+  }
+  .soundtrack-toggle-btn.is-playing .btn-icon{
+    color:var(--green);
+  }
+  .soundtrack-toggle-btn .btn-title{
+    letter-spacing:0.02em;
+    max-width:260px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .sound-eq{
+    display:none;
+    align-items:flex-end;
+    gap:2.5px;
+    height:12px;
+  }
+  .soundtrack-toggle-btn.is-playing .sound-eq{
+    display:inline-flex;
+  }
+  .sound-eq span{
+    width:2px;
+    height:100%;
+    background:var(--green);
+    border-radius:1px;
+    animation:eqPulse 0.9s ease-in-out infinite alternate;
+  }
+  .sound-eq span:nth-child(1){ animation-delay:0.1s; height:55%; }
+  .sound-eq span:nth-child(2){ animation-delay:0.35s; height:100%; }
+  .sound-eq span:nth-child(3){ animation-delay:0.2s; height:45%; }
+  @keyframes eqPulse{
+    0%{ transform:scaleY(0.25); }
+    100%{ transform:scaleY(1); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .sound-eq span{ animation:none; }
+  }
+  .soundtrack-toggle-btn.is-scrolled{
+    box-shadow:0 8px 26px rgba(0,0,0,0.85), 0 0 0 1px var(--rule);
+  }
+  @media (max-width:640px){
+    .soundtrack-toggle-btn{
+      top:14px;
+      left:16px;
+      padding:7px 13px;
+      font-size:11px;
+      max-width:calc(100vw - 32px);
+    }
+    .soundtrack-toggle-btn .btn-title{
+      max-width:170px;
+    }
+    .hero-scroll-cue{
+      left:16px;
+      bottom:24px;
+    }
+  }
+
+  .ambient-audio-hidden{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:1px;
+    height:1px;
+    opacity:0.001;
+    pointer-events:none;
+    z-index:-1;
+    overflow:hidden;
+  }
+
+  /* ---------- Section shell ---------- */
+  section{ padding:96px 28px; border-bottom:1px solid var(--rule); }
+  section.tight{ padding-top:64px; padding-bottom:64px; }
+  .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--green);
+    margin-bottom:18px;
+  }
+  .section-head{ max-width:640px; margin-bottom:44px; }
+  .section-head h2{ font-size:clamp(28px,4vw,40px); }
+  p{ color:var(--paper); font-size:16px; max-width:640px; }
+  p.muted{ color:var(--paper-dim); }
+
+  /* ---------- Context (two columns) ---------- */
+  .context-grid{
+    display:grid;
+    grid-template-columns:200px 1fr;
+    gap:40px;
+  }
+  .context-grid .side{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--paper-dim); }
+  .context-grid .side .n{ color:var(--green); }
+  .context-grid p + p{ margin-top:18px; }
+
+  /* ---------- Prelude Artifact Card in Section 01 ---------- */
+  .prelude-card{
+    margin-top:28px;
+    background:var(--bg-raised);
+    border:1px solid var(--rule);
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:24px;
+    padding:20px;
+    align-items:center;
+  }
+  .prelude-card-media{
+    overflow:hidden;
+    border:1px solid var(--rule);
+    max-height:240px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--bg);
+  }
+  .prelude-card-media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform 0.4s ease;
+  }
+  .prelude-card:hover .prelude-card-media img{
+    transform:scale(1.03);
+  }
+  .prelude-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--green);
+    letter-spacing:0.04em;
+    margin-bottom:6px;
+  }
+  .prelude-title{
+    font-family:'Newsreader', serif;
+    font-size:22px;
+    color:var(--paper);
+    font-style:italic;
+    margin-bottom:8px;
+    line-height:1.2;
+  }
+  .prelude-desc{
+    font-size:14px;
+    line-height:1.55;
+    color:var(--paper-dim);
+    margin:0 0 12px 0;
+  }
+  .prelude-desc a{
+    color:var(--accent);
+    text-decoration:underline;
+    text-underline-offset:2px;
+  }
+  .prelude-link{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--accent);
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .prelude-link:hover{
+    text-decoration:underline;
+  }
+
+  @media (max-width:640px){
+    .context-grid{ grid-template-columns:1fr; }
+    .prelude-card{
+      grid-template-columns:1fr;
+      gap:16px;
+      padding:16px;
+    }
+    .prelude-card-media{
+      max-height:280px;
+    }
+  }
+
+  /* ---------- Timeline spine ---------- */
+  .timeline{
+    position:relative;
+    padding-left:120px;
+  }
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:96px;
+    top:6px;
+    bottom:6px;
+    width:1px;
+    background:var(--rule);
+  }
+  .tl-item{
+    position:relative;
+    padding-bottom:56px;
+  }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-time{
+    position:absolute;
+    left:-120px;
+    top:2px;
+    width:80px;
+    text-align:right;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--green);
+  }
+  .tl-item::after{
+    content:"";
+    position:absolute;
+    left:-26px;
+    top:6px;
+    width:9px; height:9px;
+    border-radius:50%;
+    background:var(--bg);
+    border:1px solid var(--accent);
+  }
+  .tl-item.grave::after{ background:var(--accent); border-color:var(--accent); }
+  .tl-item h3{ font-size:22px; margin-bottom:10px; }
+  .tl-item p{ max-width:560px; }
+
+  @media (max-width:640px){
+    .timeline{ padding-left:64px; }
+    .timeline::before{ left:44px; }
+    .tl-time{ left:-64px; width:36px; font-size:11px; text-align:left; }
+    .tl-item::after{ left:-26px; }
+  }
+
+  /* ---------- Toll ---------- */
+  .toll-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    margin-bottom:32px;
+  }
+  .toll-card{
+    background:var(--bg);
+    padding:32px 26px;
+  }
+  .toll-card .num{
+    font-family:'Newsreader', serif;
+    font-size:56px;
+    color:var(--accent);
+    line-height:1;
+  }
+  .toll-card .who{ margin-top:14px; font-size:14px; color:var(--paper); font-weight:500; }
+  .toll-card .src{ margin-top:6px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--paper-dim); }
+  @media (max-width:640px){ .toll-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- Remembered ---------- */
+  .victims-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    margin-bottom:24px;
+  }
+  .victim-card{
+    background:var(--bg);
+    padding:26px 22px;
+    display:flex;
+    flex-direction:column;
+  }
+  .victim-portrait-wrap{
+    width:100%;
+    height:220px;
+    background:var(--bg-raised);
+    border:1px solid var(--rule);
+    margin-bottom:16px;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .victim-img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:grayscale(25%) contrast(1.05);
+    display:block;
+  }
+  .victim-portrait-placeholder{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:16px;
+    text-align:center;
+    width:100%;
+    height:100%;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .victim-portrait-placeholder .ph-title{
+    font-size:12px;
+    color:var(--paper-dim);
+  }
+  .victim-portrait-placeholder .ph-tag{
+    font-size:11px;
+    color:var(--accent);
+  }
+  .victim-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:6px;
+  }
+  .victim-name{
+    font-family:'Newsreader', serif;
+    font-size:22px;
+    color:var(--paper);
+    line-height:1.2;
+  }
+  .victim-age{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:14px;
+    color:var(--paper-dim);
+  }
+  .victim-geo{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    margin-bottom:12px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--rule);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+  }
+  .victim-geo .loc-name{
+    color:var(--green);
+  }
+  .victim-geo .coord-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--paper-dim);
+  }
+  .victim-geo a.coord-link{
+    color:var(--paper);
+    text-decoration:none;
+    border-bottom:1px dotted var(--rule);
+  }
+  .victim-geo a.coord-link:hover{
+    color:var(--focus);
+    border-bottom-color:var(--focus);
+  }
+  .victim-card .story{
+    font-size:14px;
+    color:var(--paper-dim);
+    line-height:1.55;
+    margin:0 0 12px;
+    flex-grow:1;
+  }
+  .victim-card .source-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--paper-dim);
+    padding-top:10px;
+    border-top:1px solid var(--rule);
+    opacity:0.75;
+  }
+  @media (max-width:768px){
+    .victims-grid{ grid-template-columns:1fr; }
+  }
+  .names-note{ margin-top:24px; }
+
+  /* ---------- Memorial & accountability (Task 1) ---------- */
+  .memorial-list{
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    margin-bottom:24px;
+  }
+  .memorial-card{
+    background:var(--bg);
+    padding:22px 24px;
+    display:grid;
+    grid-template-columns:72px 1fr;
+    gap:20px;
+    align-items:flex-start;
+  }
+  .memorial-thumb-wrap{
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    overflow:hidden;
+    background:var(--bg-raised);
+    border:1px solid var(--rule);
+    flex-shrink:0;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .memorial-thumb-img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:grayscale(100%) contrast(1.15) brightness(0.9);
+    mix-blend-mode:luminosity;
+    display:block;
+  }
+  .memorial-thumb-placeholder{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:8.5px;
+    color:var(--paper-dim);
+    padding:6px;
+    line-height:1.2;
+    background:var(--bg-raised);
+    border-radius:50%;
+  }
+  .memorial-body{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .memorial-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:6px 14px;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:8px;
+  }
+  .memorial-name{
+    font-family:'Newsreader', serif;
+    font-size:20px;
+    color:var(--paper);
+    line-height:1.25;
+    margin:0;
+  }
+  .memorial-name .age{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:14px;
+    color:var(--paper-dim);
+    font-weight:normal;
+  }
+  .memorial-credit{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--paper-dim);
+  }
+  .memorial-grid-info{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:6px;
+  }
+  .mem-item{
+    font-size:13.5px;
+    line-height:1.5;
+    color:var(--paper-dim);
+  }
+  .mem-k{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--green);
+    margin-right:6px;
+  }
+  .mem-v{
+    color:var(--paper);
+  }
+  .status-tag{
+    color:var(--paper);
+  }
+  .mem-source{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    margin-top:2px;
+  }
+  .mem-link{
+    color:var(--paper-dim);
+    text-decoration:none;
+    border-bottom:1px dotted var(--rule);
+    word-break:break-all;
+  }
+  .mem-link:hover{
+    color:var(--focus);
+    border-bottom-color:var(--focus);
+  }
+  @media (max-width:640px){
+    .memorial-card{
+      grid-template-columns:1fr;
+      gap:14px;
+    }
+    .memorial-thumb-wrap{
+      width:56px;
+      height:56px;
+    }
+  }
+
+  /* ---------- Youth mobilization & strength ---------- */
+  .movement-stats{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    margin-bottom:24px;
+  }
+  .movement-stat{
+    background:var(--bg-raised);
+    padding:22px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .movement-stat .val{
+    font-family:'Newsreader', serif;
+    font-size:28px;
+    color:var(--paper);
+    line-height:1;
+  }
+  .movement-stat .lbl{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--paper-dim);
+    line-height:1.35;
+  }
+  .strength-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    margin-bottom:24px;
+  }
+  .strength-card{
+    background:var(--bg);
+    padding:26px 22px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .strength-card .kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--green);
+  }
+  .strength-card h3{
+    font-family:'Newsreader', serif;
+    font-size:20px;
+    color:var(--paper);
+    line-height:1.25;
+    margin:0;
+  }
+  .strength-card p{
+    font-size:14px;
+    color:var(--paper-dim);
+    line-height:1.55;
+    margin:0;
+    max-width:none;
+  }
+  .movement-dispatch{
+    background:var(--bg-raised);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--green);
+    padding:24px;
+    margin-bottom:24px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .movement-dispatch .dispatch-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--paper-dim);
+  }
+  .movement-dispatch .dispatch-meta .pub{ color:var(--green); font-weight:500; }
+  .movement-dispatch h3{
+    font-family:'Newsreader', serif;
+    font-size:20px;
+    color:var(--paper);
+    margin:0;
+    line-height:1.3;
+  }
+  .movement-dispatch blockquote{
+    margin:0;
+    padding-left:14px;
+    border-left:2px solid var(--rule);
+    font-style:italic;
+    color:var(--paper);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+  .movement-dispatch p{
+    margin:0;
+    font-size:14px;
+    color:var(--paper-dim);
+    line-height:1.55;
+    max-width:none;
+  }
+  .movement-dispatch a.dispatch-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--focus);
+    text-decoration:none;
+    border-bottom:1px solid var(--rule);
+    width:fit-content;
+    padding-bottom:2px;
+  }
+  .movement-dispatch a.dispatch-link:hover{
+    border-color:var(--focus);
+  }
+  @media (max-width:768px){
+    .movement-stats{ grid-template-columns:repeat(2, 1fr); }
+    .strength-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- Timeline media ---------- */
+  .tl-media{
+    margin:14px 0 10px;
+    border:1px solid var(--rule);
+    background:var(--bg-raised);
+    overflow:hidden;
+  }
+  .tl-media img{
+    display:block;
+    width:100%;
+    height:auto;
+    max-height:380px;
+    object-fit:cover;
+    filter:grayscale(15%) contrast(105%);
+  }
+  .tl-caption{
+    padding:9px 14px;
+    margin:0;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--paper-dim);
+    line-height:1.45;
+    border-top:1px solid var(--rule);
+    background:var(--bg);
+  }
+  .tl-caption span{
+    color:var(--green);
+    font-weight:500;
+  }
+
+  /* ---------- Visual record gallery ---------- */
+  .photo-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    margin-bottom:24px;
+  }
+  .photo-card{
+    background:var(--bg);
+    display:flex;
+    flex-direction:column;
+  }
+  .photo-card-img-wrap{
+    position:relative;
+    width:100%;
+    aspect-ratio:16 / 10;
+    background:var(--bg-raised);
+    overflow:hidden;
+    border-bottom:1px solid var(--rule);
+  }
+  .photo-card-img-wrap img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    filter:grayscale(10%) contrast(105%);
+    transition:transform 0.3s ease;
+  }
+  .photo-card:hover .photo-card-img-wrap img{
+    transform:scale(1.02);
+  }
+  .photo-card-body{
+    padding:18px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    flex:1;
+  }
+  .photo-card-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--paper-dim);
+  }
+  .photo-card-meta .loc{ color:var(--green); }
+  .photo-card h3{
+    font-family:'Newsreader', serif;
+    font-size:19px;
+    color:var(--paper);
+    margin:2px 0 4px;
+    line-height:1.3;
+  }
+  .photo-card p{
+    margin:0;
+    font-size:13.5px;
+    color:var(--paper-dim);
+    line-height:1.5;
+    max-width:none;
+  }
+  @media (max-width:768px){
+    .photo-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- Video evidence ---------- */
+  .video-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    margin-bottom:24px;
+  }
+  .video-card{
+    background:var(--bg);
+    padding:28px 24px;
+    display:flex;
+    flex-direction:column;
+  }
+  .video-embed-wrap{
+    position:relative;
+    width:100%;
+    padding-top:56.25%;
+    background:var(--bg-raised);
+    border:1px solid var(--rule);
+    margin-bottom:16px;
+  }
+  .video-embed-wrap iframe{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    border:0;
+  }
+  .video-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-bottom:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--paper-dim);
+  }
+  .video-meta .source{ color:var(--green); }
+  .video-card h3{
+    font-family:'Newsreader', serif;
+    font-size:20px;
+    margin:0 0 8px;
+    line-height:1.3;
+    color:var(--paper);
+  }
+  .video-card .caption{
+    margin:0;
+    font-size:14.5px;
+    color:var(--paper-dim);
+    line-height:1.5;
+  }
+  @media (max-width:768px){
+    .video-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- Movement music & anthems ---------- */
+  .music-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    margin-bottom:24px;
+  }
+  .music-card{
+    background:var(--bg);
+    padding:28px 24px;
+    display:flex;
+    flex-direction:column;
+  }
+  .music-card .genre-tag{
+    color:var(--green);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    text-transform:lowercase;
+    letter-spacing:0.04em;
+  }
+  .music-card .artist-name{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--red);
+    margin-bottom:4px;
+    letter-spacing:0.02em;
+  }
+  .music-card h3{
+    font-family:'Newsreader', serif;
+    font-size:20px;
+    margin:0 0 8px;
+    line-height:1.3;
+    color:var(--paper);
+  }
+  .music-card .caption{
+    margin:0;
+    font-size:14px;
+    color:var(--paper-dim);
+    line-height:1.55;
+  }
+  @media (max-width:768px){
+    .music-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- Public posts ---------- */
+  .posts-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    margin-bottom:24px;
+  }
+  .post-card{
+    background:var(--bg);
+    padding:28px 24px;
+    display:flex;
+    flex-direction:column;
+  }
+  .post-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-bottom:14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--paper-dim);
+  }
+  .post-meta .posted-by{ color:var(--green); }
+  .post-embed-wrap{
+    margin-bottom:16px;
+    min-height:120px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .post-media-frame{
+    margin-bottom:14px;
+    border:1px solid var(--rule);
+    overflow:hidden;
+    max-height:260px;
+    background:var(--bg-raised);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .post-media-frame img{
+    width:100%;
+    height:auto;
+    max-height:260px;
+    object-fit:cover;
+    display:block;
+  }
+  .post-quote-box{
+    font-family:'Newsreader', serif;
+    font-size:16px;
+    font-style:italic;
+    color:var(--paper);
+    margin-bottom:12px;
+    line-height:1.45;
+  }
+  .post-ext-link{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--accent);
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:4px;
+  }
+  .post-ext-link:hover{
+    text-decoration:underline;
+  }
+  .post-placeholder{
+    background:var(--bg-raised);
+    border:1px dashed var(--rule);
+    padding:28px 18px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .post-placeholder .ph-label{
+    font-size:12px;
+    color:var(--accent);
+  }
+  .post-placeholder .ph-sub{
+    font-size:11px;
+    color:var(--paper-dim);
+  }
+  .post-note{
+    margin:0;
+    font-size:14px;
+    color:var(--paper-dim);
+    line-height:1.55;
+    border-top:1px solid var(--rule);
+    padding-top:14px;
+  }
+  @media (max-width:768px){
+    .posts-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- Official records ---------- */
+  .records-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    margin-bottom:24px;
+  }
+  .record-card{
+    background:var(--bg);
+    padding:26px 24px;
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:24px;
+  }
+  .record-meta{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--paper-dim);
+  }
+  .record-meta .authority{ color:var(--green); font-weight:500; }
+  .record-meta .type{ color:var(--accent); }
+  .record-body h3{
+    font-family:'Newsreader', serif;
+    font-size:20px;
+    margin:0 0 8px;
+    line-height:1.3;
+    color:var(--paper);
+  }
+  .record-body p{
+    margin:0 0 14px;
+    font-size:14.5px;
+    color:var(--paper-dim);
+    line-height:1.55;
+    max-width:none;
+  }
+  .record-body a.doc-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--paper);
+    text-decoration:none;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:2px;
+  }
+  .record-body a.doc-link:hover{
+    color:var(--focus);
+    border-color:var(--focus);
+  }
+  @media (max-width:768px){
+    .record-card{ grid-template-columns:1fr; gap:12px; }
+  }
+
+  /* ---------- Aftermath list ---------- */
+  .after-list{ list-style:none; padding:0; margin:0; max-width:640px; }
+  .after-list li{
+    padding:18px 0;
+    border-bottom:1px solid var(--rule);
+    display:grid;
+    grid-template-columns:110px 1fr;
+    gap:18px;
+  }
+  .after-list li:first-child{ border-top:1px solid var(--rule); }
+  .after-list .when{ font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--green); padding-top:3px; }
+  @media (max-width:640px){ .after-list li{ grid-template-columns:1fr; gap:4px; } }
+
+  /* ---------- Sources ---------- */
+  .sources ol{ padding-left:20px; max-width:640px; }
+  .sources li{ margin-bottom:10px; font-size:14.5px; color:var(--paper-dim); }
+  .sources a{ color:var(--paper); text-decoration-color:var(--rule); }
+
+  footer{
+    padding:64px 28px 48px;
+  }
+  footer p{ color:var(--paper-dim); font-size:14px; }
+  footer .mark{ font-family:'Newsreader', serif; font-style:italic; color:var(--paper); font-size:17px; margin-bottom:14px; }
+
+  /* ---------- Ambient Flag Shadowbox Background (Task 2) ---------- */
+  .ambient-flag-bg{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    pointer-events:none;
+    z-index:0;
+    overflow:hidden;
+    opacity:0.08; /* 8% opacity: within strict 6–10% specification */
+  }
+  .flag-shadowbox{
+    position:relative;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+  }
+  .flag-layer{
+    position:relative;
+    width:100%;
+  }
+  .flag-band-black{
+    flex:32;
+    background:linear-gradient(180deg, #090B08 0%, #141711 100%);
+    box-shadow:0 12px 30px -4px rgba(0,0,0,0.85), inset 0 -1px 0 rgba(234,230,218,0.12);
+    z-index:3;
+  }
+  .flag-separator{
+    flex:2;
+    background:rgba(234, 230, 218, 0.42); /* --paper at low opacity */
+    box-shadow:0 4px 14px rgba(0,0,0,0.7);
+    z-index:2;
+  }
+  .flag-band-red{
+    flex:32;
+    background:linear-gradient(180deg, #9C3B24 0%, #B4472F 50%, #8C331E 100%); /* Desaturated to --accent */
+    box-shadow:0 18px 40px -6px rgba(0,0,0,0.9), 0 -8px 24px -4px rgba(0,0,0,0.6), inset 0 1px 0 rgba(234,230,218,0.12), inset 0 -1px 0 rgba(0,0,0,0.5);
+    z-index:4;
+    transform:translateY(-1px);
+  }
+  .flag-band-green{
+    flex:32;
+    background:linear-gradient(180deg, #5B674A 0%, #6C7A5A 50%, #4D573F 100%); /* Desaturated to --green */
+    box-shadow:inset 0 12px 28px -4px rgba(0,0,0,0.8), inset 0 1px 0 rgba(234,230,218,0.1);
+    z-index:1;
+  }
+  .flag-emblem-watermark{
+    position:absolute;
+    right:-6vw;
+    top:16vh;
+    width:min(48vw, 560px);
+    height:auto;
+    color:var(--paper);
+    opacity:0.35; /* Net effective opacity ~2.8% */
+    transform:rotate(-10deg);
+    pointer-events:none;
+    z-index:5;
+    filter:drop-shadow(0 14px 28px rgba(0,0,0,0.6));
+  }
+  @media (prefers-reduced-motion: reduce){
+    .ambient-flag-bg * {
+      animation:none !important;
+      transition:none !important;
+    }
+  }
+
+  /* Content stacking above ambient background */
+  header, section, footer {
+    position:relative;
+    z-index:1;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- Ambient Kenyan Flag Shadowbox Background (Task 2) -->
+<div class="ambient-flag-bg" aria-hidden="true">
+  <div class="flag-shadowbox">
+    <div class="flag-layer flag-band-black"></div>
+    <div class="flag-separator fimbriation-top"></div>
+    <div class="flag-layer flag-band-red"></div>
+    <div class="flag-separator fimbriation-bottom"></div>
+    <div class="flag-layer flag-band-green"></div>
+    <svg class="flag-emblem-watermark" viewBox="0 0 300 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M40 460 L260 40 M260 40 L266 52 M260 40 L248 46 M260 40 L275 15 L260 40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+      <path d="M260 460 L40 40 M40 40 L34 52 M40 40 L52 46 M40 40 L25 15 L40 40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+      <path d="M150 50 C230 110 245 250 150 450 C55 250 70 110 150 50 Z" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M150 50 L150 450" stroke="currentColor" stroke-width="2" stroke-dasharray="6 4"/>
+      <path d="M150 160 Q190 220 150 280 Q110 220 150 160 Z" fill="currentColor" fill-opacity="0.12"/>
+    </svg>
+  </div>
+</div>
+
+<!-- Ambient Audio Container for Soundtrack Player -->
+<div id="ambient-audio-container" class="ambient-audio-hidden" aria-hidden="true"></div>
+
+<!-- Top Fixed Soundtrack Shuffle Button (Persistent across scroll) -->
+<button id="soundtrack-btn" class="soundtrack-toggle-btn" type="button" aria-label="Play &amp; shuffle resistance soundtrack">
+  <span class="btn-icon" id="soundtrack-icon">▶</span>
+  <span class="btn-title" id="soundtrack-title">play soundtrack</span>
+  <span class="sound-eq" id="sound-eq" aria-hidden="true">
+    <span></span><span></span><span></span>
+  </span>
+</button>
+
+<header class="hero">
+  <div class="wrap" style="padding:0; max-width:920px; margin:0 auto; width:100%;">
+    <p class="kicker">Nairobi, Kenya — a record of one day inside the wider Finance Bill 2024 protests</p>
+    <h1 class="date"><span class="drip-anchor">2<svg class="drip-system drip-system-2" viewBox="0 0 12 120" style="overflow:visible;" aria-hidden="true">
+      <defs>
+        <linearGradient id="live-stem-g2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#B4472F" />
+          <stop offset="70%" stop-color="#A13B26" />
+          <stop offset="100%" stop-color="#7B2917" />
+        </linearGradient>
+        <linearGradient id="live-drop-g2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#B4472F" />
+          <stop offset="60%" stop-color="#A13B26" />
+          <stop offset="100%" stop-color="#6F2012" />
+        </linearGradient>
+      </defs>
+      <g class="drip-stem">
+        <path d="M 2,0 C 2.5,5 4.2,12 4.8,20 C 5.1,24 4.5,27 4.5,29 C 4.5,31 5.1,32 6,32 C 6.9,32 7.5,31 7.5,29 C 7.5,27 6.9,24 7.2,20 C 7.8,12 9.5,5 10,0 Z" fill="url(#live-stem-g2)" />
+      </g>
+      <g class="drip-drop" style="transform-origin: 6px 30px;">
+        <path d="M 6,26 C 4.6,29 3.6,31.5 3.6,34 C 3.6,36.8 4.7,39 6,39 C 7.3,39 8.4,36.8 8.4,34 C 8.4,31.5 7.4,29 6,26 Z" fill="url(#live-drop-g2)" />
+      </g>
+    </svg></span><span class="drip-anchor">5<svg class="drip-system drip-system-5" viewBox="0 0 12 120" style="overflow:visible;" aria-hidden="true">
+      <defs>
+        <linearGradient id="live-stem-g5" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#B4472F" />
+          <stop offset="70%" stop-color="#A13B26" />
+          <stop offset="100%" stop-color="#7B2917" />
+        </linearGradient>
+        <linearGradient id="live-drop-g5" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#B4472F" />
+          <stop offset="60%" stop-color="#A13B26" />
+          <stop offset="100%" stop-color="#6F2012" />
+        </linearGradient>
+      </defs>
+      <g class="drip-stem">
+        <path d="M 1.8,0 C 2.4,6 4.2,16 4.8,26 C 5.1,30 4.4,33 4.4,35.5 C 4.4,38 5.1,39 6,39 C 6.9,39 7.6,38 7.6,35.5 C 7.6,33 6.9,30 7.2,26 C 7.8,16 9.6,6 10.2,0 Z" fill="url(#live-stem-g5)" />
+      </g>
+      <g class="drip-drop" style="transform-origin: 6px 37px;">
+        <path d="M 6,33 C 4.4,36.5 3.3,39.5 3.3,42.5 C 3.3,45.8 4.6,48.5 6,48.5 C 7.4,48.5 8.7,45.8 8.7,42.5 C 8.7,39.5 7.6,36.5 6,33 Z" fill="url(#live-drop-g5)" />
+      </g>
+    </svg></span><span style="opacity:.5">.</span>0<span class="drip-anchor">6<svg class="drip-system drip-system-6" viewBox="0 0 12 120" style="overflow:visible;" aria-hidden="true">
+      <defs>
+        <linearGradient id="live-stem-g6" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#B4472F" />
+          <stop offset="70%" stop-color="#A13B26" />
+          <stop offset="100%" stop-color="#7B2917" />
+        </linearGradient>
+        <linearGradient id="live-drop-g6" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#B4472F" />
+          <stop offset="60%" stop-color="#A13B26" />
+          <stop offset="100%" stop-color="#6F2012" />
+        </linearGradient>
+      </defs>
+      <g class="drip-stem">
+        <path d="M 2.2,0 C 2.6,5 4.3,11 4.8,18 C 5.1,22 4.5,24 4.5,26.5 C 4.5,28.5 5.1,29.5 6,29.5 C 6.9,29.5 7.5,28.5 7.5,26.5 C 7.5,24 6.9,22 7.2,18 C 7.7,11 9.4,5 9.8,0 Z" fill="url(#live-stem-g6)" />
+      </g>
+      <g class="drip-drop" style="transform-origin: 6px 28px;">
+        <path d="M 6,24 C 4.8,27 3.8,29 3.8,31.5 C 3.8,34 4.8,36 6,36 C 7.2,36 8.2,34 8.2,31.5 C 8.2,29 7.2,27 6,24 Z" fill="url(#live-drop-g6)" />
+      </g>
+    </svg></span><span style="opacity:.5">.</span><em>2024</em></h1>
+    <p class="dek">The day tens of thousands of mostly young Kenyans marched on Parliament against the Finance Bill 2024 — and police opened fire. This page lays out what happened, hour by hour, and what is still disputed.</p>
+  </div>
+  <div class="hero-scroll-cue" aria-hidden="true"><span class="line"></span> scroll</div>
+</header>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="context-grid">
+      <div class="side"><span class="n">01</span> — Before the day</div>
+      <div>
+        <p>The Finance Bill 2024 was tabled in Parliament in May, proposing new taxes on bread, mobile money, motor vehicles and specialised hospitals, among other goods and services. Kenyans, organising largely online and led by a decentralised youth movement that came to be called Gen Z, began protesting the bill from the week it was published.</p>
+        <p>By 18 June, the government had dropped some of the most unpopular clauses, including the bread and cooking-oil levies. It wasn't enough. Protesters kept a running tally of "7 days of rage" and called for a total shutdown on 25 June, the day the bill was due for its third reading — the final vote before it would go to President William Ruto to sign.</p>
+
+        <div class="prelude-card">
+          <div class="prelude-card-media">
+            <img src="images/social/rio_de_kanairo.jpg" alt="Unarmed demonstrator atop CBD traffic light ('Rio de Kanairo') during 20 June 2024 protests" loading="lazy" />
+          </div>
+          <div class="prelude-card-body">
+            <div class="prelude-tag">prelude record &bull; 20 june 2024</div>
+            <div class="prelude-title">"Rio de Kanairo"</div>
+            <p class="prelude-desc">Five days before Parliament was breached, an unarmed demonstrator climbed atop a CBD traffic signal with outstretched arms in the Christ the Redeemer pose amidst swirling tear gas. The image became an overnight viral emblem of Gen Z defiance, christened by <a href="https://x.com/AlinurMohamed_/status/1803777175511769541" target="_blank" rel="noopener">Alinur Mohamed (@AlinurMohamed_)</a>: <em>"One for the BILLBOARD and I will sponsor it."</em></p>
+            <a class="prelude-link" href="https://x.com/AlinurMohamed_/status/1803777175511769541" target="_blank" rel="noopener">View original dispatch on X &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">the timeline</p>
+      <h2>How the day unfolded</h2>
+      <p class="muted">Compiled from contemporaneous reporting by Reuters, the BBC, Al Jazeera and CNN, and the Kenya National Commission on Human Rights' (KNCHR) 1 July statement. Times are approximate and reported inconsistently across sources — treat them as sequence, not a stopwatch.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item grave">
+        <div class="tl-time">Morning</div>
+        <h3>Tear gas before the crowds arrive</h3>
+        <p>Rights monitors later reported that police and plain-clothed officers in unmarked vehicles began firing tear gas toward assembly points before the bulk of protesters had gathered, setting a confrontational tone for the day ahead.</p>
+        <div class="tl-media">
+          <img src="images/evidence/protest_teargas_04.jpg" alt="Anti-riot police officers deploying tear gas in Nairobi CBD" loading="lazy" />
+          <p class="tl-caption"><span>Morning deployment:</span> Anti-riot officers deploying tear gas canisters through central Nairobi as volunteer medical workers navigate the perimeter. Photo: Capital News / CC.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">Late morning</div>
+        <h3>Crowds converge on the CBD</h3>
+        <p>Marchers moved toward Nairobi's central business district from several directions, chanting against the bill and, increasingly, against the government itself. Parallel demonstrations were reported in Mombasa, Kisumu, Eldoret, Nakuru and other towns, and among Kenyans abroad in the US, UK and Germany.</p>
+        <div class="tl-media">
+          <img src="images/evidence/protest_cbd_21.jpg" alt="Youth carrying the Kenyan flag and placards marching down Nairobi CBD" loading="lazy" />
+          <p class="tl-caption"><span>Midday convergence:</span> Thousands of unarmed demonstrators holding handwritten anti-tax placards and raising the national flag along central thoroughfares. Photo: Capital News / CC.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">~1:00 pm</div>
+        <h3>Parliament sealed off</h3>
+        <p>As debate on the bill continued inside, police used barricades and tear gas to hold protesters back from Parliament's perimeter. For roughly three hours the crowd was held at bay while lawmakers moved toward a third-reading vote.</p>
+        <div class="tl-media">
+          <img src="images/evidence/protest_barrier_05.jpg" alt="Armored water cannon truck blasting demonstrator banner in Nairobi" loading="lazy" />
+          <p class="tl-caption"><span>Perimeter defense:</span> Armored water cannon vehicles discharging high-pressure chemical streams to suppress citizen banners outside Emperor Plaza. Photo: Capital News / CC.</p>
+        </div>
+      </div>
+
+      <div class="tl-item grave">
+        <div class="tl-time">~4:00 pm</div>
+        <h3>The breach</h3>
+        <p>Protesters broke through and entered the parliamentary grounds — the first time in the country's history that demonstrators had physically accessed Parliament. Parts of the complex were set alight. Police responded with live rounds. Multiple witnesses and journalists on the ground, including CNN's team, reported officers firing directly into the crowd outside the building.</p>
+        <div class="tl-media">
+          <img src="images/evidence/protest_crowd_01.jpg" alt="Unarmed youth raising hands in surrender facing armed riot police lines in tear gas" loading="lazy" />
+          <p class="tl-caption"><span>The standoff:</span> Unarmed demonstrators with hands raised facing an advancing phalanx of helmeted anti-riot police amidst blinding tear gas outside Parliament. Photo: Capital News / CC.</p>
+        </div>
+      </div>
+
+      <div class="tl-item grave">
+        <div class="tl-time">Afternoon into evening</div>
+        <h3>Shootings outside Parliament</h3>
+        <p>Several protesters were shot and killed on or near the parliamentary grounds. MPs were evacuated, reportedly through underground tunnels, as lawmakers passed the bill's third reading amid the chaos outside. A medical triage point set up nearby for the wounded was later reported to have been cleared with tear gas and rubber bullets.</p>
+        <div class="tl-media">
+          <img src="images/evidence/protest_youth_08.jpg" alt="Protester standing atop a structure with raised arms amidst crimson smoke and overturned barricades" loading="lazy" />
+          <p class="tl-caption"><span>The defiance:</span> A demonstrator atop a street structure with arms raised in grief and defiance amidst heavy crimson tear gas and collapsed metal barriers. Photo: Capital News / CC.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">Nationwide</div>
+        <h3>Clashes beyond Nairobi</h3>
+        <p>Protests and confrontations with police were also reported the same day in Nakuru, Uasin Gishu (Eldoret), Kajiado, Mombasa and Kisumu — counties that would later register among the highest death tolls in the KNCHR's cumulative count.</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">26 June</div>
+        <h3>Ruto declines to sign the bill</h3>
+        <p>The day after the storming, President Ruto announced he would not sign the Finance Bill 2024 into law, reversing course after weeks of insisting it was necessary. The bill was formally withdrawn shortly after.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="youth-strength">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">civic resistance</p>
+      <h2>The strength of the youth: nationwide mobilization</h2>
+      <p class="muted">How an organic, leaderless movement of Gen Z Kenyans dismantled legacy political patronage, coordinated simultaneous shutdowns across 35 counties, sustained mutual aid under live fire, and forced an unprecedented executive retreat.</p>
+    </div>
+
+    <div class="movement-stats">
+      <div class="movement-stat">
+        <span class="val">35+</span>
+        <span class="lbl">counties mobilized simultaneously</span>
+      </div>
+      <div class="movement-stat">
+        <span class="val">100k+</span>
+        <span class="lbl">concurrent participants on X spaces</span>
+      </div>
+      <div class="movement-stat">
+        <span class="val">KSh 30M+</span>
+        <span class="lbl">crowdsourced for bail &amp; medical aid</span>
+      </div>
+      <div class="movement-stat">
+        <span class="val">0</span>
+        <span class="lbl">centralized party or ethnic sponsors</span>
+      </div>
+    </div>
+
+    <div class="strength-grid">
+      <article class="strength-card">
+        <span class="kicker">01 &bull; structural autonomy</span>
+        <h3>Tribeless &amp; Leaderless Architecture</h3>
+        <p>By operating without a conventional steering committee, designated spokespersons, or ethnic patron chieftains, the youth rendered traditional state containment tactics useless. Intelligence agencies and political operatives found no central leadership to compromise, co-opt, or neutralize.</p>
+      </article>
+
+      <article class="strength-card">
+        <span class="kicker">02 &bull; nationwide footprint</span>
+        <h3>Simultaneous Countywide Shutdowns</h3>
+        <p>Protests were not confined to the capital. Millions marched simultaneously in Mombasa, Kisumu, Eldoret, Nakuru, Nyeri, Embu, Kisii, Kakamega, Kericho, and Garissa. The paralysis of commercial transport and administrative hubs overwhelmed regional security commands nationwide.</p>
+      </article>
+
+      <article class="strength-card">
+        <span class="kicker">03 &bull; open civic intelligence</span>
+        <h3>Decentralized Digital Infrastructure</h3>
+        <p>Using TikTok, X Spaces, and custom GPT bots, youths translated the 2024 Finance Bill into Swahili, Sheng, and vernacular dialects within 48 hours. Real-time geolocated dispatches tracked tear gas salvos, unmarked abduction vehicles, and water cannon deployments to protect peaceful marchers.</p>
+      </article>
+
+      <article class="strength-card">
+        <span class="kicker">04 &bull; direct mutual aid</span>
+        <h3>M-Pesa Citizen Crowdfunding</h3>
+        <p>Rejecting corporate and political donations, citizens pooled micro-donations directly via M-Pesa. Millions of shillings were disbursed in real time to post bail for thousands detained in police cells, purchase emergency medical supplies, and fund trauma surgeries for live-fire casualties.</p>
+      </article>
+
+      <article class="strength-card">
+        <span class="kicker">05 &bull; frontline medical corps</span>
+        <h3>Volunteer Cathedral &amp; Street Triage</h3>
+        <p>Doctors, nurses, and medical students formed volunteer medical corps under fire, converting Holy Family Basilica, Jamia Mosque, and All Saints Cathedral into rapid-response field hospitals to treat tear gas asphyxiation, blunt blast trauma, and gunshot wounds.</p>
+      </article>
+
+      <article class="strength-card">
+        <span class="kicker">06 &bull; civic discipline &amp; sanitation</span>
+        <h3>Street Cleanliness &amp; Constitutional Order</h3>
+        <p>Demonstrators carried trash bags throughout marches, sweeping broken glass and clearing debris behind protest columns to demonstrate that the movement was rooted in civic accountability, constitutional rights, and patriotic defense, rather than wanton destruction.</p>
+      </article>
+    </div>
+
+    <div class="movement-dispatch">
+      <div class="dispatch-meta">
+        <span class="pub">CGTN Africa &bull; Field Investigation</span>
+        <span>25 June Documentation</span>
+      </div>
+      <h3>International Record: "Protests Erupt Across Major Towns in Kenya"</h3>
+      <blockquote>
+        "Thousands of Kenyans, predominantly young men and women, flooded the streets of Nairobi and other cities once again... chanting 'Stop killing us' and 'End police impunity'... Roads leading into the Central Business District were barricaded by dawn. Razor wire and heavily armed officers sealed off all approaches to State House and Parliament, signaling a government on high alert."
+      </blockquote>
+      <p>International coverage highlighted how simultaneous countrywide mobilizations stretched state policing resources to breaking point. Security forces barricaded city centres at dawn and cordoned government installations behind military-grade razor wire, demonstrating the unprecedented leverage exercised by unarmed civilian youth against entrenched executive authority.</p>
+      <a href="https://africa.cgtn.com/protests-erupt-across-major-towns-in-kenya/" target="_blank" rel="noopener noreferrer" class="dispatch-link">read CGTN Africa dispatch &nearr;</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">the toll</p>
+      <h2>Nobody agrees on a number</h2>
+      <p class="muted">Death tolls for 25 June specifically — as opposed to the full 18 June–August protest period — vary by source, timing and methodology. The figures below are what each body reported closest to the event; later cumulative reports pushed totals for the wider protest movement well past 60.</p>
+    </div>
+
+    <div class="toll-grid">
+      <div class="toll-card">
+        <div class="num">19</div>
+        <div class="who">Deaths in Nairobi, 25 June</div>
+        <div class="src">Police / early wire reports</div>
+      </div>
+      <div class="toll-card">
+        <div class="num">39</div>
+        <div class="who">Deaths, protests to date — 1 July</div>
+        <div class="src">KNCHR statement</div>
+      </div>
+      <div class="toll-card">
+        <div class="num">61</div>
+        <div class="who">Deaths across all 2024 protests</div>
+        <div class="src">Amnesty Kenya &amp; rights coalition, Sept. 2024</div>
+      </div>
+    </div>
+
+    <p class="muted">The KNCHR's 1 July figure also recorded at least 361 injuries and 39 arrests connected to the protests, and separately noted six protesters shot dead specifically outside Parliament on 25 June. By September, a coalition including Amnesty International, Article 19, the Defenders Coalition, IMLU, the Law Society of Kenya and the Kenya Medical Association had documented 61 deaths and 72 reported abductions or disappearances tied to the year's protests. Figures were revised again around the first anniversary in June 2025, with Amnesty Kenya citing at least 60 deaths and 20 people still missing.</p>
+  </div>
+</section>
+
+<section id="remembered">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">remembered</p>
+      <h2>Some of the names</h2>
+      <p class="muted">Documented victims killed during the demonstrations, their recorded portraits, and the verified physical locations and geographic coordinates where their lives were taken. This record is continually expanded as families and civil society investigators substantiate testimonies.</p>
+    </div>
+
+    <div class="victims-grid" id="victims-grid"></div>
+
+    <p class="muted names-note">Ages, narrative accounts, and coordinates compiled from family testimonies, human rights field monitors, and investigative reporting. Click on coordinates to view the exact mapped incident location on OpenStreetMap.</p>
+  </div>
+</section>
+
+<section id="memorial-accountability">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">in the record</p>
+      <h2>Memorial &amp; accountability</h2>
+      <p class="muted">A verified public accountability ledger for citizens killed during the 25 June 2024 demonstrations. This record synthesizes aggregate, cited human rights findings, independent civil society audits, and the ongoing legal status of official investigations without reproducing confidential medical-legal records.</p>
+    </div>
+
+    <div class="memorial-list" id="memorial-list"></div>
+  </div>
+</section>
+
+<section id="video-evidence">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">on record</p>
+      <h2>Video evidence</h2>
+      <p class="muted">Contemporaneous audiovisual footage documenting key moments, locations, and police response across the day. Entries are loaded from verified sources as footage is logged and cross-checked.</p>
+    </div>
+
+    <div class="video-grid" id="video-grid"></div>
+  </div>
+</section>
+
+<section id="visual-record">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">visual evidence</p>
+      <h2>The ground reality: photographic record</h2>
+      <p class="muted">Contemporaneous photography documenting the confrontation on 25 June 2024. These images record the peaceful assembly of youth, the deployment of tactical armor, the severity of chemical agents, and the human cost along the parliamentary perimeter.</p>
+    </div>
+
+    <div class="photo-grid">
+      <article class="photo-card">
+        <div class="photo-card-img-wrap">
+          <img src="images/evidence/protest_crowd_01.jpg" alt="Demonstrators with hands raised facing armed police phalanx" loading="lazy" />
+        </div>
+        <div class="photo-card-body">
+          <div class="photo-card-meta">
+            <span class="loc">City Hall Way / Parliament Corridor</span>
+            <span>25 jun 2024 &bull; afternoon</span>
+          </div>
+          <h3>Hands Raised in Surrender Against Armed Phalanx</h3>
+          <p>Unarmed young protesters stand with raised open hands as anti-riot officers in ballistic helmets, body armor, and truncheons advance through dense tear gas clouds.</p>
+        </div>
+      </article>
+
+      <article class="photo-card">
+        <div class="photo-card-img-wrap">
+          <img src="images/evidence/protest_youth_08.jpg" alt="Protester standing atop street fixture amidst crimson smoke" loading="lazy" />
+        </div>
+        <div class="photo-card-body">
+          <div class="photo-card-meta">
+            <span class="loc">Nairobi CBD / Parliament Perimeter</span>
+            <span>25 jun 2024 &bull; late afternoon</span>
+          </div>
+          <h3>Defiance Amidst Crimson Tear Gas &amp; Overturned Barricades</h3>
+          <p>A youth demonstrator raises both arms in defiance atop street fixtures as heavy plumes of colored crowd-control tear gas obscure the street over crushed security barriers.</p>
+        </div>
+      </article>
+
+      <article class="photo-card">
+        <div class="photo-card-img-wrap">
+          <img src="images/evidence/protest_standoff_03.jpg" alt="Kenyan flag held aloft with raised fist" loading="lazy" />
+        </div>
+        <div class="photo-card-body">
+          <div class="photo-card-meta">
+            <span class="loc">Central Business District</span>
+            <span>25 jun 2024 &bull; midday</span>
+          </div>
+          <h3>The Flag Held Aloft: "Power to the People"</h3>
+          <p>A masked demonstrator wearing a 'Power to the People' shirt holds the Kenyan national flag high amidst drifting tear gas smoke, surrounded by peaceful peers.</p>
+        </div>
+      </article>
+
+      <article class="photo-card">
+        <div class="photo-card-img-wrap">
+          <img src="images/evidence/protest_flag_06.jpg" alt="Armored water cannon vehicle spraying chemical streams" loading="lazy" />
+        </div>
+        <div class="photo-card-body">
+          <div class="photo-card-meta">
+            <span class="loc">Haile Selassie / Parliament Approach</span>
+            <span>25 jun 2024 &bull; afternoon</span>
+          </div>
+          <h3>Chemical Water Cannons Blasting Citizen Columns</h3>
+          <p>Heavily armored anti-riot water cannon vehicles blast concentrated yellow chemical dye and pressurized water directly against civilian protesters and civic banners.</p>
+        </div>
+      </article>
+
+      <article class="photo-card">
+        <div class="photo-card-img-wrap">
+          <img src="images/evidence/protest_period_products.jpg" alt="Young women leading protest march in Nairobi" loading="lazy" />
+        </div>
+        <div class="photo-card-body">
+          <div class="photo-card-meta">
+            <span class="loc">Upper Hill / CBD Access Corridor</span>
+            <span>25 jun 2024 &bull; midday</span>
+          </div>
+          <h3>Frontline of Young Women: "Mtukufu Lies, Tumechoka"</h3>
+          <p>Young Kenyan women chanting and raising placards against tax increases on essential goods, leading peaceful columns toward downtown under the Nairobi skyline.</p>
+        </div>
+      </article>
+
+      <article class="photo-card">
+        <div class="photo-card-img-wrap">
+          <img src="images/evidence/protest_march_02.jpg" alt="Anti-riot battle formations advancing" loading="lazy" />
+        </div>
+        <div class="photo-card-body">
+          <div class="photo-card-meta">
+            <span class="loc">Parliament Road Access Gate</span>
+            <span>25 jun 2024 &bull; ~3:30 pm</span>
+          </div>
+          <h3>Tactical Formations Advancing on Demonstrator Lines</h3>
+          <p>Lines of riot police in combat gear and face visors moving with shields and batons to disperse the growing perimeter crowd minutes before lethal gunfire was discharged.</p>
+        </div>
+      </article>
+
+      <article class="photo-card">
+        <div class="photo-card-img-wrap">
+          <img src="images/evidence/protest_cortege_flag.jpg" alt="Comrades carrying slain demonstrator draped in the national flag" loading="lazy" />
+        </div>
+        <div class="photo-card-body">
+          <div class="photo-card-meta">
+            <span class="loc">Parliament Road Perimeter</span>
+            <span>25 jun 2024 &bull; afternoon</span>
+          </div>
+          <h3>Comrades Carrying Slain Demonstrator Draped in the National Flag</h3>
+          <p>Unarmed youth carrying the body of David Chege wrapped in the Kenyan national flag along Parliament Road after lethal live ammunition was discharged outside the gates.</p>
+        </div>
+      </article>
+
+      <article class="photo-card">
+        <div class="photo-card-img-wrap">
+          <img src="images/evidence/protest_grief_mother.jpg" alt="A mother weeping over the loss of her child" loading="lazy" />
+        </div>
+        <div class="photo-card-body">
+          <div class="photo-card-meta">
+            <span class="loc">Ongata Rongai / Nairobi</span>
+            <span>june 2024 &bull; post-incident</span>
+          </div>
+          <h3>A Mother's Grief: "Did He Have to Die?"</h3>
+          <p>Jecinta Anyango, mother of 12-year-old Kennedy Onyango who was shot eight times while running an errand, weeps during national broadcast interviews calling for justice.</p>
+        </div>
+      </article>
+
+      <article class="photo-card">
+        <div class="photo-card-img-wrap">
+          <img src="images/evidence/protest_march_died_for_kenya.jpg" alt="Protesters marching with banners declaring Died for Kenya" loading="lazy" />
+        </div>
+        <div class="photo-card-body">
+          <div class="photo-card-meta">
+            <span class="loc">Central Business District</span>
+            <span>25 jun 2024 &bull; afternoon</span>
+          </div>
+          <h3>Mass Movement: "More Taxation by a Corrupt Regime is Theft"</h3>
+          <p>Columns of unarmed citizens chanting and bearing banners declaring solidarity with fallen youth as crowds swept across downtown thoroughfares.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="movement-music">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">cultural memory &amp; resistance</p>
+      <h2>Anthems &amp; memorial songs of 25 June</h2>
+      <p class="muted">The acoustic and cultural frontline of the 2024 youth uprising. From spontaneous street anthems chanted across police teargas cordons to mournful memorial dedications composed for the fallen, these compositions document the defiance, grief, and spirit of 25 June 2024.</p>
+    </div>
+
+    <div class="music-grid" id="music-grid"></div>
+  </div>
+</section>
+
+<section id="public-posts">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">public record</p>
+      <h2>As it happened online</h2>
+      <p class="muted">Contemporaneous dispatches, reporting, and eyewitness accounts published to social platforms as events unfolded around Parliament on 25 June 2024. Official platform embeds are used to preserve authentic timestamps and attribution without reproducing unverified claims.</p>
+    </div>
+
+    <div class="posts-grid" id="posts-grid"></div>
+  </div>
+</section>
+
+<section id="official-records">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">primary records</p>
+      <h2>Official filings &amp; inquiry records</h2>
+      <p class="muted">Primary state publications, parliamentary transcripts, special gazette issues, and forensic pathology summaries that document the timeline, state response, and legal aftermath. These filings provide verifiable primary citations often absent from news recaps.</p>
+    </div>
+
+    <div class="records-grid" id="records-grid"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">what came after</p>
+      <h2>Aftermath</h2>
+    </div>
+    <ul class="after-list">
+      <li>
+        <div class="when">26 Jun 2024</div>
+        <div><p>President Ruto declines to sign the Finance Bill; it is withdrawn days later.</p></div>
+      </li>
+      <li>
+        <div class="when">Jul–Sep 2024</div>
+        <div><p>Rights organisations begin documenting abductions of activists and protest organisers, alongside the death toll from June and July demonstrations.</p></div>
+      </li>
+      <li>
+        <div class="when">25 Jun 2025</div>
+        <div><p>On the first anniversary, thousands return to the streets. Parliament and State House are ringfenced with razor wire; police fire tear gas in Nairobi. Marches in Mombasa and Nakuru remain peaceful. Families and opposition leaders lay wreaths outside Parliament.</p></div>
+      </li>
+      <li>
+        <div class="when">Ongoing</div>
+        <div><p>As of the 2025 anniversary, Amnesty Kenya and families of the dead say accountability for the shootings — and for dozens of reported enforced disappearances — remains largely absent. No senior officer is known to have been convicted over the 25 June shootings.</p></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="sources tight">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">sources</p>
+      <h2>Where this came from</h2>
+      <p class="muted">This page will be expanded with first-hand testimony, photographs and video as the project develops. Every factual claim above is drawn from the reporting and statements below.</p>
+    </div>
+    <ol>
+      <li>Kenya National Commission on Human Rights, press statement, 1 July 2024 — cumulative death and injury toll.</li>
+      <li>Amnesty International Kenya, Article 19, Defenders Coalition, IMLU, Law Society of Kenya, Kenya Medical Association — joint press briefing, September 2024.</li>
+      <li>CGTN Africa, "Protests erupt across major towns in Kenya," 25 June — international coverage of nationwide youth mobilization, dawn security barricades, and anti-impunity chants across major Kenyan urban centres.</li>
+      <li>Reuters, "Kenyans stage anti-government protests one year after storming parliament," 25 June 2025.</li>
+      <li>Al Jazeera, "At least eight killed in deadly Kenya protests: What we know," 26 June 2025.</li>
+      <li>CNN, live coverage of the 25 June 2024 protests and parliament storming.</li>
+      <li>BBC, "Five killed and parliament ablaze in Kenya tax protests," 25 June 2024.</li>
+      <li>People Daily, "List of young people killed during 2024 Gen Z protests," June 2025.</li>
+      <li>AllAfrica / The Standard, coverage of the 25 June 2025 anniversary demonstrations.</li>
+      <li>Wikipedia, "2024 storming of the Kenyan Parliament" and "Kenya Finance Bill protests" — used for cross-referencing dates and figures only.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="mark">This is a living document.</p>
+    <p>Built as an independent documentation project on the events of 25 June 2024. It is not affiliated with any government body, media house or rights organisation. Corrections, first-hand accounts, photographs and additional sourcing are welcome — the goal is an accurate, growing public record, not a finished one.</p>
+  </div>
+</footer>
+
+<script>
+  /* ---------- Video evidence data array ---------- */
+  const videoEvidence = [
+    {
+      youtubeId: "qz0f1yyf_eA",
+      title: "Blood Parliament — BBC Africa Eye Documentary",
+      source: "BBC News Africa (Africa Eye)",
+      date: "28 apr 2025 (investigating 25 jun 2024)",
+      timestamp: "in-depth investigation",
+      caption: "Comprehensive forensic and ballistics reconstruction of lethal gunfire outside Kenya's Parliament on 25 June 2024. Pinpoints officer firing positions 25 metres from victim Eric Shieni."
+    },
+    {
+      youtubeId: "wk6JkE7hoYw",
+      title: "DAYS OF RAGE | 25th June Protests & Parliament Breach",
+      source: "Citizen TV Kenya",
+      date: "25 jun 2024",
+      timestamp: "afternoon broadcast",
+      caption: "Contemporaneous newsroom documentary logging the escalation along Parliament Road, perimeter barrier collapse, entry into legislative chambers, and military deployment."
+    },
+    {
+      youtubeId: "SxqOJm_-86Q",
+      title: "Protesters Breach Parliament Perimeter as Security Forces Open Fire",
+      source: "Reuters",
+      date: "25 jun 2024",
+      timestamp: "~3:30 pm",
+      caption: "International news wire dispatch documenting live-fire response by security units outside the Senate entrance gate as barricades were breached."
+    },
+    {
+      youtubeId: "rIGpgWD3mFI",
+      title: "Demonstrators Enter Parliamentary Chambers as MPs Evacuate",
+      source: "CNN International",
+      date: "25 jun 2024",
+      timestamp: "~4:00 pm",
+      caption: "Eyewitness and field video showing demonstrators accessing the Parliament complex following the passage of the Finance Bill 2024."
+    }
+  ];
+
+  function renderVideoEvidence() {
+    const grid = document.getElementById("video-grid");
+    if (!grid) return;
+
+    grid.innerHTML = videoEvidence.map((video) => {
+      const timeStr = video.timestamp ? ` &bull; ${escapeHtml(video.timestamp)}` : "";
+      return `
+        <article class="video-card">
+          <div class="video-embed-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(video.youtubeId)}"
+              title="${escapeHtml(video.title)}"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <div class="video-meta">
+            <span class="source">${escapeHtml(video.source)}</span>
+            <span class="date">${escapeHtml(video.date)}${timeStr}</span>
+          </div>
+          <h3>${escapeHtml(video.title)}</h3>
+          <p class="caption">${escapeHtml(video.caption)}</p>
+        </article>
+      `;
+    }).join("");
+  }
+
+  /* ---------- Movement music & anthems data array ---------- */
+  const musicEvidence = [
+    {
+      youtubeId: "zok_0ef7h2w",
+      title: "June 25th",
+      artist: "Octopizzo",
+      genre: "Conscious Hip-Hop",
+      releaseDate: "10 Jun 2025",
+      source: "OCTOPIZZO (ItsNambaNaneTV)",
+      caption: "Directly titled after the date of the massacre. Octopizzo composed this searing tribute honoring the courage of unarmed youth who stormed Parliament and mourning those killed by police gunfire."
+    },
+    {
+      youtubeId: "vQ2L4qcOXVI",
+      title: "Anguka Nayo (Official Music Video)",
+      artist: "Wadagliz KE",
+      genre: "Arbantone / Movement Anthem",
+      releaseDate: "03 Jul 2024",
+      source: "WADAGLIZKE",
+      caption: "The viral cultural phenomenon of the Gen Z uprising. Released in the immediate aftermath of 25 June, the high-energy Arbantone track became the universal chant of defiance shouted by protesters across teargas cordons and police barricades."
+    },
+    {
+      youtubeId: "PW2TEmeSW0M",
+      title: "Maandamano (Lyric Visualizer)",
+      artist: "Bien (Sauti Sol) ft. Breeder LW",
+      genre: "Afro-Fusion / Protest Rap",
+      releaseDate: "08 Jul 2024",
+      source: "Bien",
+      caption: "A powerful acoustic and lyrical collaboration written in raw grief following 25 June, condemning excessive police force, unlawful abductions, and political arrogance toward Kenyan youth."
+    },
+    {
+      youtubeId: "9HNl8YAnp0Q",
+      title: "Utawala (Official Video)",
+      artist: "Juliani",
+      genre: "Sheng Hip-Hop / Resistance Hymn",
+      releaseDate: "Re-adopted 25 Jun 2024",
+      source: "boombavideo / Juliani",
+      caption: "Juliani's timeless indictment of governance failure ('Wabaya wawe mifano, wema wawe wakuu') was reclaimed as the sacred anthem of the 25 June marches, sung in unison by thousands outside Parliament and at the Saba Saba memorial concert."
+    },
+    {
+      youtubeId: "LdXhhm9dAmA",
+      title: "Daima Mkenya",
+      artist: "Eric Wainaina",
+      genre: "National Hymn / Frontline Unity",
+      releaseDate: "Frontline Anthem 25 Jun 2024",
+      source: "Eric Wainaina",
+      caption: "Regarded as Kenya's alternative patriotic anthem, protesters sang 'Kenya nchi yangu, hakuna mwingine' in chorus while holding national flags and shielding fallen demonstrators against water cannons and live rifle rounds."
+    },
+    {
+      youtubeId: "ktGsWQ7P-8k",
+      title: "GEN Z ANTHEM (Reject Finance Bill Song)",
+      artist: "G-Bluster",
+      genre: "Protest Drill / Gen Z Movement",
+      releaseDate: "21 Jun 2024",
+      source: "G-Bluster",
+      caption: "Composed and released during the peak mobilization week leading to the 25 June shutdown, articulating the youth's refusal to be silenced by punitive taxation and state intimidation."
+    },
+    {
+      youtubeId: "5B4n--YBQMA",
+      title: "Sisi Ndio Future (Gen Z Anthem KE)",
+      artist: "Fari Athman",
+      genre: "Acoustic / Youth Tribute",
+      releaseDate: "28 Jun 2024",
+      source: "Fari Athman",
+      caption: "Visualizer tribute released days after the Parliament breach, memorializing the lives taken along Parliament Road and asserting Gen Z's non-violent ownership of Kenya's constitutional destiny."
+    },
+    {
+      youtubeId: "20L8kdUyXhU",
+      title: "We Rise (Rex Maasai Tribute)",
+      artist: "Afrikana Muziki ft. JJ Brothers & Komolo Chorale",
+      genre: "Choral Memorial",
+      releaseDate: "Memorial Tribute",
+      source: "Afrikana Muziki",
+      caption: "A solemn choral composition dedicated to Rex Kanyike Masai, whose killing on 20 June catalyzed the nationwide escalation culminating in the historic 25 June march on Parliament."
+    },
+    {
+      youtubeId: "V8XRN-zlwPs",
+      title: "Reject Financial Bill 2024 (Zakayo Song)",
+      artist: "Toughside Kapelo",
+      genre: "Street Satire / Grassroots Rap",
+      releaseDate: "25 Jun 2024",
+      source: "Toughside kapelo",
+      caption: "Published on the exact afternoon of 25 June 2024 as Parliament was being stormed, encapsulating the raw street vernacular, satire, and defiance that mobilized millions across the republic."
+    }
+  ];
+
+
+  /* ---------- Movement Soundtrack Shuffle Player Logic ---------- */
+  let ytSoundtrackPlayer = null;
+  let isSoundtrackPlaying = false;
+  let shuffledSoundtrack = [];
+  let currentSoundtrackIndex = 0;
+  let lastSectionScrollChange = 0;
+  let lastVisitedSection = -1;
+
+  function initSoundtrackShuffle() {
+    if (!musicEvidence || !musicEvidence.length) return;
+    shuffledSoundtrack = [...musicEvidence];
+    for (let i = shuffledSoundtrack.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledSoundtrack[i], shuffledSoundtrack[j]] = [shuffledSoundtrack[j], shuffledSoundtrack[i]];
+    }
+  }
+
+  function updateSoundtrackUI() {
+    const btn = document.getElementById("soundtrack-btn");
+    const icon = document.getElementById("soundtrack-icon");
+    const title = document.getElementById("soundtrack-title");
+    if (!btn || !icon || !title) return;
+
+    if (!shuffledSoundtrack.length) initSoundtrackShuffle();
+    const current = shuffledSoundtrack[currentSoundtrackIndex];
+
+    if (isSoundtrackPlaying && current) {
+      btn.classList.add("is-playing");
+      icon.textContent = "❚❚";
+      title.textContent = `${current.artist} — ${current.title}`;
+      btn.setAttribute("aria-label", `Pause soundtrack: currently playing ${current.title} by ${current.artist}`);
+    } else {
+      btn.classList.remove("is-playing");
+      icon.textContent = "▶";
+      title.textContent = current ? `resume: ${current.title}` : "play soundtrack";
+      btn.setAttribute("aria-label", "Play and shuffle resistance soundtrack");
+    }
+  }
+
+  function playNextSoundtrackTrack() {
+    if (!shuffledSoundtrack.length) initSoundtrackShuffle();
+    currentSoundtrackIndex = (currentSoundtrackIndex + 1) % shuffledSoundtrack.length;
+    const track = shuffledSoundtrack[currentSoundtrackIndex];
+    lastSectionScrollChange = Date.now();
+
+    if (ytSoundtrackPlayer && typeof ytSoundtrackPlayer.loadVideoById === "function") {
+      ytSoundtrackPlayer.loadVideoById(track.youtubeId);
+      isSoundtrackPlaying = true;
+      updateSoundtrackUI();
+    } else {
+      const container = document.getElementById("ambient-audio-container");
+      if (container) {
+        container.innerHTML = `<iframe id="soundtrack-audio-frame" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(track.youtubeId)}?autoplay=1&enablejsapi=1&playsinline=1" allow="autoplay; encrypted-media" title="Soundtrack Audio"></iframe>`;
+        isSoundtrackPlaying = true;
+        updateSoundtrackUI();
+      }
+    }
+  }
+
+  function toggleSoundtrack() {
+    if (!shuffledSoundtrack.length) initSoundtrackShuffle();
+    const current = shuffledSoundtrack[currentSoundtrackIndex];
+
+    if (!ytSoundtrackPlayer) {
+      const container = document.getElementById("ambient-audio-container");
+      if (window.YT && window.YT.Player) {
+        try {
+          ytSoundtrackPlayer = new YT.Player("ambient-audio-container", {
+            height: "120",
+            width: "160",
+            videoId: current.youtubeId,
+            playerVars: {
+              autoplay: 1,
+              playsinline: 1,
+              controls: 0,
+              rel: 0,
+              modestbranding: 1
+            },
+            events: {
+              onReady: (e) => {
+                e.target.playVideo();
+                isSoundtrackPlaying = true;
+                updateSoundtrackUI();
+              },
+              onStateChange: (e) => {
+                if (e.data === YT.PlayerState.ENDED) {
+                  playNextSoundtrackTrack();
+                } else if (e.data === YT.PlayerState.PLAYING) {
+                  isSoundtrackPlaying = true;
+                  updateSoundtrackUI();
+                } else if (e.data === YT.PlayerState.PAUSED) {
+                  isSoundtrackPlaying = false;
+                  updateSoundtrackUI();
+                }
+              }
+            }
+          });
+          isSoundtrackPlaying = true;
+          updateSoundtrackUI();
+          return;
+        } catch (err) {
+          console.warn("YouTube API init fallback:", err);
+        }
+      }
+
+      if (container) {
+        container.innerHTML = `<iframe id="soundtrack-audio-frame" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(current.youtubeId)}?autoplay=1&enablejsapi=1&playsinline=1" allow="autoplay; encrypted-media" title="Soundtrack Audio"></iframe>`;
+        isSoundtrackPlaying = true;
+        updateSoundtrackUI();
+      }
+      return;
+    }
+
+    if (isSoundtrackPlaying) {
+      if (typeof ytSoundtrackPlayer.pauseVideo === "function") {
+        ytSoundtrackPlayer.pauseVideo();
+      }
+      isSoundtrackPlaying = false;
+      updateSoundtrackUI();
+    } else {
+      if (typeof ytSoundtrackPlayer.playVideo === "function") {
+        ytSoundtrackPlayer.playVideo();
+      }
+      isSoundtrackPlaying = true;
+      updateSoundtrackUI();
+    }
+  }
+
+  function setupSoundtrackScroll() {
+    const btn = document.getElementById("soundtrack-btn");
+    if (btn) {
+      btn.addEventListener("click", toggleSoundtrack);
+    }
+
+    const sections = document.querySelectorAll("header.hero, section");
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY || window.pageYOffset;
+      if (btn) {
+        if (scrollY > 40) {
+          btn.classList.add("is-scrolled");
+        } else {
+          btn.classList.remove("is-scrolled");
+        }
+      }
+
+      if (isSoundtrackPlaying) {
+        const now = Date.now();
+        if (now - lastSectionScrollChange > 45000) {
+          const probePoint = scrollY + window.innerHeight * 0.45;
+          let activeIdx = -1;
+          sections.forEach((sec, idx) => {
+            if (sec.offsetTop <= probePoint) activeIdx = idx;
+          });
+          if (activeIdx !== -1 && activeIdx !== lastVisitedSection) {
+            lastVisitedSection = activeIdx;
+            playNextSoundtrackTrack();
+          }
+        }
+      }
+    }, { passive: true });
+  }
+
+  function renderMusicEvidence() {
+    const grid = document.getElementById("music-grid");
+    if (!grid) return;
+
+    grid.innerHTML = musicEvidence.map((item) => {
+      return `
+        <article class="music-card">
+          <div class="video-embed-wrap">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(item.youtubeId)}"
+              title="${escapeHtml(item.title)}"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <div class="video-meta">
+            <span class="source">${escapeHtml(item.source)}</span>
+            <span class="genre-tag">${escapeHtml(item.genre)}</span>
+          </div>
+          <div class="artist-name">${escapeHtml(item.artist)}</div>
+          <h3>${escapeHtml(item.title)}</h3>
+          <p class="caption">${escapeHtml(item.caption)}</p>
+        </article>
+      `;
+    }).join("");
+  }
+
+
+  function escapeHtml(str) {
+    if (!str) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  /* ---------- Public posts data array ---------- */
+  const publicPosts = [
+    {
+      platform: "x",
+      url: "https://x.com/AmnestyKenya/status/1805590924976644265",
+      postedBy: "@AmnestyKenya",
+      date: "25 jun 2024",
+      note: "Urgent advisory recording the use of live ammunition against peaceful protesters outside Parliament, urging security personnel to respect human rights and cease unlawful lethal force."
+    },
+    {
+      platform: "x",
+      url: "https://x.com/citizentvkenya/status/1805574341952790938",
+      postedBy: "@citizentvkenya",
+      date: "25 jun 2024",
+      note: "Contemporaneous television news dispatch recording crowds breaching security barriers on Parliament Road after the controversial Third Reading vote."
+    },
+    {
+      platform: "x",
+      url: "https://x.com/LarryMadowo/status/1805572620786524314",
+      postedBy: "@LarryMadowo (CNN)",
+      date: "25 jun 2024",
+      note: "Field broadcast dispatch from outside Parliament complex as tear gas canisters and live rifle rounds were discharged directly into retreating crowds."
+    },
+    {
+      platform: "x",
+      url: "https://x.com/AlinurMohamed_/status/1803777175511769541",
+      postedBy: "Alinur Mohamed (@AlinurMohamed_)",
+      date: "20 jun 2024",
+      mediaUrl: "images/social/rio_de_kanairo.jpg",
+      mediaAlt: "Unarmed demonstrator standing atop a Nairobi CBD traffic light in Christ the Redeemer pose ('Rio de Kanairo')",
+      quote: "Rio de Kanairo — One for the BILLBOARD and I will sponsor it",
+      note: "Viral dispatch christening the defining 'Rio de Kanairo' photograph — an unarmed demonstrator in the Christ the Redeemer pose atop a CBD traffic light amid tear gas during the 7 Days of Rage prelude."
+    }
+  ];
+
+  function renderPublicPosts() {
+    const grid = document.getElementById("posts-grid");
+    if (!grid) return;
+
+    grid.innerHTML = publicPosts.map((post) => {
+      const isPlaceholder = !post.url || post.url.includes("REPLACE_WITH_REAL_URL");
+
+      const embedHtml = isPlaceholder
+        ? `<div class="post-placeholder">
+             <span class="ph-label">[embed placeholder: ${escapeHtml(post.url)}]</span>
+             <span class="ph-sub">paste real post URL to activate official ${escapeHtml(post.platform)} embed</span>
+           </div>`
+        : `<blockquote class="twitter-tweet" data-theme="dark" data-dnt="true">
+             <a href="${escapeHtml(post.url)}"></a>
+           </blockquote>`;
+
+      return `
+        <article class="post-card">
+          <div class="post-meta">
+            <span class="posted-by">${escapeHtml(post.postedBy)}</span>
+            <span>${escapeHtml(post.platform)} &bull; ${escapeHtml(post.date)}</span>
+          </div>
+          <div class="post-embed-wrap">
+            ${embedHtml}
+          </div>
+          <p class="post-note">${escapeHtml(post.note)}</p>
+        </article>
+      `;
+    }).join("");
+
+    if (window.twttr && window.twttr.widgets && typeof window.twttr.widgets.load === "function") {
+      window.twttr.widgets.load(grid);
+    }
+  }
+
+  /* ---------- Primary documents data array ---------- */
+  const officialRecords = [
+    {
+      title: "CGTN Africa: Protests Erupt Across Major Towns in Kenya",
+      authority: "China Global Television Network (CGTN Africa)",
+      date: "25 jun 2025 / 2024 archival coverage",
+      docType: "international media investigation",
+      url: "https://africa.cgtn.com/protests-erupt-across-major-towns-in-kenya/",
+      summary: "Comprehensive field investigation documenting nationwide youth demonstrations across Nairobi, Mombasa, Kisumu, Eldoret, and Nakuru. Records dawn barricades, razor-wire security cordons around State House and Parliament, and the transformation of tax grievances into a nationwide anti-impunity civic movement."
+    },
+    {
+      title: "IMLU Gen-Z Protests 2024 Report Kenya: 48 Autopsies & Pathology Findings",
+      authority: "Independent Medico-Legal Unit (IMLU)",
+      date: "jul 2024",
+      docType: "official forensic pathology report",
+      url: "docs/imlu_gen_z_report.pdf",
+      summary: "Official 66-page medico-legal dossier documenting 48 autopsies performed by 8 contracted forensic pathologists across 13 Kenyan counties. Confirmed live rifle ammunition, blast trauma, and blunt force injuries as primary mechanisms of fatal trauma."
+    },
+    {
+      title: "National Assembly Official Hansard Report (Afternoon Sitting)",
+      authority: "Parliament of Kenya",
+      date: "25 jun 2024",
+      docType: "official parliamentary transcript",
+      url: "docs/hansard_25_june_2024.pdf",
+      summary: "Official record documenting the Third Reading passage of the Finance Bill 2024 and the sudden adjournment of the House at 2:35 p.m., moments before protesters breached the complex perimeter."
+    },
+    {
+      title: "Kenya Gazette Notice No. 7861 (Special Issue Vol. CXXVI—No. 95)",
+      authority: "Cabinet Secretary for Defence",
+      date: "25 jun 2024",
+      docType: "military deployment notification",
+      url: "http://kenyalaw.org/kenya_gazette/gazette/volume/MzEzMg--/Vol.CXXVI-No.95",
+      summary: "The statutory instrument issued on the evening of 25 June 2024 invoking Article 241(3)(b) to deploy the Kenya Defence Forces (KDF) in support of police across Nairobi County."
+    },
+    {
+      title: "High Court Ruling on Military Deployment (Petition E286 of 2024)",
+      authority: "High Court of Kenya (Justice L. Mugambi)",
+      date: "27 jun 2024",
+      docType: "constitutional court ruling",
+      url: "http://kenyalaw.org/caselaw/cases/view/296568/",
+      summary: "Urgent judicial order in Law Society of Kenya v. Attorney General ordering the military to clarify its rules of engagement, duration, and legal boundaries when deployed against civilian protesters."
+    },
+    {
+      title: "KNCHR National Human Rights Situation Brief",
+      authority: "Kenya National Commission on Human Rights",
+      date: "01 jul 2024",
+      docType: "statutory inquiry release",
+      url: "https://www.knchr.org/Articles/ArtMID/2432/ArticleID/1174/Press-Statement-Update-on-the-Ongoing-Anti-Finance-Bill-Demonstrations",
+      summary: "Official state human rights monitoring brief recording 39 deaths, 361 injuries, and documenting bullet casings and live rounds recovered along Parliament Road and surrounding avenues."
+    },
+    {
+      title: "IMLU Death, Blood and Tears Report",
+      authority: "Independent Medico-Legal Unit (IMLU)",
+      date: "feb 2024",
+      docType: "police violence investigation",
+      url: "docs/imlu_death_blood_tears.pdf",
+      summary: "Baseline forensic investigation into public order policing, documenting patterns of excessive force, fatal gunshot wounds, and systemic impunity in previous protest operations."
+    }
+  ];
+
+  function renderOfficialRecords() {
+    const grid = document.getElementById("records-grid");
+    if (!grid) return;
+
+    grid.innerHTML = officialRecords.map((doc) => {
+      const linkHtml = doc.url
+        ? `<a href="${escapeHtml(doc.url)}" target="_blank" rel="noopener noreferrer" class="doc-link">
+             view original filing &nearr;
+           </a>`
+        : "";
+
+      return `
+        <article class="record-card">
+          <div class="record-meta">
+            <span class="authority">${escapeHtml(doc.authority)}</span>
+            <span class="type">${escapeHtml(doc.docType)}</span>
+            <span class="date">${escapeHtml(doc.date)}</span>
+          </div>
+          <div class="record-body">
+            <h3>${escapeHtml(doc.title)}</h3>
+            <p>${escapeHtml(doc.summary)}</p>
+            ${linkHtml}
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+
+  /* ---------- Memorial & accountability data array (Task 1) ---------- */
+  const memorial = [
+    {
+      name: "Eric Kaiyioni Shieni",
+      age: "27",
+      portraitUrl: "images/victims/eric_shieni_headshot.jpg",
+      portraitCredit: "BBC Africa Eye & family archive",
+      forensicNote: "IPOA & BBC Africa Eye: Fatal high-velocity gunshot wound to the chest, shot at 25-metre range outside Parliament perimeter (July 2024).",
+      investigationStatus: "IPOA case under active investigation; ballistics and rifle matching referenced in BBC 'Blood Parliament' documentary; no officer charged.",
+      sourceUrl: "https://www.bbc.com/news/articles/c4ng2v8z9kko"
+    },
+    {
+      name: "Rex Kanyike Masai",
+      age: "29",
+      portraitUrl: "images/victims/rex_masai_official.jpg",
+      portraitCredit: "Family memorial release / Citizen TV",
+      forensicNote: "Chief Government Pathologist & KNCHR: Gunshot wound to the thigh severing femoral artery with severe hemorrhagic shock (June 2024).",
+      investigationStatus: "IPOA investigation opened into plainclothes officer captured on CCTV discharging firearm on Moi Avenue; inquest pending; no officer charged.",
+      sourceUrl: "https://www.knchr.org"
+    },
+    {
+      name: "Edwin Makana",
+      age: "25",
+      portraitUrl: "images/victims/edwin_makana_portrait.jpg",
+      portraitCredit: "Family memorial card",
+      forensicNote: "KNCHR casualty audit: Gunshot wound sustained in Nairobi CBD during crowd dispersal (July 2024).",
+      investigationStatus: "No public update found",
+      sourceUrl: "https://www.knchr.org"
+    },
+    {
+      name: "David Chege",
+      age: "39",
+      portraitUrl: "images/victims/david_chege_portrait.jpg",
+      portraitCredit: "Citizen TV & family funeral broadcast",
+      forensicNote: "IPOA & IMLU: Fatal live bullet wound to the torso outside National Assembly Gate (June 2024).",
+      investigationStatus: "IPOA recorded occurrence during Parliament perimeter breach; formal file compilation ongoing; no officer charged.",
+      sourceUrl: "https://www.imlu.org"
+    },
+    {
+      name: "Erickson Kyalo Mutisya",
+      age: "25",
+      portraitUrl: "images/victims/erickson_kyalo_portrait.jpg",
+      portraitCredit: "Citizen TV memorial broadcast / Family photo",
+      forensicNote: "IPOA casualty release: Fatal live ammunition gunshot wound sustained outside Parliament (July 2024).",
+      investigationStatus: "No public update found",
+      sourceUrl: "https://www.ipoa.go.ke"
+    },
+    {
+      name: "Ibrahim Kamau Wanjiru",
+      age: "19",
+      portraitUrl: "images/victims/ibrahim_kamau_memorial.jpg",
+      portraitCredit: "AFP News Agency / Funeral cortege",
+      forensicNote: "IPOA & family postmortem: Fatal gunshot wounds to the neck outside Parliament gates (July 2024).",
+      investigationStatus: "IPOA inquiry opened; matter raised in National Assembly security committee petitions; no officer charged.",
+      sourceUrl: "https://www.standardmedia.co.ke"
+    },
+    {
+      name: "Evans Kiratu",
+      age: "24",
+      portraitUrl: "images/victims/evans_kiratu_portrait.jpg",
+      portraitCredit: "Citizen TV memorial coverage",
+      forensicNote: "Chief Government Pathologist & IMLU: Fatal blunt force kinetic impact trauma from tear gas canister causing ruptured bladder and acute internal hemorrhage (June 2024).",
+      investigationStatus: "IPOA opened inquiry into excessive kinetic impact projectile deployment; no officer charged.",
+      sourceUrl: "https://www.citizen.digital"
+    },
+    {
+      name: "Kennedy Onyango",
+      age: "12",
+      portraitUrl: "images/victims/kennedy_onyango_portrait_clean.jpg",
+      portraitCredit: "Family memorial banner / Citizen TV",
+      forensicNote: "IMLU & KNCHR: Multiple fatal gunshot wounds (corroborated as eight bullet entries) sustained in Ongata Rongai (July 2024).",
+      investigationStatus: "IPOA launched active homicide investigation; initial police claim of firearm theft refuted by witness video; inquiry ongoing with ODPP.",
+      sourceUrl: "https://www.reuters.com/world/africa/mother-grieves-12-year-old-killed-kenya-protests-2024-06-28/"
+    },
+    {
+      name: "Benson Scotts Mbithi",
+      age: "29",
+      portraitUrl: "images/victims/benson_scotts_portrait.jpg",
+      portraitCredit: "Amnesty International Kenya (Lest We Forget)",
+      forensicNote: "Amnesty International Kenya & JOOTRH medical records: Multiple gunshot wounds (nine bullet entries) sustained during Kisumu protests (July 2024).",
+      investigationStatus: "IPOA Western Regional Office opened inquiry into live ammunition use in Kisumu; no officer charged.",
+      sourceUrl: "https://www.amnestykenya.org"
+    },
+    {
+      name: "Emmanuel Giggs Tata",
+      age: "20",
+      portraitUrl: "images/victims/emmanuel_giggs_portrait.jpg",
+      portraitCredit: "The Star Kenya / Family interview",
+      forensicNote: "KNCHR Coastal Regional Observer & CGTRH: Fatal blunt-force kinetic canister trauma to the thoracic wall causing acute respiratory collapse (July 2024).",
+      investigationStatus: "KNCHR coastal rapid response submission forwarded to IPOA Mombasa; no officer charged.",
+      sourceUrl: "https://www.the-star.co.ke"
+    },
+    {
+      name: "Kelvin Odhiambo Maina",
+      age: "21",
+      portraitUrl: "images/victims/kelvin_odhiambo_portrait_clean.jpg",
+      portraitCredit: "Citizen TV Lang'ata burial coverage",
+      forensicNote: "IPOA Parliament casualty documentation: Fatal live bullet gunshot trauma in Parliament vicinity (July 2024).",
+      investigationStatus: "IPOA casualty file registered; no officer charged.",
+      sourceUrl: "https://www.citizen.digital"
+    },
+    {
+      name: "Wilson Sitati",
+      age: "21",
+      portraitUrl: "images/victims/wilson_sitati_portrait.jpg",
+      portraitCredit: "TV47 Kenya Kimilili memorial coverage",
+      forensicNote: "IPOA & family postmortem: Fatal blunt force trauma sustained along Parliament perimeter during crowd dispersal (July 2024).",
+      investigationStatus: "No public update found",
+      sourceUrl: "https://www.tv47.digital"
+    },
+    {
+      name: "Denzel Omondi",
+      age: "23",
+      portraitUrl: "images/victims/denzel_omondi_portrait.jpg",
+      portraitCredit: "JKUAT student memorial / Kenya Digital News",
+      forensicNote: "Chief Government Pathologist (Dr. Johansen Oduor) & IMLU: Asphyxia secondary to drowning with extensive pre-mortem blunt force trauma to occiput, neck, and limbs (July 2024).",
+      investigationStatus: "IPOA & DCI homicide investigation launched into abduction from Parliament and disposal in Juja quarry; matter active with ODPP; no arrests announced.",
+      sourceUrl: "https://www.standardmedia.co.ke"
+    },
+    {
+      name: "Earnest Kanyi",
+      age: null,
+      portraitUrl: "REPLACE_WITH_SOURCED_PHOTO",
+      portraitCredit: "Awaiting verified family/media release",
+      forensicNote: "IPOA casualty record: Fatal gunshot trauma during parliamentary perimeter dispersal (July 2024).",
+      investigationStatus: "No public update found",
+      sourceUrl: "https://www.ipoa.go.ke"
+    },
+    {
+      name: "Kenneth Njiru Mwangi",
+      age: "19",
+      portraitUrl: "REPLACE_WITH_SOURCED_PHOTO",
+      portraitCredit: "Awaiting verified family/media release",
+      forensicNote: "IPOA casualty report: Fatal blunt trauma injuries sustained along Parliament perimeter (July 2024).",
+      investigationStatus: "No public update found",
+      sourceUrl: "https://www.ipoa.go.ke"
+    },
+    {
+      name: "Beasley Kogi",
+      age: null,
+      portraitUrl: "REPLACE_WITH_SOURCED_PHOTO",
+      portraitCredit: "Awaiting verified family/media release",
+      forensicNote: "IPOA & Amnesty Kenya: Fatal trauma sustained in protest corridor between Uhuru Highway and Parliament (July 2024).",
+      investigationStatus: "No public update found",
+      sourceUrl: "https://www.amnestykenya.org"
+    },
+    {
+      name: "Gredo Oyaro",
+      age: "17",
+      portraitUrl: "REPLACE_WITH_SOURCED_PHOTO",
+      portraitCredit: "Awaiting verified family/media release",
+      forensicNote: "Moi Teaching & Referral Hospital (MTRH) & KNCHR: Fatal cranial gunshot wound during Eldoret demonstrations (July 2024).",
+      investigationStatus: "IPOA North Rift regional office investigation ongoing into live fire in Eldoret; no officer charged.",
+      sourceUrl: "https://www.knchr.org"
+    }
+  ];
+
+  function renderMemorialAccountability() {
+    const list = document.getElementById("memorial-list");
+    if (!list) return;
+
+    list.innerHTML = memorial.map((item) => {
+      const ageStr = item.age ? ` <span class="age">${escapeHtml(item.age)}</span>` : "";
+      const hasThumb = item.portraitUrl && !item.portraitUrl.startsWith("REPLACE");
+
+      const thumbHtml = hasThumb
+        ? `<img src="${escapeHtml(item.portraitUrl)}" alt="Archival photo of ${escapeHtml(item.name)}" class="memorial-thumb-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+           <div class="memorial-thumb-placeholder" style="display:none;">Photo on record</div>`
+        : `<div class="memorial-thumb-placeholder">[no photo released]</div>`;
+
+      return `
+        <article class="memorial-card">
+          <div class="memorial-thumb-wrap">
+            ${thumbHtml}
+          </div>
+          <div class="memorial-body">
+            <div class="memorial-head">
+              <h3 class="memorial-name">${escapeHtml(item.name)}${ageStr}</h3>
+              <span class="memorial-credit">credit: ${escapeHtml(item.portraitCredit || "family archive")}</span>
+            </div>
+            <div class="memorial-grid-info">
+              <div class="mem-item">
+                <span class="mem-k">forensic findings:</span>
+                <span class="mem-v">${escapeHtml(item.forensicNote)}</span>
+              </div>
+              <div class="mem-item">
+                <span class="mem-k">accountability status:</span>
+                <span class="mem-v status-tag">${escapeHtml(item.investigationStatus)}</span>
+              </div>
+              <div class="mem-source">
+                <span class="mem-k">citation:</span>
+                <a href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="mem-link">${escapeHtml(item.sourceUrl)} &nearr;</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+  /* ---------- Remembered victims data array ---------- */
+  const rememberedVictims = [
+    {
+      name: "Eric Kaiyioni Shieni",
+      age: "27",
+      image: "images/victims/eric_shieni_headshot.jpg",
+      location: "Parliament Road, outer Senate perimeter fence",
+      county: "Nairobi County",
+      coordinates: "-1.2895, 36.8188",
+      lat: -1.2895,
+      lon: 36.8188,
+      story: "A finance student at the University of Nairobi set to graduate in September 2024. Shot directly outside Parliament grounds while demonstrating; BBC Africa Eye's 'Blood Parliament' investigation established that a security officer carrying a solid-stock rifle opened fire from 25 metres away.",
+      source: "BBC Africa Eye, IPOA report & family funeral records"
+    },
+    {
+      name: "Rex Kanyike Masai",
+      age: "29",
+      image: "images/victims/rex_masai_official.jpg",
+      location: "Moi Avenue / City Hall Way junction (outside Club Vybe)",
+      county: "Nairobi County",
+      coordinates: "-1.2863, 36.8248",
+      lat: -1.2863,
+      lon: 36.8248,
+      story: "Shot on the evening of 20 June as protests gathered momentum leading into the 25 June shutdown. A bullet severed his femoral artery; his death galvanized nationwide mobilizations.",
+      source: "CCTV forensic analysis & Chief Govt Pathologist autopsy"
+    },
+    {
+      name: "Edwin Makana",
+      age: "25",
+      image: "images/victims/edwin_makana_portrait.jpg",
+      location: "Nairobi CBD protest route",
+      county: "Nairobi County",
+      coordinates: "-1.2850, 36.8210",
+      lat: -1.2850,
+      lon: 36.8210,
+      story: "Mechanical engineer by training and creative DJ from Kisii (10/11/1998 – 25/06/2024). Killed on 25 June 2024 in Nairobi CBD during the height of the demonstrations.",
+      source: "Memorial card & family tribute"
+    },
+    {
+      name: "David Chege",
+      age: "39",
+      image: "images/victims/david_chege_portrait.jpg",
+      location: "City Hall Way / Parliament Road junction",
+      county: "Nairobi County",
+      coordinates: "-1.2889, 36.8202",
+      lat: -1.2889,
+      lon: 36.8202,
+      story: "A JKUAT computer science graduate and freelance software engineer who also taught Sunday school. Shot near the Parliament perimeter gate during the afternoon confrontation; fellow demonstrators carried his body draped in the national flag along Parliament Road.",
+      source: "IPOA casualty release, Kiambu TV & Citizen TV"
+    },
+    {
+      name: "Erickson Kyalo",
+      age: "25",
+      image: "images/victims/erickson_kyalo_portrait.jpg",
+      location: "Harambee Avenue / Parliament Road approach",
+      county: "Nairobi County",
+      coordinates: "-1.2898, 36.8205",
+      lat: -1.2898,
+      lon: 36.8205,
+      story: "Ran a butchery and small eatery in Nairobi's Eastlands (02/11/1998 – 25/06/2024). Struck by live gunfire outside the parliamentary boundary while protesting the cost of living; buried in Kisekini, Machakos.",
+      source: "IPOA casualty release, Citizen TV & Daily Nation"
+    },
+    {
+      name: "Ibrahim Kamau Wanjiru",
+      age: "19",
+      image: "images/victims/ibrahim_kamau_memorial.jpg",
+      location: "Parliament perimeter / Harambee Avenue",
+      county: "Nairobi County",
+      coordinates: "-1.2892, 36.8198",
+      lat: -1.2892,
+      lon: 36.8198,
+      story: "Nineteen-year-old recent secondary school graduate aspiring to become an electrician. Fatally shot twice in the neck while protesting outside Parliament; thousands joined his funeral cortege through Nairobi.",
+      source: "IPOA casualty release, AFP News Agency & family testimony"
+    },
+    {
+      name: "Kelvin Odhiambo Maina",
+      age: "21",
+      image: "images/victims/kelvin_odhiambo_portrait_clean.jpg",
+      location: "CBD Parliament area / Lang'ata Cemetery",
+      county: "Nairobi County",
+      coordinates: "-1.2894, 36.8192",
+      lat: -1.2894,
+      lon: 36.8192,
+      story: "Fatally shot during the 25 June demonstrations outside Parliament. Laid to rest at the Lang'ata Cemetery wrapped in the Kenyan national flag as grieving relatives, mother, and fellow demonstrators held aloft his framed portrait demanding state accountability.",
+      source: "Citizen TV Lang'ata burial coverage & IPOA Parliament casualty release"
+    },
+    {
+      name: "Earnest Kanyi",
+      age: null,
+      image: "REPLACE_WITH_IMAGE_URL",
+      location: "CBD Parliament area",
+      county: "Nairobi County",
+      coordinates: "-1.2891, 36.8195",
+      lat: -1.2891,
+      lon: 36.8195,
+      story: "Fatally struck by live gunfire during security forces' crowd dispersal operations along the parliamentary perimeter.",
+      source: "IPOA official Parliament casualty release"
+    },
+    {
+      name: "Kenneth Njiru Mwangi",
+      age: "19",
+      image: "REPLACE_WITH_IMAGE_URL",
+      location: "CBD Parliament area",
+      county: "Nairobi County",
+      coordinates: "-1.2887, 36.8199",
+      lat: -1.2887,
+      lon: 36.8199,
+      story: "Nineteen-year-old killed in the Parliament perimeter. Formal autopsy and oversight records confirm fatal injuries secondary to blunt force trauma.",
+      source: "IPOA official Parliament casualty release"
+    },
+    {
+      name: "Wilson Sitati",
+      age: "21",
+      image: "images/victims/wilson_sitati_portrait.jpg",
+      location: "CBD Parliament perimeter / Kimilili",
+      county: "Nairobi County / Bungoma County",
+      coordinates: "-1.2885, 36.8203",
+      lat: -1.2885,
+      lon: 36.8203,
+      story: "Twenty-one-year-old youth fatally struck during the crowd dispersal operations along the parliamentary perimeter on 25 June. Laid to rest by his family in Kimilili, Bungoma County, who held a public memorial celebration honoring his courage.",
+      source: "TV47 Kenya Kimilili memorial coverage, People Daily & IPOA casualty release"
+    },
+    {
+      name: "Beasley Kogi",
+      age: null,
+      image: "REPLACE_WITH_IMAGE_URL",
+      location: "Protest corridor between Uhuru Highway and Parliament",
+      county: "Nairobi County",
+      coordinates: "-1.2880, 36.8170",
+      lat: -1.2880,
+      lon: 36.8170,
+      story: "Went missing after joining the Parliament march on 25 June. His family located his body at Nairobi Funeral Home; official oversight reports record blunt force trauma.",
+      source: "IPOA official Parliament casualty release & Amnesty Kenya"
+    },
+    {
+      name: "Kennedy Onyango",
+      age: "12",
+      image: "images/victims/kennedy_onyango_portrait_clean.jpg",
+      location: "Ongata Rongai, Kajiado / Nairobi border",
+      county: "Kajiado County",
+      coordinates: "-1.3963, 36.7601",
+      lat: -1.3963,
+      lon: 36.7601,
+      story: "Twelve-year-old schoolboy shot eight times by police while on an errand to borrow a book from a classmate as demonstrations spread through Ongata Rongai; his death sparked national and international outrage.",
+      source: "Citizen TV family memorial records, IMLU & Reuters reporting"
+    },
+    {
+      name: "Evans Kiratu",
+      age: "24",
+      image: "images/victims/evans_kiratu_portrait.jpg",
+      location: "Nairobi CBD demonstration route",
+      county: "Nairobi County",
+      coordinates: "-1.2858, 36.8219",
+      lat: -1.2858,
+      lon: 36.8219,
+      story: "Struck in the groin by a tear gas canister fired at point-blank range by anti-riot police; died from ruptured bladder and internal bleeding at Kenyatta National Hospital.",
+      source: "Chief Government Pathologist autopsy, Citizen TV & IMLU"
+    },
+    {
+      name: "Gredo Oyaro",
+      age: "17",
+      image: "REPLACE_WITH_IMAGE_URL",
+      location: "Uganda Road / Oginga Odinga Street junction, Eldoret",
+      county: "Uasin Gishu County",
+      coordinates: "0.5186, 35.2758",
+      lat: 0.5186,
+      lon: 35.2758,
+      story: "Seventeen-year-old student shot in the head by security personnel during simultaneous nationwide protests in Eldoret; died while receiving treatment at MTRH.",
+      source: "Moi Teaching & Referral Hospital records & The Standard"
+    },
+    {
+      name: "Benson Scotts Mbithi",
+      age: "29",
+      image: "images/victims/benson_scotts_portrait.jpg",
+      location: "Jomo Kenyatta Highway near Kondele, Kisumu",
+      county: "Kisumu County",
+      coordinates: "-0.0894, 34.7678",
+      lat: -0.0894,
+      lon: 34.7678,
+      story: "Sustained nine gunshot wounds during confrontations in Kisumu; succumbed to severe blood loss at Jaramogi Oginga Odinga Teaching and Referral Hospital. Featured in Amnesty International's 'Lest We Forget' series.",
+      source: "Amnesty International Kenya & JOOTRH medical records"
+    },
+    {
+      name: "Emmanuel Giggs Tata",
+      age: "20",
+      image: "images/victims/emmanuel_giggs_portrait.jpg",
+      location: "Mikindani, Jomvu Sub-County, Mombasa",
+      county: "Mombasa County",
+      coordinates: "-4.0042, 39.6331",
+      lat: -4.0042,
+      lon: 39.6331,
+      story: "Twenty-year-old youth struck in the chest by a high-velocity tear gas canister fired at close range during coastal protests in Mikindani; died after emergency hospital transfer.",
+      source: "The Star Kenya family interview, KNCHR & CGTRH report"
+    },
+    {
+      name: "Denzel Omondi",
+      age: "23",
+      image: "images/victims/denzel_omondi_portrait.jpg",
+      location: "Parliament Complex / Mashimoni Quarry, Juja",
+      county: "Nairobi / Kiambu County",
+      coordinates: "-1.2893, 36.8189",
+      lat: -1.2893,
+      lon: 36.8189,
+      story: "Third-year quantity surveying student at JKUAT who was inside the Parliament building during the 25 June storming. He subsequently went missing, and his body was discovered on 6 July dumped in Mashimoni quarry in Juja bearing severe head and leg trauma.",
+      source: "Chief Government Pathologist autopsy, IPOA homicide investigation & Kenya Digital News"
+    }
+  ];
+
+  function renderRememberedVictims() {
+    const grid = document.getElementById("victims-grid");
+    if (!grid) return;
+
+    grid.innerHTML = rememberedVictims.map((v) => {
+      const ageSpan = v.age ? ` <span class="victim-age">${escapeHtml(v.age)}</span>` : "";
+      const hasImage = v.image && !v.image.startsWith("REPLACE");
+
+      const photoHtml = hasImage
+        ? `<img src="${escapeHtml(v.image)}" alt="Portrait of ${escapeHtml(v.name)}" loading="lazy" class="victim-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+           <div class="victim-portrait-placeholder" style="display:none;">
+             <span class="ph-title">[portrait on record: ${escapeHtml(v.name)}]</span>
+             <span class="ph-tag">image load error</span>
+           </div>`
+        : `<div class="victim-portrait-placeholder">
+             <span class="ph-title">[portrait on record: ${escapeHtml(v.name)}]</span>
+             <span class="ph-tag">unreleased / awaiting verified family archival release</span>
+           </div>`;
+
+      const mapLink = (v.lat !== undefined && v.lon !== undefined)
+        ? `<a href="https://www.openstreetmap.org/?mlat=${encodeURIComponent(v.lat)}&mlon=${encodeURIComponent(v.lon)}#map=18/${encodeURIComponent(v.lat)}/${encodeURIComponent(v.lon)}" target="_blank" rel="noopener noreferrer" class="coord-link" title="Open incident coordinates on OpenStreetMap">
+             ${escapeHtml(v.coordinates)} &nearr;
+           </a>`
+        : `<span>${escapeHtml(v.coordinates || "pending")}</span>`;
+
+      return `
+        <article class="victim-card">
+          <div class="victim-portrait-wrap">
+            ${photoHtml}
+          </div>
+          <div class="victim-header">
+            <h3 class="victim-name">${escapeHtml(v.name)}</h3>
+            ${ageSpan}
+          </div>
+          <div class="victim-geo">
+            <span class="loc-name">${escapeHtml(v.location)} (${escapeHtml(v.county)})</span>
+            <div class="coord-row">
+              <span>coordinates:</span>
+              ${mapLink}
+            </div>
+          </div>
+          <p class="story">${escapeHtml(v.story)}</p>
+          <div class="source-tag">source: ${escapeHtml(v.source)}</div>
+        </article>
+      `;
+    }).join("");
+  }
+
+  function init() {
+    renderRememberedVictims();
+    renderMemorialAccountability();
+    renderVideoEvidence();
+    renderMusicEvidence();
+    renderPublicPosts();
+    renderOfficialRecords();
+    setupSoundtrackScroll();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+</script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</body>
+</html>
