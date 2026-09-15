@@ -684,7 +684,175 @@
   }
   .names-note{ margin-top:24px; }
 
-  /* ---------- Memorial & accountability (Task 1) ---------- */
+    /* ---------- Memorial & Legal Accountability Tracker ---------- */
+  .tracker-metrics-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:1px;
+    background:var(--rule);
+    border:1px solid var(--rule);
+    margin-bottom:32px;
+  }
+  .tracker-metric-card{
+    background:var(--bg-raised);
+    padding:20px 18px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    transition:background 0.2s ease;
+  }
+  .tracker-metric-card:hover{
+    background:rgba(28, 32, 24, 0.95);
+  }
+  .tracker-metric-card .metric-val{
+    font-family:'Newsreader', serif;
+    font-size:36px;
+    color:var(--paper);
+    line-height:1;
+  }
+  .tracker-metric-card.alert .metric-val{
+    color:var(--accent);
+  }
+  .tracker-metric-card .metric-lbl{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-weight:600;
+    font-size:13px;
+    color:var(--paper);
+    margin-top:2px;
+  }
+  .tracker-metric-card .metric-sub{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--paper-dim);
+  }
+
+  /* Controls: Search, Filter Chips, Sort */
+  .tracker-controls-wrap{
+    background:var(--bg-raised);
+    border:1px solid var(--rule);
+    padding:20px 22px;
+    margin-bottom:24px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .tracker-search-box{
+    position:relative;
+    display:flex;
+    align-items:center;
+    width:100%;
+  }
+  .tracker-search-box .search-icon{
+    position:absolute;
+    left:14px;
+    color:var(--paper-dim);
+    font-size:14px;
+    pointer-events:none;
+  }
+  .tracker-search-input{
+    width:100%;
+    background:var(--bg);
+    border:1px solid var(--rule);
+    color:var(--paper);
+    padding:11px 40px 11px 38px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    border-radius:2px;
+    transition:border-color 0.2s, box-shadow 0.2s;
+  }
+  .tracker-search-input:focus{
+    outline:none;
+    border-color:var(--focus);
+    box-shadow:0 0 0 1px var(--focus);
+  }
+  .tracker-search-input::placeholder{
+    color:var(--paper-dim);
+    opacity:0.75;
+  }
+  .tracker-clear-btn{
+    position:absolute;
+    right:12px;
+    background:transparent;
+    border:none;
+    color:var(--paper-dim);
+    font-size:18px;
+    cursor:pointer;
+    padding:2px 6px;
+    display:none;
+    line-height:1;
+  }
+  .tracker-clear-btn:hover{ color:var(--paper); }
+  .tracker-clear-btn.visible{ display:block; }
+
+  .tracker-filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    align-items:center;
+  }
+  .tracker-chip{
+    background:var(--bg);
+    border:1px solid var(--rule);
+    color:var(--paper-dim);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    padding:7px 13px;
+    cursor:pointer;
+    border-radius:2px;
+    transition:all 0.15s ease;
+    user-select:none;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+  }
+  .tracker-chip:hover{
+    border-color:var(--paper-dim);
+    color:var(--paper);
+  }
+  .tracker-chip.active{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:var(--paper);
+    font-weight:500;
+  }
+  .tracker-chip .chip-count{
+    opacity:0.8;
+    font-size:10.5px;
+  }
+
+  .tracker-results-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--paper-dim);
+    border-top:1px solid rgba(52, 55, 44, 0.6);
+    padding-top:12px;
+  }
+  .tracker-sort-group{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .tracker-sort-select{
+    background:var(--bg);
+    border:1px solid var(--rule);
+    color:var(--paper);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    padding:4px 8px;
+    border-radius:2px;
+    cursor:pointer;
+  }
+  .tracker-sort-select:focus{
+    outline:none;
+    border-color:var(--focus);
+  }
+
+  /* Memorial List & Cards */
   .memorial-list{
     display:flex;
     flex-direction:column;
@@ -695,15 +863,19 @@
   }
   .memorial-card{
     background:var(--bg);
-    padding:22px 24px;
+    padding:24px 26px;
     display:grid;
-    grid-template-columns:72px 1fr;
-    gap:20px;
+    grid-template-columns:76px 1fr;
+    gap:22px;
     align-items:flex-start;
+    transition:background 0.2s ease;
+  }
+  .memorial-card:hover{
+    background:rgba(20, 23, 17, 0.98);
   }
   .memorial-thumb-wrap{
-    width:72px;
-    height:72px;
+    width:76px;
+    height:76px;
     border-radius:50%;
     overflow:hidden;
     background:var(--bg-raised);
@@ -730,9 +902,9 @@
     justify-content:center;
     text-align:center;
     font-family:'IBM Plex Mono', monospace;
-    font-size:8.5px;
+    font-size:8px;
     color:var(--paper-dim);
-    padding:6px;
+    padding:4px;
     line-height:1.2;
     background:var(--bg-raised);
     border-radius:50%;
@@ -740,20 +912,27 @@
   .memorial-body{
     display:flex;
     flex-direction:column;
-    gap:8px;
+    gap:12px;
+    min-width:0;
   }
   .memorial-head{
     display:flex;
     flex-wrap:wrap;
-    align-items:baseline;
+    align-items:center;
     justify-content:space-between;
-    gap:6px 14px;
+    gap:8px 14px;
     border-bottom:1px solid var(--rule);
-    padding-bottom:8px;
+    padding-bottom:10px;
+  }
+  .memorial-name-wrap{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    flex-wrap:wrap;
   }
   .memorial-name{
     font-family:'Newsreader', serif;
-    font-size:20px;
+    font-size:22px;
     color:var(--paper);
     line-height:1.25;
     margin:0;
@@ -764,15 +943,104 @@
     color:var(--paper-dim);
     font-weight:normal;
   }
-  .memorial-credit{
+  .case-badges{
+    display:inline-flex;
+    flex-wrap:wrap;
+    gap:6px;
+    align-items:center;
+  }
+  .c-badge{
     font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
+    font-size:10.5px;
+    padding:3px 7px;
+    border-radius:2px;
+    letter-spacing:0.02em;
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+  }
+  .badge-ammo{
+    background:rgba(180, 71, 47, 0.15);
+    border:1px solid rgba(180, 71, 47, 0.5);
+    color:#e07860;
+  }
+  .badge-canister{
+    background:rgba(214, 199, 158, 0.12);
+    border:1px solid rgba(214, 199, 158, 0.4);
+    color:var(--focus);
+  }
+  .badge-trauma{
+    background:rgba(108, 122, 90, 0.18);
+    border:1px solid rgba(108, 122, 90, 0.4);
     color:var(--paper-dim);
   }
+  .badge-impunity{
+    background:rgba(180, 71, 47, 0.22);
+    border:1px solid var(--accent);
+    color:var(--paper);
+    font-weight:500;
+  }
+  .badge-stage{
+    border:1px solid var(--rule);
+    background:var(--bg-raised);
+    color:var(--paper-dim);
+  }
+  .badge-stage.odpp{
+    border-color:var(--focus);
+    color:var(--focus);
+  }
+  .badge-stage.ipoa{
+    border-color:var(--green);
+    color:var(--paper);
+  }
+
+  /* Procedural Timeline Stepper */
+  .case-stepper{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:6px;
+    background:var(--bg-raised);
+    border:1px solid var(--rule);
+    padding:10px 12px;
+  }
+  .step-node{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    position:relative;
+  }
+  .step-bar{
+    height:3px;
+    background:var(--rule);
+    border-radius:1px;
+    width:100%;
+    margin-bottom:4px;
+    transition:background 0.2s;
+  }
+  .step-node.done .step-bar{
+    background:var(--green);
+  }
+  .step-node.current .step-bar{
+    background:var(--focus);
+  }
+  .step-node.blocked .step-bar{
+    background:var(--accent);
+  }
+  .step-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    color:var(--paper-dim);
+    line-height:1.25;
+  }
+  .step-node.done .step-label{ color:var(--paper); font-weight:500; }
+  .step-node.current .step-label{ color:var(--focus); font-weight:500; }
+  .step-node.blocked .step-label{ color:var(--accent); }
+
+  /* Info Key-Values */
   .memorial-grid-info{
     display:grid;
     grid-template-columns:1fr;
-    gap:6px;
+    gap:7px;
   }
   .mem-item{
     font-size:13.5px;
@@ -781,20 +1049,102 @@
   }
   .mem-k{
     font-family:'IBM Plex Mono', monospace;
-    font-size:11.5px;
+    font-size:11px;
     color:var(--green);
-    margin-right:6px;
+    margin-right:8px;
+    display:inline-block;
+    min-width:130px;
   }
   .mem-v{
     color:var(--paper);
   }
-  .status-tag{
-    color:var(--paper);
+  .mem-evidence-tags{
+    display:inline-flex;
+    flex-wrap:wrap;
+    gap:4px;
+    vertical-align:middle;
   }
-  .mem-source{
+  .ev-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    background:var(--bg-raised);
+    border:1px solid var(--rule);
+    color:var(--paper-dim);
+    padding:2px 6px;
+    border-radius:2px;
+  }
+
+  /* Expandable Dossier Accordion */
+  .dossier-details{
+    display:none;
+    background:var(--bg-raised);
+    border:1px solid var(--rule);
+    border-left:3px solid var(--focus);
+    padding:14px 16px;
+    margin-top:4px;
+    font-size:13px;
+    color:var(--paper-dim);
+    line-height:1.55;
+  }
+  .dossier-details.open{
+    display:block;
+  }
+  .dossier-details h4{
     font-family:'IBM Plex Mono', monospace;
     font-size:11px;
-    margin-top:2px;
+    color:var(--focus);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    margin:0 0 6px 0;
+  }
+
+  /* Actions Footer */
+  .case-actions{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    padding-top:6px;
+    border-top:1px solid rgba(52, 55, 44, 0.4);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+  }
+  .case-links-left{
+    display:inline-flex;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn-dossier-toggle{
+    background:transparent;
+    border:1px solid var(--rule);
+    color:var(--focus);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    padding:4px 9px;
+    cursor:pointer;
+    border-radius:2px;
+    transition:all 0.15s;
+  }
+  .btn-dossier-toggle:hover{
+    background:rgba(214, 199, 158, 0.1);
+    border-color:var(--focus);
+  }
+  .btn-copy-cite{
+    background:transparent;
+    border:1px solid var(--rule);
+    color:var(--paper-dim);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    padding:4px 9px;
+    cursor:pointer;
+    border-radius:2px;
+    transition:all 0.15s;
+  }
+  .btn-copy-cite:hover{
+    color:var(--paper);
+    border-color:var(--paper-dim);
   }
   .mem-link{
     color:var(--paper-dim);
@@ -806,15 +1156,54 @@
     color:var(--focus);
     border-bottom-color:var(--focus);
   }
+
+  /* Copy Toast Notification */
+  .tracker-toast{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    background:var(--bg-raised);
+    border:1px solid var(--green);
+    color:var(--paper);
+    padding:10px 18px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    border-radius:2px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.8);
+    opacity:0;
+    pointer-events:none;
+    transform:translateY(10px);
+    transition:all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index:9999;
+  }
+  .tracker-toast.show{
+    opacity:1;
+    pointer-events:auto;
+    transform:translateY(0);
+  }
+
+  @media (max-width:820px){
+    .tracker-metrics-grid{ grid-template-columns:repeat(2, 1fr); }
+    .case-stepper{ grid-template-columns:repeat(2, 1fr); gap:8px; }
+  }
   @media (max-width:640px){
+    .tracker-metrics-grid{ grid-template-columns:1fr; }
     .memorial-card{
       grid-template-columns:1fr;
       gap:14px;
+      padding:18px 16px;
     }
     .memorial-thumb-wrap{
-      width:56px;
-      height:56px;
+      width:60px;
+      height:60px;
     }
+    .mem-k{
+      min-width:auto;
+      display:block;
+      margin-bottom:2px;
+    }
+    .case-stepper{ grid-template-columns:1fr; }
+    .case-actions{ flex-direction:column; align-items:flex-start; }
   }
 
   /* ---------- Youth mobilization & strength ---------- */
@@ -1728,12 +2117,69 @@
 <section id="memorial-accountability">
   <div class="wrap">
     <div class="section-head">
-      <p class="label">in the record</p>
-      <h2>Memorial &amp; accountability</h2>
-      <p class="muted">A verified public accountability ledger for citizens killed during the 25 June 2024 demonstrations. This record synthesizes aggregate, cited human rights findings, independent civil society audits, and the ongoing legal status of official investigations without reproducing confidential medical-legal records.</p>
+      <p class="label">live accountability index</p>
+      <h2>Legal Case &amp; Accountability Tracker</h2>
+      <p class="muted">An interactive investigative ledger tracking official police oversight inquiries (IPOA), Office of the Director of Public Prosecutions (ODPP) reviews, ballistic verification, and officer indictment statuses for verified fatalities of the 25 June 2024 demonstrations.</p>
+    </div>
+
+    <!-- Live Impunity & Case Metric Cards -->
+    <div class="tracker-metrics-grid" id="tracker-metrics">
+      <div class="tracker-metric-card">
+        <span class="metric-val" id="metric-total">17</span>
+        <span class="metric-lbl">Documented Fatalities</span>
+        <span class="metric-sub">Verified human rights roll</span>
+      </div>
+      <div class="tracker-metric-card alert">
+        <span class="metric-val" id="metric-impunity">0 / 17</span>
+        <span class="metric-lbl">Officers Indicted</span>
+        <span class="metric-sub">100% state impunity rate</span>
+      </div>
+      <div class="tracker-metric-card">
+        <span class="metric-val" id="metric-ipoa">8</span>
+        <span class="metric-lbl">Active IPOA Inquiries</span>
+        <span class="metric-sub">Pending field dossiers</span>
+      </div>
+      <div class="tracker-metric-card">
+        <span class="metric-val" id="metric-odpp">3</span>
+        <span class="metric-lbl">ODPP Inquest / Homicide Files</span>
+        <span class="metric-sub">High-profile prosecution files</span>
+      </div>
+    </div>
+
+    <!-- Filter, Search & Sort Controls -->
+    <div class="tracker-controls-wrap">
+      <div class="tracker-search-box">
+        <span class="search-icon">&telrec;</span>
+        <input type="text" id="tracker-search" class="tracker-search-input" placeholder="Search by victim name, location, weapon, evidence, or oversight body..." autocomplete="off" />
+        <button type="button" id="tracker-clear-btn" class="tracker-clear-btn" title="Clear search">&times;</button>
+      </div>
+
+      <div class="tracker-filters" id="tracker-filter-chips">
+        <button type="button" class="tracker-chip active" data-filter="all">All Cases <span class="chip-count" id="count-all">(17)</span></button>
+        <button type="button" class="tracker-chip" data-filter="live_ammo">🔴 Live Ammunition <span class="chip-count" id="count-ammo">(11)</span></button>
+        <button type="button" class="tracker-chip" data-filter="canister_blunt">🟡 Canister / Blunt Force <span class="chip-count">(6)</span></button>
+        <button type="button" class="tracker-chip" data-filter="odpp">⚖️ ODPP Review / Inquest <span class="chip-count">(3)</span></button>
+        <button type="button" class="tracker-chip" data-filter="ipoa">⏳ Active IPOA Inquiries <span class="chip-count">(8)</span></button>
+        <button type="button" class="tracker-chip" data-filter="stalled">⚠️ Stalled / No Update <span class="chip-count">(6)</span></button>
+      </div>
+
+      <div class="tracker-results-meta">
+        <span id="tracker-results-count">Showing 17 of 17 cases</span>
+        <div class="tracker-sort-group">
+          <label for="tracker-sort" class="tracker-sort-label">Sort:</label>
+          <select id="tracker-sort" class="tracker-sort-select">
+            <option value="default">Default Order</option>
+            <option value="name">Victim Name (A–Z)</option>
+            <option value="age">Age (Youngest First)</option>
+            <option value="status">Procedural Stage</option>
+          </select>
+        </div>
+      </div>
     </div>
 
     <div class="memorial-list" id="memorial-list"></div>
+
+    <div id="tracker-toast" class="tracker-toast">Citation copied to clipboard</div>
   </div>
 </section>
 
@@ -2487,169 +2933,485 @@
     }).join("");
   }
 
-  /* ---------- Memorial & accountability data array (Task 1) ---------- */
+    /* ---------- Memorial & Legal Accountability Tracker Data & Engine ---------- */
   const memorial = [
     {
+      id: "eric-shieni",
       name: "Eric Kaiyioni Shieni",
-      age: "27",
+      age: 27,
+      ageDisplay: "27",
       portraitUrl: "images/victims/eric_shieni_headshot.jpg",
       portraitCredit: "BBC Africa Eye & family archive",
-      forensicNote: "IPOA & BBC Africa Eye: Fatal high-velocity gunshot wound to the chest, shot at 25-metre range outside Parliament perimeter (July 2024).",
+      weaponType: "live_ammo",
+      weaponLabel: "Live Ammunition (Rifle)",
+      location: "Parliament Road, outer Senate perimeter fence, Nairobi",
+      county: "Nairobi County",
+      forensicNote: "Fatal high-velocity gunshot wound to the chest. BBC Africa Eye forensic reconstruction identified security officer with solid-stock rifle opening fire from 25 metres away.",
       investigationStatus: "IPOA case under active investigation; ballistics and rifle matching referenced in BBC 'Blood Parliament' documentary; no officer charged.",
+      stage: "ipoa_active",
+      stageLabel: "Active IPOA Inquiry",
+      stageStep: 3,
+      officersCharged: 0,
+      evidence: ["BBC Africa Eye ballistics trajectory", "Parliament perimeter footage", "Postmortem trauma report"],
+      dossierNotes: "Final-year UoN finance student set to graduate September 2024. Ballistic triangulation placed the rifle shooter inside the legislative boundary. State security command has resisted surrendering daily arms registers or specific unit rosters.",
       sourceUrl: "https://www.bbc.com/news/articles/c4ng2v8z9kko"
     },
     {
+      id: "rex-masai",
       name: "Rex Kanyike Masai",
-      age: "29",
+      age: 29,
+      ageDisplay: "29",
       portraitUrl: "images/victims/rex_masai_official.jpg",
       portraitCredit: "Family memorial release / Citizen TV",
-      forensicNote: "Chief Government Pathologist & KNCHR: Gunshot wound to the thigh severing femoral artery with severe hemorrhagic shock (June 2024).",
-      investigationStatus: "IPOA investigation opened into plainclothes officer captured on CCTV discharging firearm on Moi Avenue; inquest pending; no officer charged.",
+      weaponType: "live_ammo",
+      weaponLabel: "Live Ammunition (Handgun)",
+      location: "Moi Avenue near Archives, Nairobi CBD",
+      county: "Nairobi County",
+      forensicNote: "Chief Government Pathologist & KNCHR: Gunshot wound to the upper thigh severing femoral artery with acute hemorrhagic shock (June 2024).",
+      investigationStatus: "IPOA investigation concluded plainclothes officer fired weapon; public inquest recommended; formal file forwarded to ODPP; no officer arrested.",
+      stage: "odpp_review",
+      stageLabel: "ODPP Inquest Pending",
+      stageStep: 3,
+      officersCharged: 0,
+      evidence: ["CCTV footage capturing shooter in civilian cap", "Spent cartridge casing recovered", "Dr. Johansen Oduor autopsy"],
+      dossierNotes: "Shot at 19:20 on 20 June outside Club Ibiza along Moi Avenue. High-definition security cameras captured a plainclothes officer discharging a firearm directly into the fleeing crowd. Case has been referred for a formal judicial public inquest.",
       sourceUrl: "https://www.knchr.org"
     },
     {
+      id: "edwin-makana",
       name: "Edwin Makana",
-      age: "25",
+      age: 25,
+      ageDisplay: "25",
       portraitUrl: "images/victims/edwin_makana_portrait.jpg",
       portraitCredit: "Family memorial card",
-      forensicNote: "KNCHR casualty audit: Gunshot wound sustained in Nairobi CBD during crowd dispersal (July 2024).",
-      investigationStatus: "No public update found",
+      weaponType: "live_ammo",
+      weaponLabel: "Live Ammunition",
+      location: "Nairobi CBD demonstration route",
+      county: "Nairobi County",
+      forensicNote: "KNCHR casualty audit: Penetrating gunshot wound sustained in Nairobi CBD during crowd dispersal operations (July 2024).",
+      investigationStatus: "Preliminary casualty report logged by KNCHR; no formal public investigative findings released by state oversight.",
+      stage: "stalled",
+      stageLabel: "Stalled / No Public Update",
+      stageStep: 2,
+      officersCharged: 0,
+      evidence: ["KNCHR verified casualty ledger", "Family testimony"],
+      dossierNotes: "Documented by national human rights observers during rapid deployment audit. State oversight agencies have not disclosed which formation commanded officers in his sector.",
       sourceUrl: "https://www.knchr.org"
     },
     {
+      id: "david-chege",
       name: "David Chege",
-      age: "39",
+      age: 39,
+      ageDisplay: "39",
       portraitUrl: "images/victims/david_chege_portrait.jpg",
       portraitCredit: "Citizen TV & family funeral broadcast",
-      forensicNote: "IPOA & IMLU: Fatal live bullet wound to the torso outside National Assembly Gate (June 2024).",
+      weaponType: "live_ammo",
+      weaponLabel: "Live Ammunition (Rifle)",
+      location: "National Assembly Gate, Parliament Complex, Nairobi",
+      county: "Nairobi County",
+      forensicNote: "IPOA & IMLU: Fatal live bullet wound to the torso outside National Assembly Gate during the parliamentary breach.",
       investigationStatus: "IPOA recorded occurrence during Parliament perimeter breach; formal file compilation ongoing; no officer charged.",
+      stage: "ipoa_active",
+      stageLabel: "Active IPOA Inquiry",
+      stageStep: 3,
+      officersCharged: 0,
+      evidence: ["Citizen TV broadcast footage", "IMLU independent autopsy observer", "Parliament CCTV coverage"],
+      dossierNotes: "Among the front ranks at Parliament Gate when security officers unleashed live rifle fire into the demonstration. Family demands preservation and release of parliamentary perimeter surveillance video.",
       sourceUrl: "https://www.imlu.org"
     },
     {
+      id: "erickson-mutisya",
       name: "Erickson Kyalo Mutisya",
-      age: "25",
+      age: 25,
+      ageDisplay: "25",
       portraitUrl: "images/victims/erickson_kyalo_portrait.jpg",
       portraitCredit: "Citizen TV memorial broadcast / Family photo",
-      forensicNote: "IPOA casualty release: Fatal live ammunition gunshot wound sustained outside Parliament (July 2024).",
-      investigationStatus: "No public update found",
+      weaponType: "live_ammo",
+      weaponLabel: "Live Ammunition",
+      location: "Parliament Road perimeter, Nairobi",
+      county: "Nairobi County",
+      forensicNote: "IPOA casualty release: Fatal live ammunition gunshot wound sustained outside Parliament grounds (July 2024).",
+      investigationStatus: "IPOA casualty entry logged; awaiting formal ballistic matching and officer interrogations.",
+      stage: "stalled",
+      stageLabel: "Stalled / No Public Update",
+      stageStep: 2,
+      officersCharged: 0,
+      evidence: ["IPOA casualty listing", "Family postmortem testimony"],
+      dossierNotes: "Family laid him to rest in Machakos County following severe delays in obtaining certified ballistic certificates from the government chemist.",
       sourceUrl: "https://www.ipoa.go.ke"
     },
     {
+      id: "ibrahim-kamau",
       name: "Ibrahim Kamau Wanjiru",
-      age: "19",
+      age: 19,
+      ageDisplay: "19",
       portraitUrl: "images/victims/ibrahim_kamau_memorial.jpg",
       portraitCredit: "AFP News Agency / Funeral cortege",
-      forensicNote: "IPOA & family postmortem: Fatal gunshot wounds to the neck outside Parliament gates (July 2024).",
-      investigationStatus: "IPOA inquiry opened; matter raised in National Assembly security committee petitions; no officer charged.",
+      weaponType: "live_ammo",
+      weaponLabel: "Live Ammunition (Cervical Spine)",
+      location: "Parliament Gate A / City Hall Way, Nairobi",
+      county: "Nairobi County",
+      forensicNote: "IPOA & family postmortem: Fatal gunshot wounds to the neck and upper spine outside Parliament gates (July 2024).",
+      investigationStatus: "IPOA inquiry opened; matter formally petitioned before National Assembly Security Committee; 0 officers charged.",
+      stage: "ipoa_active",
+      stageLabel: "Active IPOA Inquiry",
+      stageStep: 3,
+      officersCharged: 0,
+      evidence: ["AFP photojournalism records", "Hospital arrival certificates", "Parliamentary committee petition"],
+      dossierNotes: "19-year-old youth shot in the neck while carrying a national flag outside Gate A. Thousands attended his Nairobi funeral cortege demanding command accountability for lethal orders.",
       sourceUrl: "https://www.standardmedia.co.ke"
     },
     {
+      id: "evans-kiratu",
       name: "Evans Kiratu",
-      age: "24",
+      age: 24,
+      ageDisplay: "24",
       portraitUrl: "images/victims/evans_kiratu_portrait.jpg",
       portraitCredit: "Citizen TV memorial coverage",
+      weaponType: "canister",
+      weaponLabel: "Tear Gas Canister Kinetic Impact",
+      location: "Nairobi CBD demonstration route",
+      county: "Nairobi County",
       forensicNote: "Chief Government Pathologist & IMLU: Fatal blunt force kinetic impact trauma from tear gas canister causing ruptured bladder and acute internal hemorrhage (June 2024).",
       investigationStatus: "IPOA opened inquiry into excessive kinetic impact projectile deployment; no officer charged.",
+      stage: "ipoa_active",
+      stageLabel: "Active IPOA Inquiry",
+      stageStep: 3,
+      officersCharged: 0,
+      evidence: ["Dr. Johansen Oduor postmortem report", "KNH emergency surgical records", "IMLU legal representation file"],
+      dossierNotes: "Anti-riot officer discharged a tear gas projectile horizontally at point-blank range rather than in an arced trajectory, violating National Police Service Service Standing Orders. Kiratu underwent emergency surgery at Kenyatta National Hospital before succumbing.",
       sourceUrl: "https://www.citizen.digital"
     },
     {
+      id: "kennedy-onyango",
       name: "Kennedy Onyango",
-      age: "12",
+      age: 12,
+      ageDisplay: "12",
       portraitUrl: "images/victims/kennedy_onyango_portrait_clean.jpg",
       portraitCredit: "Family memorial banner / Citizen TV",
+      weaponType: "live_ammo",
+      weaponLabel: "Live Ammunition (8 Rounds)",
+      location: "Ongata Rongai, Kajiado / Nairobi border",
+      county: "Kajiado County",
       forensicNote: "IMLU & KNCHR: Multiple fatal gunshot wounds (corroborated as eight bullet entries) sustained in Ongata Rongai (July 2024).",
       investigationStatus: "IPOA launched active homicide investigation; initial police claim of firearm theft refuted by witness video; inquiry ongoing with ODPP.",
+      stage: "odpp_review",
+      stageLabel: "ODPP Review / Active Homicide",
+      stageStep: 3,
+      officersCharged: 0,
+      evidence: ["Bystander mobile phone video disproving police alibi", "Autopsy documenting 8 bullet entries", "IMLU forensic report"],
+      dossierNotes: "12-year-old primary school pupil shot while running an errand to borrow a schoolbook. Police officers falsely alleged that an assailant snatched a rifle; bystander phone video proved unarmed civilians were fired upon indiscriminately.",
       sourceUrl: "https://www.reuters.com/world/africa/mother-grieves-12-year-old-killed-kenya-protests-2024-06-28/"
     },
     {
+      id: "benson-scotts",
       name: "Benson Scotts Mbithi",
-      age: "29",
+      age: 29,
+      ageDisplay: "29",
       portraitUrl: "images/victims/benson_scotts_portrait.jpg",
       portraitCredit: "Amnesty International Kenya (Lest We Forget)",
+      weaponType: "live_ammo",
+      weaponLabel: "Live Ammunition (9 Rounds)",
+      location: "Jomo Kenyatta Highway near Kondele, Kisumu",
+      county: "Kisumu County",
       forensicNote: "Amnesty International Kenya & JOOTRH medical records: Multiple gunshot wounds (nine bullet entries) sustained during Kisumu protests (July 2024).",
       investigationStatus: "IPOA Western Regional Office opened inquiry into live ammunition use in Kisumu; no officer charged.",
+      stage: "ipoa_active",
+      stageLabel: "Active IPOA Inquiry",
+      stageStep: 3,
+      officersCharged: 0,
+      evidence: ["JOOTRH surgical & mortuary logs", "Amnesty International dossier", "Civil society ballistics audit"],
+      dossierNotes: "Succumbed to severe hypovolemic shock at Jaramogi Oginga Teaching & Referral Hospital. Featured in Amnesty International's 'Lest We Forget' series examining disproportionate lethal force in western Kenya.",
       sourceUrl: "https://www.amnestykenya.org"
     },
     {
+      id: "emmanuel-tata",
       name: "Emmanuel Giggs Tata",
-      age: "20",
+      age: 20,
+      ageDisplay: "20",
       portraitUrl: "images/victims/emmanuel_giggs_portrait.jpg",
       portraitCredit: "The Star Kenya / Family interview",
+      weaponType: "canister",
+      weaponLabel: "Tear Gas Canister Kinetic Impact",
+      location: "Mikindani, Jomvu Sub-County, Mombasa",
+      county: "Mombasa County",
       forensicNote: "KNCHR Coastal Regional Observer & CGTRH: Fatal blunt-force kinetic canister trauma to the thoracic wall causing acute respiratory collapse (July 2024).",
       investigationStatus: "KNCHR coastal rapid response submission forwarded to IPOA Mombasa; no officer charged.",
+      stage: "ipoa_active",
+      stageLabel: "Active IPOA Inquiry",
+      stageStep: 3,
+      officersCharged: 0,
+      evidence: ["Coast General Teaching and Referral Hospital autopsy", "KNCHR coastal rapid assessment filing"],
+      dossierNotes: "20-year-old struck in the sternum by tear gas canister during peaceful coastal demonstrations. Eyewitnesses documented officers preventing civilian first-responders from rendering immediate aid.",
       sourceUrl: "https://www.the-star.co.ke"
     },
     {
+      id: "kelvin-odhiambo",
       name: "Kelvin Odhiambo Maina",
-      age: "21",
+      age: 21,
+      ageDisplay: "21",
       portraitUrl: "images/victims/kelvin_odhiambo_portrait_clean.jpg",
       portraitCredit: "Citizen TV Lang'ata burial coverage",
+      weaponType: "live_ammo",
+      weaponLabel: "Live Ammunition",
+      location: "Parliament vicinity / City Hall Way, Nairobi",
+      county: "Nairobi County",
       forensicNote: "IPOA Parliament casualty documentation: Fatal live bullet gunshot trauma in Parliament vicinity (July 2024).",
       investigationStatus: "IPOA casualty file registered; no officer charged.",
+      stage: "ipoa_active",
+      stageLabel: "Active IPOA Inquiry",
+      stageStep: 3,
+      officersCharged: 0,
+      evidence: ["IPOA occurrence documentation", "Lang'ata cemetery burial registry", "Citizen TV broadcast"],
+      dossierNotes: "21-year-old student fatally wounded near City Hall Way during the late-afternoon live fire barrage outside Parliament. Laid to rest in Lang'ata Cemetery.",
       sourceUrl: "https://www.citizen.digital"
     },
     {
+      id: "wilson-sitati",
       name: "Wilson Sitati",
-      age: "21",
+      age: 21,
+      ageDisplay: "21",
       portraitUrl: "images/victims/wilson_sitati_portrait.jpg",
       portraitCredit: "TV47 Kenya Kimilili memorial coverage",
+      weaponType: "blunt_force",
+      weaponLabel: "Blunt Force Kinetic Trauma",
+      location: "Parliament perimeter, Nairobi",
+      county: "Nairobi County / Bungoma",
       forensicNote: "IPOA & family postmortem: Fatal blunt force trauma sustained along Parliament perimeter during crowd dispersal (July 2024).",
-      investigationStatus: "No public update found",
+      investigationStatus: "Casualty occurrence registered with oversight body; no formal public briefing released.",
+      stage: "stalled",
+      stageLabel: "Stalled / No Public Update",
+      stageStep: 2,
+      officersCharged: 0,
+      evidence: ["Family postmortem examination", "TV47 broadcast documentation"],
+      dossierNotes: "Fatal injuries sustained in the dense crush and baton charges outside Parliament fence as security forces launched kinetic dispersal.",
       sourceUrl: "https://www.tv47.digital"
     },
     {
+      id: "denzel-omondi",
       name: "Denzel Omondi",
-      age: "23",
+      age: 23,
+      ageDisplay: "23",
       portraitUrl: "images/victims/denzel_omondi_portrait.jpg",
       portraitCredit: "JKUAT student memorial / Kenya Digital News",
+      weaponType: "abduction_trauma",
+      weaponLabel: "Abduction & Severe Blunt Trauma / Drowning",
+      location: "Inside Parliament building (25 June) -> Juja Quarry (6 July)",
+      county: "Nairobi / Kiambu County",
       forensicNote: "Chief Government Pathologist (Dr. Johansen Oduor) & IMLU: Asphyxia secondary to drowning with extensive pre-mortem blunt force trauma to occiput, neck, and limbs (July 2024).",
       investigationStatus: "IPOA & DCI homicide investigation launched into abduction from Parliament and disposal in Juja quarry; matter active with ODPP; no arrests announced.",
+      stage: "odpp_review",
+      stageLabel: "ODPP Review / Homicide Probe",
+      stageStep: 3,
+      officersCharged: 0,
+      evidence: ["Video inside Parliament showing Denzel on 25 June", "Dr. Johansen Oduor autopsy detailing pre-mortem beating", "JKUAT student body affidavits"],
+      dossierNotes: "Third-year JKUAT quantity surveying student recorded inside the parliamentary chambers on 25 June. He disappeared immediately afterwards. On 6 July, his body was discovered floating in Mashimoni quarry in Juja with severe blunt trauma. High Court petition filed demanding mobile phone data logs and CCTV retrieval.",
       sourceUrl: "https://www.standardmedia.co.ke"
     },
     {
+      id: "earnest-kanyi",
       name: "Earnest Kanyi",
       age: null,
+      ageDisplay: "Age unreleased",
       portraitUrl: "REPLACE_WITH_SOURCED_PHOTO",
       portraitCredit: "Awaiting verified family/media release",
+      weaponType: "live_ammo",
+      weaponLabel: "Live Ammunition",
+      location: "Parliamentary perimeter dispersal zone, Nairobi",
+      county: "Nairobi County",
       forensicNote: "IPOA casualty record: Fatal gunshot trauma during parliamentary perimeter dispersal (July 2024).",
-      investigationStatus: "No public update found",
+      investigationStatus: "Preliminary casualty log filed; awaiting official ballistic and scene reconstruction files.",
+      stage: "stalled",
+      stageLabel: "Stalled / No Public Update",
+      stageStep: 2,
+      officersCharged: 0,
+      evidence: ["IPOA preliminary inquiry docket", "Mortuary intake registry"],
+      dossierNotes: "Registered in official IPOA July casualty list. No forensic ballistic matching or occurrence book extracts made public to date.",
       sourceUrl: "https://www.ipoa.go.ke"
     },
     {
+      id: "kenneth-mwangi",
       name: "Kenneth Njiru Mwangi",
-      age: "19",
+      age: 19,
+      ageDisplay: "19",
       portraitUrl: "REPLACE_WITH_SOURCED_PHOTO",
       portraitCredit: "Awaiting verified family/media release",
+      weaponType: "blunt_force",
+      weaponLabel: "Blunt Force Kinetic Trauma",
+      location: "Parliament perimeter, Nairobi",
+      county: "Nairobi County",
       forensicNote: "IPOA casualty report: Fatal blunt trauma injuries sustained along Parliament perimeter (July 2024).",
-      investigationStatus: "No public update found",
+      investigationStatus: "Casualty entry logged; no officer interrogated or charged.",
+      stage: "stalled",
+      stageLabel: "Stalled / No Public Update",
+      stageStep: 2,
+      officersCharged: 0,
+      evidence: ["IPOA casualty listing", "Civilian witness statements"],
+      dossierNotes: "19-year-old civilian fatality recorded during kinetic crowd containment operations outside the legislative precinct.",
       sourceUrl: "https://www.ipoa.go.ke"
     },
     {
+      id: "beasley-kogi",
       name: "Beasley Kogi",
       age: null,
+      ageDisplay: "Age unreleased",
       portraitUrl: "REPLACE_WITH_SOURCED_PHOTO",
       portraitCredit: "Awaiting verified family/media release",
+      weaponType: "blunt_force",
+      weaponLabel: "Blunt Force Trauma",
+      location: "Protest corridor between Uhuru Highway and Parliament, Nairobi",
+      county: "Nairobi County",
       forensicNote: "IPOA & Amnesty Kenya: Fatal trauma sustained in protest corridor between Uhuru Highway and Parliament (July 2024).",
-      investigationStatus: "No public update found",
+      investigationStatus: "Recorded in civil society joint audit; no public progress from state investigatory bodies.",
+      stage: "stalled",
+      stageLabel: "Stalled / No Public Update",
+      stageStep: 2,
+      officersCharged: 0,
+      evidence: ["Amnesty International Kenya record", "Nairobi Funeral Home intake file"],
+      dossierNotes: "Went missing after joining the Parliament march; family traced his body to City Mortuary with blunt force injuries. No formal investigation launched by DCI.",
       sourceUrl: "https://www.amnestykenya.org"
     },
     {
+      id: "gredo-oyaro",
       name: "Gredo Oyaro",
-      age: "17",
+      age: 17,
+      ageDisplay: "17",
       portraitUrl: "REPLACE_WITH_SOURCED_PHOTO",
       portraitCredit: "Awaiting verified family/media release",
+      weaponType: "live_ammo",
+      weaponLabel: "Live Ammunition (Cranial Shot)",
+      location: "Uganda Road / Oginga Odinga Street junction, Eldoret",
+      county: "Uasin Gishu County",
       forensicNote: "Moi Teaching & Referral Hospital (MTRH) & KNCHR: Fatal cranial gunshot wound during Eldoret demonstrations (July 2024).",
       investigationStatus: "IPOA North Rift regional office investigation ongoing into live fire in Eldoret; no officer charged.",
+      stage: "ipoa_active",
+      stageLabel: "Active IPOA Inquiry",
+      stageStep: 3,
+      officersCharged: 0,
+      evidence: ["MTRH emergency admission and trauma logs", "KNCHR North Rift observer notes"],
+      dossierNotes: "17-year-old student shot in the head during simultaneous nationwide protests in Eldoret. Demonstrates widespread lethal force deployed beyond Nairobi capital.",
       sourceUrl: "https://www.knchr.org"
     }
   ];
+
+  let currentTrackerFilter = "all";
+  let currentTrackerSearch = "";
+  let currentTrackerSort = "default";
+
+  function renderTrackerStepper(stageStep, stageKey) {
+    const isBlocked = stageKey === "stalled";
+    return `
+      <div class="case-stepper">
+        <div class="step-node done">
+          <div class="step-bar"></div>
+          <span class="step-label">1. Logged</span>
+        </div>
+        <div class="step-node ${stageStep >= 2 ? 'done' : 'current'}">
+          <div class="step-bar"></div>
+          <span class="step-label">2. Autopsy</span>
+        </div>
+        <div class="step-node ${stageStep >= 3 ? 'done' : (isBlocked ? 'blocked' : 'current')}">
+          <div class="step-bar"></div>
+          <span class="step-label">3. Oversight (IPOA)</span>
+        </div>
+        <div class="step-node blocked">
+          <div class="step-bar"></div>
+          <span class="step-label">4. Trial (0% Charged)</span>
+        </div>
+      </div>
+    `;
+  }
+
+  function copyCaseCitation(caseId) {
+    const item = memorial.find(m => m.id === caseId);
+    if (!item) return;
+
+    const citeText = `[25 June Memorial Accountability Record] Case Dossier: ${item.name} (Age: ${item.ageDisplay}). Location: ${item.location}. Finding: ${item.forensicNote}. Status: ${item.investigationStatus}. Source: ${item.sourceUrl}`;
+    
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(citeText).then(() => {
+        showTrackerToast(`Citation copied for ${item.name}`);
+      }).catch(() => {
+        prompt("Copy case citation:", citeText);
+      });
+    } else {
+      prompt("Copy case citation:", citeText);
+    }
+  }
+
+  function showTrackerToast(msg) {
+    const toast = document.getElementById("tracker-toast");
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2800);
+  }
+
+  function toggleDossier(caseId) {
+    const el = document.getElementById(`dossier-${caseId}`);
+    const btn = document.getElementById(`btn-dossier-${caseId}`);
+    if (!el) return;
+    const isOpen = el.classList.contains("open");
+    if (isOpen) {
+      el.classList.remove("open");
+      if (btn) btn.textContent = "View Legal Dossier & Procedural History ▼";
+    } else {
+      el.classList.add("open");
+      if (btn) btn.textContent = "Collapse Dossier ▲";
+    }
+  }
 
   function renderMemorialAccountability() {
     const list = document.getElementById("memorial-list");
     if (!list) return;
 
-    list.innerHTML = memorial.map((item) => {
-      const ageStr = item.age ? ` <span class="age">${escapeHtml(item.age)}</span>` : "";
+    // Filter
+    let filtered = memorial.filter(item => {
+      // Category filter
+      if (currentTrackerFilter === "live_ammo" && item.weaponType !== "live_ammo") return false;
+      if (currentTrackerFilter === "canister_blunt" && item.weaponType !== "canister" && item.weaponType !== "blunt_force" && item.weaponType !== "abduction_trauma") return false;
+      if (currentTrackerFilter === "odpp" && item.stage !== "odpp_review") return false;
+      if (currentTrackerFilter === "ipoa" && item.stage !== "ipoa_active") return false;
+      if (currentTrackerFilter === "stalled" && item.stage !== "stalled") return false;
+
+      // Text search
+      if (currentTrackerSearch) {
+        const q = currentTrackerSearch.toLowerCase();
+        const haystack = `${item.name} ${item.location} ${item.county} ${item.weaponLabel} ${item.forensicNote} ${item.investigationStatus} ${(item.evidence || []).join(' ')} ${item.dossierNotes}`.toLowerCase();
+        if (!haystack.includes(q)) return false;
+      }
+      return true;
+    });
+
+    // Sort
+    if (currentTrackerSort === "name") {
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (currentTrackerSort === "age") {
+      filtered.sort((a, b) => (a.age || 999) - (b.age || 999));
+    } else if (currentTrackerSort === "status") {
+      filtered.sort((a, b) => a.stage.localeCompare(b.stage));
+    }
+
+    // Update count indicator
+    const countEl = document.getElementById("tracker-results-count");
+    if (countEl) {
+      countEl.textContent = `Showing ${filtered.length} of ${memorial.length} cases`;
+    }
+
+    if (filtered.length === 0) {
+      list.innerHTML = `
+        <div style="background:var(--bg); padding:48px 24px; text-align:center; color:var(--paper-dim); font-family:'IBM Plex Mono', monospace;">
+          <p style="margin:0 0 10px; font-size:14px; color:var(--paper);">No cases match the selected filter criteria.</p>
+          <button type="button" class="tracker-chip" onclick="resetTrackerFilters()" style="margin:0 auto;">Reset Search &amp; Filters</button>
+        </div>
+      `;
+      return;
+    }
+
+    list.innerHTML = filtered.map((item) => {
+      const ageStr = item.ageDisplay ? ` <span class="age">(${escapeHtml(item.ageDisplay)})</span>` : "";
       const hasThumb = item.portraitUrl && !item.portraitUrl.startsWith("REPLACE");
 
       const thumbHtml = hasThumb
@@ -2657,28 +3419,71 @@
            <div class="memorial-thumb-placeholder" style="display:none;">Photo on record</div>`
         : `<div class="memorial-thumb-placeholder">[no photo released]</div>`;
 
+      // Badge classes
+      let weaponBadgeClass = "badge-ammo";
+      if (item.weaponType === "canister") weaponBadgeClass = "badge-canister";
+      else if (item.weaponType === "blunt_force" || item.weaponType === "abduction_trauma") weaponBadgeClass = "badge-trauma";
+
+      const stageBadgeClass = item.stage === "odpp_review" ? "badge-stage odpp" : (item.stage === "ipoa_active" ? "badge-stage ipoa" : "badge-stage");
+
+      const evidenceHtml = (item.evidence || []).map(e => `<span class="ev-tag">${escapeHtml(e)}</span>`).join("");
+
       return `
-        <article class="memorial-card">
+        <article class="memorial-card" id="case-${escapeHtml(item.id)}">
           <div class="memorial-thumb-wrap">
             ${thumbHtml}
           </div>
           <div class="memorial-body">
             <div class="memorial-head">
-              <h3 class="memorial-name">${escapeHtml(item.name)}${ageStr}</h3>
-              <span class="memorial-credit">credit: ${escapeHtml(item.portraitCredit || "family archive")}</span>
+              <div class="memorial-name-wrap">
+                <h3 class="memorial-name">${escapeHtml(item.name)}${ageStr}</h3>
+              </div>
+              <div class="case-badges">
+                <span class="c-badge ${weaponBadgeClass}">${escapeHtml(item.weaponLabel)}</span>
+                <span class="c-badge ${stageBadgeClass}">${escapeHtml(item.stageLabel)}</span>
+                <span class="c-badge badge-impunity">0 Officers Charged</span>
+              </div>
             </div>
+
+            <!-- Procedural Stepper -->
+            ${renderTrackerStepper(item.stageStep, item.stage)}
+
             <div class="memorial-grid-info">
+              <div class="mem-item">
+                <span class="mem-k">incident scene:</span>
+                <span class="mem-v">${escapeHtml(item.location)}</span>
+              </div>
               <div class="mem-item">
                 <span class="mem-k">forensic findings:</span>
                 <span class="mem-v">${escapeHtml(item.forensicNote)}</span>
               </div>
               <div class="mem-item">
-                <span class="mem-k">accountability status:</span>
+                <span class="mem-k">oversight status:</span>
                 <span class="mem-v status-tag">${escapeHtml(item.investigationStatus)}</span>
               </div>
-              <div class="mem-source">
-                <span class="mem-k">citation:</span>
-                <a href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="mem-link">${escapeHtml(item.sourceUrl)} &nearr;</a>
+              <div class="mem-item">
+                <span class="mem-k">key evidence:</span>
+                <span class="mem-v"><span class="mem-evidence-tags">${evidenceHtml}</span></span>
+              </div>
+            </div>
+
+            <!-- Expandable Dossier Details -->
+            <div class="dossier-details" id="dossier-${escapeHtml(item.id)}">
+              <h4>Case Dossier &amp; Investigative Roadblocks</h4>
+              <p style="margin:0 0 8px 0; color:var(--paper);">${escapeHtml(item.dossierNotes)}</p>
+              <div style="font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--paper-dim);">
+                Credit / Archive: ${escapeHtml(item.portraitCredit || "Civil society records")}
+              </div>
+            </div>
+
+            <!-- Actions Bar -->
+            <div class="case-actions">
+              <div class="case-links-left">
+                <button type="button" class="btn-dossier-toggle" id="btn-dossier-${escapeHtml(item.id)}" onclick="toggleDossier('${escapeHtml(item.id)}')">View Legal Dossier &amp; Procedural History ▼</button>
+                <button type="button" class="btn-copy-cite" onclick="copyCaseCitation('${escapeHtml(item.id)}')">Copy Case Citation</button>
+              </div>
+              <div>
+                <a href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="mem-link">Primary Source &nearr;</a>
               </div>
             </div>
           </div>
@@ -2686,6 +3491,76 @@
       `;
     }).join("");
   }
+
+  function resetTrackerFilters() {
+    currentTrackerFilter = "all";
+    currentTrackerSearch = "";
+    currentTrackerSort = "default";
+
+    const searchInput = document.getElementById("tracker-search");
+    if (searchInput) searchInput.value = "";
+
+    const clearBtn = document.getElementById("tracker-clear-btn");
+    if (clearBtn) clearBtn.classList.remove("visible");
+
+    const sortSelect = document.getElementById("tracker-sort");
+    if (sortSelect) sortSelect.value = "default";
+
+    const chips = document.querySelectorAll(".tracker-chip");
+    chips.forEach(c => {
+      c.classList.toggle("active", c.getAttribute("data-filter") === "all");
+    });
+
+    renderMemorialAccountability();
+  }
+
+  function setupTrackerControls() {
+    // Filter chips
+    const chips = document.querySelectorAll(".tracker-chip");
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        chips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        currentTrackerFilter = chip.getAttribute("data-filter") || "all";
+        renderMemorialAccountability();
+      });
+    });
+
+    // Search input
+    const searchInput = document.getElementById("tracker-search");
+    const clearBtn = document.getElementById("tracker-clear-btn");
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => {
+        currentTrackerSearch = e.target.value.trim();
+        if (clearBtn) {
+          clearBtn.classList.toggle("visible", Boolean(currentTrackerSearch));
+        }
+        renderMemorialAccountability();
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener("click", () => {
+        if (searchInput) {
+          searchInput.value = "";
+          searchInput.focus();
+        }
+        clearBtn.classList.remove("visible");
+        currentTrackerSearch = "";
+        renderMemorialAccountability();
+      });
+    }
+
+    // Sort select
+    const sortSelect = document.getElementById("tracker-sort");
+    if (sortSelect) {
+      sortSelect.addEventListener("change", (e) => {
+        currentTrackerSort = e.target.value;
+        renderMemorialAccountability();
+      });
+    }
+  }
+
   /* ---------- Remembered victims data array ---------- */
   const rememberedVictims = [
     {
@@ -2944,6 +3819,7 @@
 
   function init() {
     renderRememberedVictims();
+    setupTrackerControls();
     renderMemorialAccountability();
     renderVideoEvidence();
     renderMusicEvidence();
