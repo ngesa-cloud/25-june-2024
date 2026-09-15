@@ -5,6 +5,7 @@
 [![Live Documentary](https://img.shields.io/badge/Live%20Site-GitHub%20Pages-B4472F?style=for-the-badge&logo=github)](https://ngesa-cloud.github.io/25-june-2024/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-6C7A5A?style=for-the-badge)](LICENSE)
 [![Zero Frameworks](https://img.shields.io/badge/Stack-Vanilla%20HTML%2FCSS%2FJS-181B14?style=for-the-badge)](index.html)
+[![Archive Visits](https://komarev.com/ghpvc/?username=ngesa-cloud-25-june-2024&label=ARCHIVE%20VISITORS&color=B4472F&style=for-the-badge)](https://ngesa-cloud.github.io/25-june-2024/)
 
 ---
 
