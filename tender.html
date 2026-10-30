@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>The Tender — Bureaucratic Survival Game | 25 June Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global-search.css">
+  <style>
+    :root {
+      --bg: #12140F;
+      --surface: #181B14;
+      --surface-elevated: #20241B;
+      --border: #2C3125;
+      --border-highlight: #3D4433;
+      --crimson: #B4472F;
+      --crimson-bright: #ff3b2f;
+      --green-approve: #22c55e;
+      --green-glow: rgba(34, 197, 94, 0.35);
+      --red-reject: #ef4444;
+      --red-glow: rgba(239, 68, 68, 0.35);
+      --amber-flag: #f59e0b;
+      --amber-glow: rgba(245, 158, 11, 0.35);
+      --paper: #EAE6DA;
+      --paper-dim: #A9A599;
+      --paper-dark: #62605B;
+      --desk-wood: #0d0f0c;
+      --dossier-bg: #f5efe1;
+      --dossier-ink: #1a1917;
+      --font-mono: 'IBM Plex Mono', monospace;
+      --font-serif: 'Newsreader', Georgia, serif;
+      --doc-font-size: 13.5px;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      background-color: var(--bg);
+      color: var(--paper);
+      font-family: var(--font-mono);
+      overflow-x: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Subtle CRT Scanline & Vignette Overlay */
+    .scanlines-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(18, 20, 15, 0) 50%, rgba(0, 0, 0, 0.28) 50%),
+                  linear-gradient(90deg, rgba(255,0,0,0.015), rgba(0,255,0,0.008), rgba(0,0,255,0.015));
+      background-size: 100% 3px, 3px 100%;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+    .scanlines-overlay.off { opacity: 0; }
+
+    .vignette {
+      position: fixed;
+      inset: 0;
+      box-shadow: inset 0 0 100px rgba(0,0,0,0.85);
+      pointer-events: none;
+      z-index: 998;
+    }
+
+    /* Pinned Platform Navigation */
+    .top-nav {
+      background: rgba(24, 27, 20, 0.95);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 24px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      gap: 16px;
+    }
+    .nav-brand {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--paper);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.05em;
+    }
+    .nav-brand span { color: var(--crimson); }
+    .nav-search-wrap { flex: 1; max-width: 520px; }
+
+    /* Game HUD Banner */
+    .game-hud {
+      background: #141710;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      font-size: 12px;
+      z-index: 50;
+      position: relative;
+    }
+    .hud-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .officer-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--paper-dim);
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green-approve);
+      box-shadow: 0 0 8px var(--green-approve);
+    }
+    .status-dot.danger {
+      background: var(--crimson-bright);
+      box-shadow: 0 0 10px var(--crimson-bright);
+    }
+    .hud-stat-box {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .hud-stat-label {
+      color: var(--paper-dark);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .hud-stat-val {
+      color: var(--paper);
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .hud-stat-val.gold { color: #facc15; }
+    .hud-stat-val.crimson { color: var(--crimson-bright); }
+
+    /* Lives: 3 Official Seals */
+    .lives-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .clearance-label {
+      font-size: 11px;
+      color: var(--paper-dark);
+      text-transform: uppercase;
+    }
+    .clearance-seals {
+      display: flex;
+      gap: 6px;
+    }
+    .clearance-seal {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10.5px;
+      padding: 3px 7px;
+      border-radius: 2px;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      background: rgba(34, 197, 94, 0.12);
+      color: #86efac;
+      transition: all 0.3s;
+    }
+    .clearance-seal.revoked {
+      border-color: rgba(239, 68, 68, 0.6);
+      background: rgba(239, 68, 68, 0.25);
+      color: #fca5a5;
+      text-decoration: line-through;
+      animation: sealRevokeShake 0.4s ease;
+    }
+    @keyframes sealRevokeShake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-4px); }
+      40%, 80% { transform: translateX(4px); }
+    }
+
+    .hud-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .toggle-hud-btn {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--paper-dim);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .toggle-hud-btn:hover {
+      background: var(--border);
+      color: #fff;
+    }
+
+    /* Main Container: Split Desk Layout */
+    .game-arena {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 24px;
+      min-height: calc(100vh - 120px);
+      align-items: start;
+    }
+
+    /* Mobile Watchlist Toggle Bar */
+    .mobile-watchlist-toggle {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: #fbbf24;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 8px 14px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* Left Panel: Corrupt Watchlist Memo */
+    .watchlist-memo {
+      background: #191c15;
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--crimson);
+      border-radius: 4px;
+      padding: 16px;
+      position: sticky;
+      top: 60px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      transition: all 0.3s ease;
+    }
+    .memo-pin {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 22px;
+      height: 22px;
+      background: #991b1b;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.3);
+      border: 2px solid #fecaca;
+    }
+    .memo-header {
+      border-bottom: 1px dashed var(--border-highlight);
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .memo-tag {
+      font-size: 10px;
+      color: var(--crimson-bright);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .memo-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--paper);
+      margin-top: 2px;
+      letter-spacing: 0.04em;
+    }
+    .memo-sub {
+      font-size: 10.5px;
+      color: var(--paper-dim);
+      font-style: italic;
+      margin-top: 3px;
+    }
+
+    .watchlist-section-label {
+      font-size: 10.5px;
+      color: #f59e0b;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 12px 0 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .watchlist-section-label::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(245, 158, 11, 0.25);
+    }
+
+    .watchlist-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .watchlist-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 6px 10px;
+      border-radius: 3px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .watchlist-item:hover {
+      background: rgba(180, 71, 47, 0.15);
+      border-color: var(--crimson);
+    }
+    .watchlist-item.highlight-match {
+      background: rgba(255, 59, 47, 0.28);
+      border-color: var(--crimson-bright);
+      animation: alertBlink 1s infinite alternate;
+    }
+    @keyframes alertBlink {
+      from { box-shadow: 0 0 4px rgba(255,59,47,0.3); }
+      to { box-shadow: 0 0 12px rgba(255,59,47,0.7); }
+    }
+    .watchlist-name {
+      font-weight: 600;
+      color: #fff;
+    }
+    .watchlist-badge {
+      font-size: 9.5px;
+      padding: 2px 5px;
+      border-radius: 2px;
+      background: rgba(180, 71, 47, 0.25);
+      color: #ff8870;
+      border: 1px solid rgba(180, 71, 47, 0.45);
+      letter-spacing: 0.04em;
+    }
+    .memo-footer-note {
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+      font-size: 10px;
+      color: var(--paper-dark);
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    /* Right Desk Area */
+    .desk-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Tender Timer / Fatigue Bar */
+    .fatigue-wrapper {
+      width: 100%;
+      max-width: 680px;
+      margin-bottom: 12px;
+    }
+    .fatigue-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--paper-dim);
+      margin-bottom: 4px;
+    }
+    .fatigue-level-badge {
+      color: #fb923c;
+      font-weight: 600;
+    }
+    .tender-countdown-track {
+      height: 7px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .tender-countdown-fill {
+      height: 100%;
+      width: 100%;
+      background: #3ddc84;
+      transition: width 0.05s linear, background-color 0.3s;
+    }
+
+    /* The Tender Document (Paper Dossier) */
+    .dossier-frame {
+      width: 100%;
+      max-width: 680px;
+      min-height: 440px;
+      perspective: 1000px;
+      position: relative;
+    }
+
+    .tender-card {
+      background: var(--dossier-bg);
+      color: var(--dossier-ink);
+      border-radius: 3px;
+      padding: 28px 32px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.7), 0 0 1px rgba(0,0,0,0.5);
+      position: relative;
+      font-family: var(--font-mono);
+      font-size: var(--doc-font-size);
+      line-height: 1.5;
+      border-left: 6px solid #b45309;
+      transform: translateX(0);
+      transition: transform 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 0.3s ease, font-size 0.3s ease;
+      overflow: hidden;
+    }
+    .tender-card.slide-in {
+      animation: tenderSlideIn 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.2) forwards;
+    }
+    .tender-card.slide-out-approved {
+      animation: tenderSlideOutApproved 0.35s ease forwards;
+    }
+    .tender-card.slide-out-rejected {
+      animation: tenderSlideOutRejected 0.35s ease forwards;
+    }
+    .tender-card.slide-out-flagged {
+      animation: tenderSlideOutFlagged 0.35s ease forwards;
+    }
+
+    @keyframes tenderSlideIn {
+      from { transform: translateX(120%) rotate(2deg); opacity: 0; }
+      to { transform: translateX(0) rotate(0deg); opacity: 1; }
+    }
+    @keyframes tenderSlideOutApproved {
+      to { transform: translateX(-120%) rotate(-4deg); opacity: 0; }
+    }
+    @keyframes tenderSlideOutRejected {
+      to { transform: translateY(120%) rotate(5deg); opacity: 0; }
+    }
+    @keyframes tenderSlideOutFlagged {
+      to { transform: translateX(120%) rotate(4deg); opacity: 0; }
+    }
+
+    /* Dossier Watermark & Emblems */
+    .dossier-header-bar {
+      border-bottom: 2px solid #2b2925;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .coat-emblem {
+      font-size: 24px;
+      line-height: 1;
+    }
+    .dossier-republic-text {
+      text-align: center;
+      flex: 1;
+    }
+    .dossier-republic-text h2 {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #1a1917;
+    }
+    .dossier-republic-text h3 {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #57534e;
+      font-weight: 600;
+    }
+    .form-serial {
+      font-size: 11px;
+      text-align: right;
+      color: #78716c;
+      font-weight: 600;
+    }
+    .serial-barcode {
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      color: #44403c;
+    }
+
+    /* Dossier Data Grid */
+    .dossier-body {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .dossier-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 10px;
+      border-bottom: 1px dotted rgba(0,0,0,0.2);
+      padding-bottom: 6px;
+      align-items: baseline;
+    }
+    .dossier-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #57534e;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .dossier-val {
+      color: #0c0a09;
+      font-weight: 600;
+      word-break: break-word;
+    }
+    .dossier-val.company-name {
+      font-size: 15px;
+      color: #1e1b18;
+      font-weight: 700;
+    }
+    .dossier-val.amount-val {
+      font-size: 16px;
+      color: #854d0e;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .dossier-val.desc-val {
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: #292524;
+      font-style: italic;
+    }
+
+    /* Ink Stamp FX */
+    .stamp-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      pointer-events: none;
+      z-index: 30;
+      opacity: 0;
+      transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 0.2s;
+    }
+    .stamp-container.stamped {
+      transform: translate(-50%, -50%) scale(1) rotate(-8deg);
+      opacity: 0.92;
+    }
+    .stamp-container.stamped.approved {
+      transform: translate(-50%, -50%) scale(1) rotate(6deg);
+    }
+    .stamp-box {
+      border: 4px double currentColor;
+      padding: 10px 24px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: center;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.15);
+      background: rgba(245, 239, 225, 0.85);
+      backdrop-filter: blur(2px);
+    }
+    .stamp-box.approved {
+      color: #15803d;
+      border-color: #15803d;
+    }
+    .stamp-box.rejected {
+      color: #b91c1c;
+      border-color: #b91c1c;
+    }
+    .stamp-box.flagged {
+      color: #b45309;
+      border-color: #b45309;
+    }
+    .stamp-sub {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    /* Action Buttons Panel */
+    .action-panel {
+      width: 100%;
+      max-width: 680px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .btn-action {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 14px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.18s ease;
+      border: 1px solid transparent;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .btn-action span.kbd-hint {
+      font-size: 10px;
+      opacity: 0.75;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+    .btn-action:active {
+      transform: translateY(2px);
+    }
+
+    .btn-approve {
+      background: linear-gradient(180deg, #16a34a 0%, #15803d 100%);
+      color: #fff;
+      border-color: #22c55e;
+    }
+    .btn-approve:hover {
+      box-shadow: 0 0 20px var(--green-glow);
+      filter: brightness(1.1);
+    }
+
+    .btn-reject {
+      background: linear-gradient(180deg, #dc2626 0%, #b91c1c 100%);
+      color: #fff;
+      border-color: #ef4444;
+    }
+    .btn-reject:hover {
+      box-shadow: 0 0 20px var(--red-glow);
+      filter: brightness(1.1);
+    }
+
+    .btn-flag {
+      background: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+      color: #fff;
+      border-color: #f59e0b;
+    }
+    .btn-flag:hover {
+      box-shadow: 0 0 20px var(--amber-glow);
+      filter: brightness(1.1);
+    }
+
+    /* EACC Investigation Alert Banner */
+    .investigation-banner {
+      position: fixed;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: rgba(185, 28, 28, 0.95);
+      border: 2px solid #ef4444;
+      box-shadow: 0 0 40px rgba(239, 68, 68, 0.6);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 4px;
+      z-index: 200;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+    .investigation-banner.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    .investigation-banner .alert-sub {
+      font-size: 11.5px;
+      font-weight: 400;
+      opacity: 0.9;
+      margin-top: 3px;
+    }
+
+    /* Random Distractor Whisper Toast */
+    .whisper-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(50px);
+      background: rgba(20, 23, 17, 0.92);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.25);
+      color: #fef3c7;
+      padding: 10px 22px;
+      border-radius: 4px;
+      z-index: 150;
+      font-size: 12.5px;
+      font-style: italic;
+      letter-spacing: 0.03em;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.35s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .whisper-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    .whisper-toast .whisper-icon {
+      font-size: 16px;
+      font-style: normal;
+    }
+
+    /* Screen Shake FX */
+    body.screen-shake {
+      animation: screenShakeAnim 0.35s ease;
+    }
+    @keyframes screenShakeAnim {
+      0%, 100% { transform: translate(0, 0); }
+      15% { transform: translate(-8px, 6px); }
+      30% { transform: translate(7px, -5px); }
+      45% { transform: translate(-6px, 4px); }
+      60% { transform: translate(5px, -3px); }
+      75% { transform: translate(-3px, 2px); }
+    }
+
+    /* Modal Overlays (Briefing, 20-Tenders Milestone, Game Over) */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 12, 9, 0.88);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 500;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-card {
+      background: #171a13;
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--crimson);
+      border-radius: 4px;
+      max-width: 580px;
+      width: 100%;
+      padding: 32px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.85);
+      text-align: center;
+      animation: modalFadeIn 0.3s ease;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal-kicker {
+      font-size: 11px;
+      color: var(--crimson-bright);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .modal-title {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .modal-desc {
+      font-size: 13.5px;
+      color: var(--paper-dim);
+      line-height: 1.6;
+      margin-bottom: 22px;
+      text-align: left;
+    }
+    .modal-stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid var(--border);
+      padding: 14px;
+      border-radius: 3px;
+      margin-bottom: 24px;
+      text-align: left;
+      font-size: 12px;
+    }
+    .modal-stat-row {
+      display: flex;
+      justify-content: space-between;
+    }
+    .modal-stat-label { color: var(--paper-dark); }
+    .modal-stat-val { color: #fff; font-weight: 600; }
+    .modal-stat-val.gold { color: #facc15; }
+    .modal-stat-val.green { color: #4ade80; }
+
+    .modal-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .modal-btn {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 20px;
+      border-radius: 3px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      border: 1px solid var(--border);
+    }
+    .modal-btn.primary {
+      background: var(--crimson);
+      color: #fff;
+      border-color: #dc2626;
+    }
+    .modal-btn.primary:hover {
+      background: #c53018;
+      box-shadow: 0 0 15px rgba(180, 71, 47, 0.4);
+    }
+    .modal-btn.secondary {
+      background: var(--surface-elevated);
+      color: var(--paper);
+    }
+    .modal-btn.secondary:hover {
+      background: var(--border);
+      color: #fff;
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 900px) {
+      .game-arena {
+        grid-template-columns: 1fr;
+      }
+      .mobile-watchlist-toggle {
+        display: block;
+      }
+      .watchlist-memo {
+        display: none;
+        position: static;
+        margin-bottom: 20px;
+      }
+      .watchlist-memo.open {
+        display: block;
+      }
+      .dossier-card {
+        padding: 20px;
+      }
+      .dossier-row {
+        grid-template-columns: 110px 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Retro Scanline Overlay -->
+  <div class="scanlines-overlay" id="scanlines"></div>
+  <div class="vignette"></div>
+
+  <!-- Pinned Platform Header -->
+  <nav class="top-nav">
+    <a href="index.html" class="nav-brand">
+      <span>&larr;</span> 25.06.2024 MEMORIAL
+    </a>
+
+    <!-- Central Global Search -->
+    <div class="nav-search-wrap">
+      <div class="global-search-component">
+        <div class="search-input-wrapper">
+          <span class="search-icon-prefix">🔍</span>
+          <input type="text" class="global-search-input" placeholder="Global Search: 'Adani', 'KETRACO', 'Ksh 30B', 'Ruto'..." autocomplete="off">
+          <span class="search-kbd-shortcut">Ctrl K</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dropdown Navigation -->
+    <div class="nav-investigations-wrap">
+      <button id="random-btn" class="random-btn" onclick="exposeRandomPolitician()" title="Expose a random corrupt politician profile">
+        <span>🎲</span> Random
+      </button>
+      <div class="dropdown-container">
+        <button id="investigations-menu-btn" class="nav-menu-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleInvestigationsMenu(event)">
+          <span>Investigations</span> <span class="arrow-indicator">▼</span>
+        </button>
+        <div id="investigations-dropdown" class="investigations-dropdown-menu">
+          <div class="dropdown-header">Forensic Dossiers &amp; Trackers</div>
+          <a href="promises-plunder.html" class="dropdown-item">
+            <span class="item-icon">⚖</span>
+            <div>
+              <div class="item-title">Promises &amp; Plunder</div>
+              <div class="item-desc">Executive manifestos vs broken pledges</div>
+            </div>
+          </a>
+          <a href="money-trail.html" class="dropdown-item">
+            <span class="item-icon">💰</span>
+            <div>
+              <div class="item-title">Money Trail</div>
+              <div class="item-desc">Sovereign capital &amp; procurement ledger</div>
+            </div>
+          </a>
+          <a href="nairobi-property.html" class="dropdown-item">
+            <span class="item-icon">🏡</span>
+            <div>
+              <div class="item-title">Properties</div>
+              <div class="item-desc">Nairobi real estate &amp; land holdings</div>
+            </div>
+          </a>
+          <a href="nse-tracker.html" class="dropdown-item">
+            <span class="item-icon">⚡</span>
+            <div>
+              <div class="item-title">Market Watch</div>
+              <div class="item-desc">Suspicious trade patterns &amp; volume anomalies</div>
+            </div>
+          </a>
+          <a href="nse-ledger.html" class="dropdown-item">
+            <span class="item-icon">📈</span>
+            <div>
+              <div class="item-title">NSE Ledger</div>
+              <div class="item-desc">Listed corporate concessions &amp; filings</div>
+            </div>
+          </a>
+          <a href="scandal-graph.html" class="dropdown-item">
+            <span class="item-icon">🕸️</span>
+            <div>
+              <div class="item-title">Scandal Graph</div>
+              <div class="item-desc">Network map of state capture connections</div>
+            </div>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="vigil.html" class="dropdown-item item-vigil">
+            <span class="item-icon" style="color:#ff6a4a;">👁</span>
+            <div>
+              <div class="item-title" style="color:#ff8870;">Play Vigil</div>
+              <div class="item-desc">Psychological surveillance mini-game</div>
+            </div>
+            <span class="badge-mini-vigil">PLAY</span>
+          </a>
+          <a href="tender.html" class="dropdown-item item-tender">
+            <span class="item-icon" style="color:#3ddc84;">⚖️</span>
+            <div>
+              <div class="item-title" style="color:#3ddc84;">The Tender</div>
+              <div class="item-desc">Procurement bureaucracy survival game</div>
+            </div>
+            <span class="badge-mini-tender">PLAY</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="contribute.html" class="dropdown-item">
+            <span class="item-icon" style="color:var(--cyan);">✍</span>
+            <div>
+              <div class="item-title" style="color:var(--cyan);">Contribute</div>
+              <div class="item-desc">Submit whistleblower evidence or PRs</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Game HUD Bar -->
+  <div class="game-hud">
+    <div class="hud-left">
+      <div class="officer-badge">
+        <span class="status-dot" id="officer-status-dot"></span>
+        <span>PPRA DESK // HARAMBEE HOUSE 4F</span>
+      </div>
+      <div class="hud-stat-box">
+        <span class="hud-stat-label">Shift:</span>
+        <span class="hud-stat-val" id="shift-timer">00:00</span>
+      </div>
+      <div class="hud-stat-box">
+        <span class="hud-stat-label">Processed:</span>
+        <span class="hud-stat-val" id="hud-processed">0</span>
+      </div>
+      <div class="hud-stat-box">
+        <span class="hud-stat-label">Score:</span>
+        <span class="hud-stat-val gold" id="hud-score">0</span>
+      </div>
+      <div class="hud-stat-box">
+        <span class="hud-stat-label">Protected:</span>
+        <span class="hud-stat-val" id="hud-protected">Ksh 0</span>
+      </div>
+    </div>
+
+    <!-- 3 Lives Clearance Status -->
+    <div class="lives-wrapper">
+      <span class="clearance-label">Clearance:</span>
+      <div class="clearance-seals" id="clearance-seals-container">
+        <span class="clearance-seal" id="seal-1">SEAL I</span>
+        <span class="clearance-seal" id="seal-2">SEAL II</span>
+        <span class="clearance-seal" id="seal-3">SEAL III</span>
+      </div>
+    </div>
+
+    <div class="hud-right">
+      <button class="toggle-hud-btn" id="btn-toggle-scanlines" title="Toggle CRT scanlines">📺 CRT</button>
+      <button class="toggle-hud-btn" id="btn-toggle-sound" title="Toggle sound effects">🔊 SFX</button>
+    </div>
+  </div>
+
+  <!-- Game Arena -->
+  <main class="game-arena">
+
+    <!-- Mobile Toggle for Watchlist -->
+    <button class="mobile-watchlist-toggle" id="btn-mobile-watchlist">
+      📋 TOGGLE WATCHLIST MEMO (EACC/DCI)
+    </button>
+
+    <!-- Left Panel: Corrupt Watchlist Memo -->
+    <aside class="watchlist-memo" id="watchlist-memo">
+      <div class="memo-pin"></div>
+      <div class="memo-header">
+        <div class="memo-tag">CONFIDENTIAL INTELLIGENCE MEMO</div>
+        <div class="memo-title">CARTEL &amp; SHELL WATCHLIST</div>
+        <div class="memo-sub">Ethics and Anti-Corruption Commission (EACC) // Ref: EACC/OPS/2024/77</div>
+      </div>
+
+      <div class="watchlist-section-label">🔴 Blacklisted Companies</div>
+      <ul class="watchlist-list" id="watchlist-companies-list">
+        <!-- Rendered by JavaScript -->
+      </ul>
+
+      <div class="watchlist-section-label" style="margin-top:14px;">🔴 Red-Flagged Directors</div>
+      <ul class="watchlist-list" id="watchlist-directors-list">
+        <!-- Rendered by JavaScript -->
+      </ul>
+
+      <div class="memo-footer-note">
+        <strong>OPERATIONAL RULE:</strong> If ANY entity or director appears above, you MUST <u>REJECT</u> or <u>FLAG FOR AUDIT</u>. Approving any listed target constitutes grounds for immediate arrest.
+      </div>
+    </aside>
+
+    <!-- Center Stage: Desk & Tender Card -->
+    <section class="desk-stage">
+
+      <!-- Fatigue & Countdown Bar -->
+      <div class="fatigue-wrapper">
+        <div class="fatigue-meta">
+          <span>Tender Evaluation Window</span>
+          <span class="fatigue-level-badge" id="fatigue-indicator">Fatigue: NORMAL (Shift Hr 1)</span>
+        </div>
+        <div class="tender-countdown-track">
+          <div class="tender-countdown-fill" id="countdown-bar"></div>
+        </div>
+      </div>
+
+      <!-- Dossier Document Card -->
+      <div class="dossier-frame">
+        <article class="tender-card" id="tender-card">
+          
+          <header class="dossier-header-bar">
+            <div class="coat-emblem">🇰🇪</div>
+            <div class="dossier-republic-text">
+              <h2>Republic of Kenya</h2>
+              <h3>Public Procurement Regulatory Authority (PPRA)</h3>
+              <p style="font-size:10px; color:#57534e; margin-top:2px;">TENDER EVALUATION DOSSIER &bull; FORM PPRA-T8</p>
+            </div>
+            <div class="form-serial">
+              <div id="tender-ref-no">PPRA/EVAL/2024/0914</div>
+              <div class="serial-barcode">||| | |||| | |||</div>
+            </div>
+          </header>
+
+          <div class="dossier-body">
+            <div class="dossier-row">
+              <span class="dossier-label">Procuring Entity:</span>
+              <span class="dossier-val" id="doc-entity">Ministry of Health</span>
+            </div>
+
+            <div class="dossier-row">
+              <span class="dossier-label">Company Name:</span>
+              <span class="dossier-val company-name" id="doc-company">Apex Holdings Ltd</span>
+            </div>
+
+            <div class="dossier-row">
+              <span class="dossier-label">Director(s):</span>
+              <span class="dossier-val" id="doc-director">Kunal Bid</span>
+            </div>
+
+            <div class="dossier-row">
+              <span class="dossier-label">Tender Amount:</span>
+              <span class="dossier-val amount-val" id="doc-amount">Ksh 840,000,000</span>
+            </div>
+
+            <div class="dossier-row">
+              <span class="dossier-label">Project Scope:</span>
+              <span class="dossier-val desc-val" id="doc-desc">Procurement of emergency medical imaging equipment and CT scanner accessories.</span>
+            </div>
+
+            <div class="dossier-row" style="border-bottom:none;">
+              <span class="dossier-label">Tax Compliance:</span>
+              <span class="dossier-val" id="doc-pin" style="font-size:11.5px; color:#44403c;">KRA PIN P051992811K &bull; Validated</span>
+            </div>
+          </div>
+
+          <!-- Stamping Graphic Overlay -->
+          <div class="stamp-container" id="stamp-container">
+            <div class="stamp-box" id="stamp-box">
+              <div id="stamp-text">APPROVED</div>
+              <div class="stamp-sub" id="stamp-sub">PPRA COMPLIANCE VERIFIED</div>
+            </div>
+          </div>
+
+        </article>
+      </div>
+
+      <!-- Action Decision Buttons -->
+      <div class="action-panel">
+        <button class="btn-action btn-approve" id="btn-approve" onclick="submitDecision('APPROVE')">
+          <span>✓ APPROVE</span>
+          <span class="kbd-hint">[Key: A / 1]</span>
+        </button>
+
+        <button class="btn-action btn-reject" id="btn-reject" onclick="submitDecision('REJECT')">
+          <span>✗ REJECT</span>
+          <span class="kbd-hint">[Key: R / 2]</span>
+        </button>
+
+        <button class="btn-action btn-flag" id="btn-flag" onclick="submitDecision('FLAG')">
+          <span>⚠ FLAG FOR AUDIT</span>
+          <span class="kbd-hint">[Key: F / 3]</span>
+        </button>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- EACC Investigation Alert Banner -->
+  <div class="investigation-banner" id="investigation-banner">
+    <div id="investigation-title">🚨 EACC INVESTIGATION OPENED</div>
+    <div class="alert-sub" id="investigation-sub">You cleared a blacklisted shell company. 1 PPRA Clearance Seal revoked!</div>
+  </div>
+
+  <!-- Random Distractor Whisper Toast -->
+  <div class="whisper-toast" id="whisper-toast">
+    <span class="whisper-icon">👁</span>
+    <span id="whisper-text">A senior State House aide is waiting in the corridor...</span>
+  </div>
+
+  <!-- MODAL 1: Intake Briefing (Start Screen) -->
+  <div class="modal-overlay active" id="briefing-modal">
+    <div class="modal-card">
+      <div class="modal-kicker">PPRA OFFICIAL INTAKE BRIEFING</div>
+      <h2 class="modal-title">The Tender</h2>
+      <div class="modal-desc">
+        <p style="margin-bottom:10px;">Welcome to the desk, Officer. You have been assigned to the 4th Floor of Harambee House to evaluate multimillion-shilling Kenyan public procurement contracts.</p>
+        <p style="margin-bottom:10px;">The <strong>Corrupt Watchlist</strong> on your left details shell entities and cartel proxies actively investigated by the EACC.</p>
+        <ul style="margin-left:18px; margin-bottom:12px; font-size:12.5px; line-height:1.5;">
+          <li><strong>IF a tender has a Watchlisted Company or Director:</strong> Click <span style="color:#ef4444; font-weight:700;">REJECT</span> or <span style="color:#f59e0b; font-weight:700;">FLAG FOR AUDIT</span>.</li>
+          <li><strong>IF both Company &amp; Director are Clean:</strong> Click <span style="color:#22c55e; font-weight:700;">APPROVE</span>.</li>
+        </ul>
+        <p>Every 10 seconds, the shift accelerates, response times shrink, and late-night office fatigue reduces font size. Make <strong>3 mistakes</strong>, and detectives will escort you away.</p>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-btn primary" id="btn-start-game" onclick="startGame()">
+          ▶ ENTER PPRA DESK (START SHIFT)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: 20 Tenders Milestone (The Truth Unlock) -->
+  <div class="modal-overlay" id="milestone-modal">
+    <div class="modal-card" style="border-top-color:#f59e0b;">
+      <div class="modal-kicker" style="color:#f59e0b;">SYSTEM RESILIENCE CONFIRMED</div>
+      <h2 class="modal-title">You Survived the System</h2>
+      <div class="modal-desc">
+        <p style="margin-bottom:12px;">You processed <strong>20 tenders</strong> under severe bureaucratic stress without capitulating to cartel pressure. You protected public funds from being looted at source.</p>
+        <p style="margin-bottom:14px; font-style:italic; color:#e2e8f0; border-left:3px solid #f59e0b; padding-left:12px;">"In Kenya, junior officers on the desk are offered bribes or framed for ministerial corruption. The real cartels aren't on this desk—they sit in Cabinet and Parliament."</p>
+      </div>
+      <div class="modal-actions">
+        <a href="money-trail.html?unlocked=true" class="modal-btn primary" style="background:#b45309; border-color:#f59e0b;">
+          🔓 SEE WHO IS REALLY STEALING (MONEY TRAIL) &rarr;
+        </a>
+        <button class="modal-btn secondary" onclick="closeMilestoneModal()">
+          CONTINUE HARDCORE SHIFT (ENDLESS MODE)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Game Over (Arrested) -->
+  <div class="modal-overlay" id="gameover-modal">
+    <div class="modal-card" style="border-top-color:#dc2626;">
+      <div class="modal-kicker">EACC ENFORCEMENT ACTION</div>
+      <h2 class="modal-title">You Have Been Arrested</h2>
+      <div class="modal-desc">
+        <p id="gameover-reason" style="margin-bottom:12px;">At 03:14 AM, EACC detectives accompanied by DCI officers entered your office. All 3 PPRA Clearance Seals have been revoked under Section 45 of the Anti-Corruption and Economic Crimes Act.</p>
+      </div>
+
+      <div class="modal-stats-grid">
+        <div class="modal-stat-row">
+          <span class="modal-stat-label">Tenders Processed:</span>
+          <span class="modal-stat-val" id="stat-processed">0</span>
+        </div>
+        <div class="modal-stat-row">
+          <span class="modal-stat-label">Cartels Intercepted:</span>
+          <span class="modal-stat-val green" id="stat-intercepted">0</span>
+        </div>
+        <div class="modal-stat-row">
+          <span class="modal-stat-label">Funds Protected:</span>
+          <span class="modal-stat-val gold" id="stat-protected">Ksh 0</span>
+        </div>
+        <div class="modal-stat-row">
+          <span class="modal-stat-label">Shift Duration:</span>
+          <span class="modal-stat-val" id="stat-time">00:00</span>
+        </div>
+        <div class="modal-stat-row">
+          <span class="modal-stat-label">Final Score:</span>
+          <span class="modal-stat-val gold" id="stat-score">0</span>
+        </div>
+        <div class="modal-stat-row">
+          <span class="modal-stat-label">All-Time High Score:</span>
+          <span class="modal-stat-val" id="stat-highscore">0</span>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-btn primary" onclick="startGame()">
+          🔄 START NEW SHIFT (PLAY AGAIN)
+        </button>
+        <a href="money-trail.html" class="modal-btn secondary">
+          💰 EXPOSE REAL CARTELS IN MONEY TRAIL
+        </a>
+        <a href="vigil.html" class="modal-btn secondary">
+          👁 PLAY VIGIL MINI-GAME
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Global Search Logic -->
+  <script src="global-search.js"></script>
+
+  <!-- The Tender Game Engine -->
+  <script>
+    /* =====================================================================
+       THE TENDER — PPRA BUREAUCRATIC SURVIVAL GAME
+       Kenyan Public Procurement Simulation (Papers, Please Inspired)
+       ===================================================================== */
+
+    // 1. DATA POOLS
+    const CORRUPT_DIRECTORS_POOL = [
+      { name: "Kunal Bid", tag: "PROXY SUPPLIER", note: "Linked to edible oil concession contracts" },
+      { name: "Kamlesh Pattni", tag: "GOLDENBERG PROXY", note: "Architect of 1990s sovereign gold export scam" },
+      { name: "Deepak Kamani", tag: "ANGLO LEASING", note: "Security communication phantom contracts" },
+      { name: "John Waluke", tag: "MAIZE CARTEL", note: "NCPB fraudulent arbitration billing" },
+      { name: "Ann Ngirita", tag: "NYS SUPPLY PROXY", note: "Ksh 9B National Youth Service air supply" },
+      { name: "Phyllis Njeri", tag: "GHOST CONTRACTOR", note: "NYS fictitious firewood invoices" },
+      { name: "Gautam Adani", tag: "STATE CAPTURE", note: "JKIA & KETRACO sovereign asset concessions" },
+      { name: "James Omondi", tag: "BYPASS PROXY", note: "Subcontractor for fictitious western bypass" },
+      { name: "Wambugu Githinji", tag: "KEMSA MILLIONAIRE", note: "Direct emergency procurement without tender" },
+      { name: "Patrick Lumumba O.", tag: "BOREHOLE SYNDICATE", note: "Dry well invoices in drought relief areas" },
+      { name: "Abdi Mohamed", tag: "GARBAGE GHOST", note: "Nairobi County ghost waste billing" },
+      { name: "Samuel Kimani", tag: "DAM PROXY", note: "Advance payment diversion scheme" }
+    ];
+
+    const CORRUPT_COMPANIES_POOL = [
+      { name: "Apex Holdings Ltd", tag: "SHELL ENTITY", note: "Registered to virtual PO Box in Westlands" },
+      { name: "Muthaiga Imports & Logistics", tag: "AIR SUPPLIER", note: "Zero physical equipment or warehouse" },
+      { name: "Kilifi Flour Mills", tag: "FOOD RELIEF CARTEL", note: "Billed 80,000 bags never delivered" },
+      { name: "Silverstone Supplies Ltd", tag: "PENDING BILL SHELL", note: "Nairobi County priority pending bills" },
+      { name: "Enso Healthcare Solutions", tag: "KEMSA COVID PROXY", note: "Supplied expired rapid test reagents" },
+      { name: "Adani Energy Solutions", tag: "CONCESSION RIGGING", note: "30-year unsolicited transmission line deal" },
+      { name: "Broadwalk Logistics", tag: "TAX EVASION PROBE", note: "No verifiable KRA electronic tax registers" },
+      { name: "Prime Horizon Infrastructure", tag: "ROAD CONTRACT PROXY", note: "Delayed 14km road by 6 years after advance" },
+      { name: "Savannah Petrochem FZE", tag: "OFFSHORE SPECIAL", note: "Mauritius-registered briefcase entity" },
+      { name: "Tana River Excavators Ltd", tag: "IRRIGATION SCHEME", note: "Billed Ksh 400M for undug canal" },
+      { name: "Afya House Directives Ltd", tag: "MINISTRY PROXY", note: "Formed 14 days prior to tender opening" },
+      { name: "Blue Crest Engineering", tag: "CONTAINER RIGGING", note: "Subcontracted with zero engineers on payroll" }
+    ];
+
+    const CLEAN_DIRECTORS_POOL = [
+      "Eng. David Mwangi", "Dr. Amina Hassan", "Peter Otieno Ochieng",
+      "Grace Wanjiku Kariuki", "Samuel Kiprop Cheruiyot", "Faith Muthoni Njenga",
+      "Brian Kiplagat", "Fatuma Abdi", "Mohamed Karama", "Rakesh Rao",
+      "Vijay Gidoomal", "Eng. Peter Njenga", "Philip Gitau", "Stephen Gitagama"
+    ];
+
+    const CLEAN_COMPANIES_POOL = [
+      "East Africa Cables PLC", "Davis & Shirtliff Kenya Ltd", "Bamburi Cement PLC",
+      "Crown Paints Kenya PLC", "SolarGen Energy East Africa", "Car & General Ltd",
+      "Safaricom Enterprise Solutions", "KenGen Technical Services", "Brookside Engineering Ltd",
+      "Centum Real Estate Construction", "Nation Media Commercial Printing",
+      "Biafra Logistics Kenya Ltd", "Apex Steel & Tubular Mills", "Kenya Seed Company Ltd"
+    ];
+
+    const PROCURING_ENTITIES_POOL = [
+      "Ministry of Health (Afya House)", "Nairobi City County Executive",
+      "Kenya Electricity Transmission Co. (KETRACO)", "Kenya National Highways Authority (KeNHA)",
+      "Kenya Medical Supplies Authority (KEMSA)", "Kenya Power & Lighting Co. (KPLC)",
+      "Kenya Airports Authority (KAA)", "Ministry of Water, Sanitation & Irrigation",
+      "Information & Communications Technology Authority (ICTA)", "National Cereals & Produce Board (NCPB)",
+      "Mombasa County Government", "Kenya Ports Authority (KPA)"
+    ];
+
+    const PROJECT_DESCRIPTIONS_POOL = [
+      "Supply of 500,000 N95 Face Masks, PPE Kits and Biohazard Suits",
+      "Paving and Dualing of 34km Bypass Highway, Western Corridor",
+      "Installation of 132kV High-Voltage Transmission Line, Gilgal-Thika",
+      "Automated Revenue Collection Software & Point-of-Sale Terminals",
+      "Procurement of 1,200 Intensive Care Patient Monitors & Ventilators",
+      "Drilling and Equipping of 45 High-Yield Community Solar Boreholes",
+      "Runway Resurfacing & Terminal 1E Baggage Scanner System Overhaul",
+      "Supply and Delivery of 100,000 Metric Tonnes of White Grade 1 Maize",
+      "Digital Education Cloud Server Infrastructure & Student Tablets",
+      "Construction of 65-Metre Concrete Embankment Multi-Purpose Dam",
+      "Smart Prepaid Electricity Meter Hardware with GSM Modules",
+      "Comprehensive Maintenance of Medical Oxygen Plants in 47 Counties",
+      "Modernization of Container Freight Station Tracking Terminal",
+      "Street Lighting Modernization & Solar Grid Integration Phase 2"
+    ];
+
+    const WHISPERS_POOL = [
+      "A senior State House aide is waiting in the corridor...",
+      "The Permanent Secretary called your desk: 'Make this contractor smooth.'",
+      "This company was registered 4 days ago at a residential address in Karen.",
+      "Check the fine print: The bid security bond has no issuing bank stamp.",
+      "EACC detectives in plainclothes were spotted having tea in the cafeteria.",
+      "The Director of Criminal Investigations just requested the tender log.",
+      "Your colleague on the 3rd floor was just escorted out in handcuffs.",
+      "A briefcase was left under your desk while you were in the restroom.",
+      "The Auditor General already noted this requisition in the preliminary draft.",
+      "Don't look too closely at the tax compliance certificate. Just sign."
+    ];
+
+    // 2. AUDIO SYNTHESIS ENGINE (Web Audio API - Zero External Assets)
+    let audioCtx = null;
+    let sfxEnabled = true;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) audioCtx = new AudioContext();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playStampThud() {
+      if (!sfxEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+      const t = audioCtx.currentTime;
+
+      // Low frequency punch
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(120, t);
+      osc.frequency.exponentialRampToValueAtTime(30, t + 0.12);
+      gain.gain.setValueAtTime(0.7, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(t);
+      osc.stop(t + 0.15);
+
+      // White noise paper slap
+      const bufferSize = audioCtx.sampleRate * 0.08;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(1000, t);
+      const noiseGain = audioCtx.createGain();
+      noiseGain.gain.setValueAtTime(0.35, t);
+      noiseGain.gain.exponentialRampToValueAtTime(0.01, t + 0.08);
+      noise.connect(filter);
+      filter.connect(noiseGain);
+      noiseGain.connect(audioCtx.destination);
+      noise.start(t);
+    }
+
+    function playSuccessChime() {
+      if (!sfxEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+      const t = audioCtx.currentTime;
+      [523.25, 659.25, 783.99].forEach((freq, idx) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, t + idx * 0.04);
+        gain.gain.setValueAtTime(0.2, t + idx * 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + idx * 0.04 + 0.3);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(t + idx * 0.04);
+        osc.stop(t + idx * 0.04 + 0.35);
+      });
+    }
+
+    function playAlarmBuzzer() {
+      if (!sfxEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+      const t = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(260, t);
+      osc.frequency.exponentialRampToValueAtTime(110, t + 0.35);
+      gain.gain.setValueAtTime(0.5, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(t);
+      osc.stop(t + 0.4);
+    }
+
+    function playWhisperWoosh() {
+      if (!sfxEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+      const t = audioCtx.currentTime;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(320, t);
+      osc.frequency.exponentialRampToValueAtTime(180, t + 0.4);
+      gain.gain.setValueAtTime(0.08, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(t);
+      osc.stop(t + 0.4);
+    }
+
+    // 3. GAME STATE MANAGEMENT
+    let gameState = {
+      active: false,
+      lives: 3,
+      score: 0,
+      tendersProcessed: 0,
+      cartelsIntercepted: 0,
+      fundsProtected: 0,
+      elapsedSeconds: 0,
+      fatigueLevel: 0, // 0 to 100
+      activeWatchlistCompanies: [],
+      activeWatchlistDirectors: [],
+      currentTender: null,
+      tenderStartTime: 0,
+      tenderDuration: 7500, // ms per tender (decreases with fatigue)
+      timerInterval: null,
+      countdownAnimationId: null,
+      decisionLocked: false,
+      milestoneTriggered: false
+    };
+
+    const HIGH_SCORE_KEY = 'the_tender_high_score_v1';
+
+    // Helper formatting
+    function formatKsh(amount) {
+      if (amount >= 1000000000) {
+        return `Ksh ${(amount / 1000000000).toFixed(2)}B`;
+      } else if (amount >= 1000000) {
+        return `Ksh ${(amount / 1000000).toFixed(1)}M`;
+      }
+      return `Ksh ${amount.toLocaleString()}`;
+    }
+
+    function formatTime(totalSec) {
+      const m = Math.floor(totalSec / 60).toString().padStart(2, '0');
+      const s = (totalSec % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    function getRandomItem(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    // 4. WATCHLIST INITIALIZATION
+    function generateWatchlist() {
+      // Pick 5 random corrupt companies and 5 random corrupt directors
+      const shuffledCompanies = [...CORRUPT_COMPANIES_POOL].sort(() => 0.5 - Math.random());
+      const shuffledDirectors = [...CORRUPT_DIRECTORS_POOL].sort(() => 0.5 - Math.random());
+
+      gameState.activeWatchlistCompanies = shuffledCompanies.slice(0, 5);
+      gameState.activeWatchlistDirectors = shuffledDirectors.slice(0, 5);
+
+      renderWatchlist();
+    }
+
+    function renderWatchlist() {
+      const compList = document.getElementById('watchlist-companies-list');
+      const dirList = document.getElementById('watchlist-directors-list');
+      compList.innerHTML = '';
+      dirList.innerHTML = '';
+
+      gameState.activeWatchlistCompanies.forEach(comp => {
+        const li = document.createElement('li');
+        li.className = 'watchlist-item';
+        li.id = `wl-comp-${encodeURIComponent(comp.name)}`;
+        li.innerHTML = `
+          <span class="watchlist-name">${comp.name}</span>
+          <span class="watchlist-badge">${comp.tag}</span>
+        `;
+        li.title = comp.note;
+        compList.appendChild(li);
+      });
+
+      gameState.activeWatchlistDirectors.forEach(dir => {
+        const li = document.createElement('li');
+        li.className = 'watchlist-item';
+        li.id = `wl-dir-${encodeURIComponent(dir.name)}`;
+        li.innerHTML = `
+          <span class="watchlist-name">${dir.name}</span>
+          <span class="watchlist-badge">${dir.tag}</span>
+        `;
+        li.title = dir.note;
+        dirList.appendChild(li);
+      });
+    }
+
+    // 5. TENDER GENERATOR
+    function generateNextTender() {
+      const isCorrupt = Math.random() < 0.48; // ~48% chance corrupt
+      let company, director, corruptReason = null, corruptEntity = null;
+
+      if (isCorrupt) {
+        const corruptMode = Math.random();
+        if (corruptMode < 0.45) {
+          // Company is on watchlist, director may be clean
+          const target = getRandomItem(gameState.activeWatchlistCompanies);
+          company = target.name;
+          director = getRandomItem(CLEAN_DIRECTORS_POOL);
+          corruptReason = `Blacklisted Shell Entity: ${company}`;
+          corruptEntity = company;
+        } else if (corruptMode < 0.85) {
+          // Director is on watchlist, company may be clean
+          const target = getRandomItem(gameState.activeWatchlistDirectors);
+          director = target.name;
+          company = getRandomItem(CLEAN_COMPANIES_POOL);
+          corruptReason = `Red-Flagged Director: ${director}`;
+          corruptEntity = director;
+        } else {
+          // Both are on watchlist
+          const targetC = getRandomItem(gameState.activeWatchlistCompanies);
+          const targetD = getRandomItem(gameState.activeWatchlistDirectors);
+          company = targetC.name;
+          director = targetD.name;
+          corruptReason = `Both Company (${company}) & Director (${director}) are watchlisted`;
+          corruptEntity = `${company} & ${director}`;
+        }
+      } else {
+        // Clean tender
+        company = getRandomItem(CLEAN_COMPANIES_POOL);
+        director = getRandomItem(CLEAN_DIRECTORS_POOL);
+      }
+
+      // Random Tender Value (Ksh 35M to 14.5B)
+      const isMega = Math.random() < 0.3;
+      const rawAmount = isMega 
+        ? Math.floor(Math.random() * 12000000000) + 1200000000
+        : Math.floor(Math.random() * 850000000) + 35000000;
+
+      const entity = getRandomItem(PROCURING_ENTITIES_POOL);
+      const desc = getRandomItem(PROJECT_DESCRIPTIONS_POOL);
+      const refNo = `PPRA/${entity.substring(0, 3).toUpperCase()}/2024/${Math.floor(1000 + Math.random() * 9000)}-${String.fromCharCode(65 + Math.floor(Math.random() * 26))}`;
+      const pinPrefix = `P05${Math.floor(10000000 + Math.random() * 90000000)}`;
+      const pin = `${pinPrefix}${String.fromCharCode(65 + Math.floor(Math.random() * 26))}`;
+
+      return {
+        isCorrupt,
+        corruptReason,
+        corruptEntity,
+        company,
+        director,
+        rawAmount,
+        amountFormatted: formatKsh(rawAmount),
+        entity,
+        desc,
+        refNo,
+        pin: `KRA PIN ${pin} &bull; Tax Compliance Certified`
+      };
+    }
+
+    // 6. DISPLAY TENDER
+    function presentTender(tender) {
+      gameState.currentTender = tender;
+      gameState.decisionLocked = false;
+      gameState.tenderStartTime = Date.now();
+
+      // Adjust duration based on fatigue & processed tenders
+      // Base: 7.5s down to 2.8s floor
+      const speedFactor = Math.min(1, gameState.tendersProcessed / 35);
+      gameState.tenderDuration = Math.max(2800, 7500 - (speedFactor * 4700));
+
+      // Reset stamps & styling
+      const stampContainer = document.getElementById('stamp-container');
+      stampContainer.className = 'stamp-container';
+
+      const card = document.getElementById('tender-card');
+      card.className = 'tender-card slide-in';
+
+      // Update text values
+      document.getElementById('tender-ref-no').textContent = tender.refNo;
+      document.getElementById('doc-entity').textContent = tender.entity;
+      document.getElementById('doc-company').textContent = tender.company;
+      document.getElementById('doc-director').textContent = tender.director;
+      document.getElementById('doc-amount').textContent = tender.amountFormatted;
+      document.getElementById('doc-desc').textContent = tender.desc;
+      document.getElementById('doc-pin').innerHTML = tender.pin;
+
+      // Highlight matching watchlist entries faintly if present
+      document.querySelectorAll('.watchlist-item').forEach(el => el.classList.remove('highlight-match'));
+      if (tender.isCorrupt) {
+        const cEl = document.getElementById(`wl-comp-${encodeURIComponent(tender.company)}`);
+        const dEl = document.getElementById(`wl-dir-${encodeURIComponent(tender.director)}`);
+        if (cEl) cEl.classList.add('highlight-match');
+        if (dEl) dEl.classList.add('highlight-match');
+      }
+
+      // Start countdown bar
+      startCountdownBar();
+    }
+
+    function startCountdownBar() {
+      if (gameState.countdownAnimationId) {
+        cancelAnimationFrame(gameState.countdownAnimationId);
+      }
+
+      const bar = document.getElementById('countdown-bar');
+      const start = gameState.tenderStartTime;
+      const duration = gameState.tenderDuration;
+
+      function updateBar() {
+        if (!gameState.active || gameState.decisionLocked) return;
+        const now = Date.now();
+        const elapsed = now - start;
+        const remaining = Math.max(0, duration - elapsed);
+        const pct = (remaining / duration) * 100;
+
+        bar.style.width = `${pct}%`;
+
+        // Color coding timer bar
+        if (pct < 28) {
+          bar.style.backgroundColor = '#ef4444';
+        } else if (pct < 55) {
+          bar.style.backgroundColor = '#f59e0b';
+        } else {
+          bar.style.backgroundColor = '#3ddc84';
+        }
+
+        if (remaining <= 0) {
+          // Tender timed out! Negligence penalty
+          handleTenderTimeout();
+        } else {
+          gameState.countdownAnimationId = requestAnimationFrame(updateBar);
+        }
+      }
+
+      gameState.countdownAnimationId = requestAnimationFrame(updateBar);
+    }
+
+    function handleTenderTimeout() {
+      if (gameState.decisionLocked) return;
+      gameState.decisionLocked = true;
+      playAlarmBuzzer();
+      triggerInvestigationAlert("TENDER WINDOW EXPIRED", "Bureaucratic negligence: You failed to evaluate the dossier in time!");
+      dockLife();
+      
+      setTimeout(() => {
+        if (gameState.lives > 0) {
+          presentTender(generateNextTender());
+        }
+      }, 1200);
+    }
+
+    // 7. DECISION HANDLING
+    function submitDecision(action) {
+      if (!gameState.active || gameState.decisionLocked) return;
+      gameState.decisionLocked = true;
+
+      const tender = gameState.currentTender;
+      const elapsed = Date.now() - gameState.tenderStartTime;
+      const speedBonus = Math.max(10, Math.round(((gameState.tenderDuration - elapsed) / gameState.tenderDuration) * 90));
+
+      const stampContainer = document.getElementById('stamp-container');
+      const stampBox = document.getElementById('stamp-box');
+      const stampText = document.getElementById('stamp-text');
+      const stampSub = document.getElementById('stamp-sub');
+      const card = document.getElementById('tender-card');
+
+      if (tender.isCorrupt) {
+        // CORRUPT TENDER
+        if (action === 'REJECT' || action === 'FLAG') {
+          // CORRECT DECISION!
+          playStampThud();
+          setTimeout(playSuccessChime, 140);
+
+          if (action === 'REJECT') {
+            stampBox.className = 'stamp-box rejected';
+            stampText.textContent = 'REJECTED';
+            stampSub.textContent = 'EACC CORRUPTION DIRECTIVE';
+            card.classList.add('slide-out-rejected');
+          } else {
+            stampBox.className = 'stamp-box flagged';
+            stampText.textContent = 'FLAGGED FOR AUDIT';
+            stampSub.textContent = 'ESCALATED TO DCI INVESTIGATION';
+            card.classList.add('slide-out-flagged');
+          }
+
+          stampContainer.className = 'stamp-container stamped';
+
+          const points = 120 + speedBonus;
+          gameState.score += points;
+          gameState.cartelsIntercepted++;
+          gameState.fundsProtected += tender.rawAmount;
+
+          updateHud();
+          advanceTurn();
+        } else {
+          // MISTAKE! APPROVED A CORRUPT TENDER!
+          playAlarmBuzzer();
+          stampBox.className = 'stamp-box approved';
+          stampText.textContent = 'APPROVED';
+          stampSub.textContent = 'CRIMINALLY COMPROMISED';
+          stampContainer.className = 'stamp-container stamped approved';
+
+          triggerInvestigationAlert(
+            "🚨 EACC INVESTIGATION OPENED",
+            `You cleared watchlisted entity: ${tender.corruptEntity}!`
+          );
+          dockLife();
+          advanceTurn(1200);
+        }
+      } else {
+        // CLEAN TENDER
+        if (action === 'APPROVE') {
+          // CORRECT DECISION!
+          playStampThud();
+          setTimeout(playSuccessChime, 140);
+
+          stampBox.className = 'stamp-box approved';
+          stampText.textContent = 'APPROVED';
+          stampSub.textContent = 'PPRA COMPLIANCE VERIFIED';
+          stampContainer.className = 'stamp-container stamped approved';
+          card.classList.add('slide-out-approved');
+
+          const points = 100 + speedBonus;
+          gameState.score += points;
+
+          updateHud();
+          advanceTurn();
+        } else {
+          // MISTAKE! WRONGFULLY REJECTED A CLEAN VENDOR!
+          playAlarmBuzzer();
+          stampBox.className = 'stamp-box rejected';
+          stampText.textContent = 'UNLAWFUL REJECTION';
+          stampSub.textContent = 'SABOTAGED COMPLIANT BIDDER';
+          stampContainer.className = 'stamp-container stamped';
+
+          triggerInvestigationAlert(
+            "🚨 EACC INVESTIGATION OPENED",
+            `You wrongfully rejected compliant contractor '${tender.company}'!`
+          );
+          dockLife();
+          advanceTurn(1200);
+        }
+      }
+    }
+
+    function advanceTurn(delayMs = 450) {
+      gameState.tendersProcessed++;
+      updateHud();
+
+      // Check Milestone at 20 tenders
+      if (gameState.tendersProcessed === 20 && !gameState.milestoneTriggered) {
+        gameState.milestoneTriggered = true;
+        setTimeout(showMilestoneModal, 600);
+        return;
+      }
+
+      // Check Distractor Whisper (every 5 tenders)
+      if (gameState.tendersProcessed > 0 && gameState.tendersProcessed % 5 === 0) {
+        triggerWhisper();
+      }
+
+      setTimeout(() => {
+        if (gameState.lives > 0 && gameState.active) {
+          presentTender(generateNextTender());
+        }
+      }, delayMs);
+    }
+
+    function dockLife() {
+      gameState.lives--;
+      document.body.classList.add('screen-shake');
+      setTimeout(() => document.body.classList.remove('screen-shake'), 400);
+
+      // Revoke corresponding seal
+      const sealId = `seal-${3 - gameState.lives}`;
+      const sealEl = document.getElementById(sealId);
+      if (sealEl) sealEl.classList.add('revoked');
+
+      const dot = document.getElementById('officer-status-dot');
+      if (gameState.lives <= 1) {
+        dot.classList.add('danger');
+      }
+
+      if (gameState.lives <= 0) {
+        setTimeout(triggerGameOver, 700);
+      }
+    }
+
+    function triggerInvestigationAlert(title, sub) {
+      const banner = document.getElementById('investigation-banner');
+      document.getElementById('investigation-title').textContent = title;
+      document.getElementById('investigation-sub').textContent = sub;
+      banner.classList.add('show');
+      setTimeout(() => banner.classList.remove('show'), 2800);
+    }
+
+    function triggerWhisper() {
+      const whisper = getRandomItem(WHISPERS_POOL);
+      const toast = document.getElementById('whisper-toast');
+      document.getElementById('whisper-text').textContent = `"${whisper}"`;
+      playWhisperWoosh();
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3800);
+    }
+
+    // 8. FATIGUE MECHANIC (Every 10 seconds)
+    function onShiftTick() {
+      if (!gameState.active) return;
+      gameState.elapsedSeconds++;
+      document.getElementById('shift-timer').textContent = formatTime(gameState.elapsedSeconds);
+
+      // Every 10 seconds: simulate eye fatigue & acceleration
+      if (gameState.elapsedSeconds % 10 === 0) {
+        gameState.fatigueLevel = Math.min(100, gameState.fatigueLevel + 11);
+        
+        // Font size decrease slightly (from 13.5px down to 11.2px)
+        const newFontSize = Math.max(11.2, 13.5 - (gameState.fatigueLevel * 0.023));
+        document.documentElement.style.setProperty('--doc-font-size', `${newFontSize}px`);
+
+        // Update fatigue badge
+        const ind = document.getElementById('fatigue-indicator');
+        if (gameState.fatigueLevel < 35) {
+          ind.textContent = `Fatigue: LOW (${gameState.fatigueLevel}%)`;
+          ind.style.color = '#3ddc84';
+        } else if (gameState.fatigueLevel < 70) {
+          ind.textContent = `Fatigue: ELEVATED (${gameState.fatigueLevel}%)`;
+          ind.style.color = '#fb923c';
+        } else {
+          ind.textContent = `Fatigue: EXHAUSTION (${gameState.fatigueLevel}%)`;
+          ind.style.color = '#ef4444';
+        }
+      }
+    }
+
+    // 9. HUD & STATE UPDATES
+    function updateHud() {
+      document.getElementById('hud-processed').textContent = gameState.tendersProcessed;
+      document.getElementById('hud-score').textContent = gameState.score.toLocaleString();
+      document.getElementById('hud-protected').textContent = formatKsh(gameState.fundsProtected);
+    }
+
+    // 10. GAME LIFECYCLE
+    function startGame() {
+      initAudio();
+      // Reset state
+      gameState.active = true;
+      gameState.lives = 3;
+      gameState.score = 0;
+      gameState.tendersProcessed = 0;
+      gameState.cartelsIntercepted = 0;
+      gameState.fundsProtected = 0;
+      gameState.elapsedSeconds = 0;
+      gameState.fatigueLevel = 0;
+      gameState.decisionLocked = false;
+      gameState.milestoneTriggered = false;
+
+      // Close all modals
+      document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+
+      // Reset seals
+      for (let i = 1; i <= 3; i++) {
+        const seal = document.getElementById(`seal-${i}`);
+        if (seal) seal.classList.remove('revoked');
+      }
+      document.getElementById('officer-status-dot').classList.remove('danger');
+      document.documentElement.style.setProperty('--doc-font-size', '13.5px');
+
+      updateHud();
+      document.getElementById('shift-timer').textContent = '00:00';
+
+      // Generate watchlist & start clock
+      generateWatchlist();
+
+      if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+      gameState.timerInterval = setInterval(onShiftTick, 1000);
+
+      // Present first tender
+      presentTender(generateNextTender());
+    }
+
+    function showMilestoneModal() {
+      document.getElementById('milestone-modal').classList.add('active');
+    }
+
+    function closeMilestoneModal() {
+      document.getElementById('milestone-modal').classList.remove('active');
+      presentTender(generateNextTender());
+    }
+
+    function triggerGameOver() {
+      gameState.active = false;
+      if (gameState.timerInterval) clearInterval(gameState.timerInterval);
+      if (gameState.countdownAnimationId) cancelAnimationFrame(gameState.countdownAnimationId);
+
+      // High Score persistence
+      const prevHigh = parseInt(localStorage.getItem(HIGH_SCORE_KEY) || '0', 10);
+      const isNewHigh = gameState.score > prevHigh;
+      if (isNewHigh) {
+        localStorage.setItem(HIGH_SCORE_KEY, gameState.score.toString());
+      }
+      const finalHigh = Math.max(prevHigh, gameState.score);
+
+      // Populate Game Over modal
+      document.getElementById('stat-processed').textContent = gameState.tendersProcessed;
+      document.getElementById('stat-intercepted').textContent = gameState.cartelsIntercepted;
+      document.getElementById('stat-protected').textContent = formatKsh(gameState.fundsProtected);
+      document.getElementById('stat-time').textContent = formatTime(gameState.elapsedSeconds);
+      document.getElementById('stat-score').textContent = gameState.score.toLocaleString();
+      document.getElementById('stat-highscore').textContent = finalHigh.toLocaleString() + (isNewHigh ? ' (NEW RECORD!)' : '');
+
+      document.getElementById('gameover-modal').classList.add('active');
+    }
+
+    // 11. EVENT LISTENERS & SHORTCUTS
+    window.addEventListener('keydown', (e) => {
+      // Space or Enter to dismiss briefing modal
+      const briefing = document.getElementById('briefing-modal');
+      if (briefing.classList.contains('active')) {
+        if (e.code === 'Space' || e.code === 'Enter') {
+          e.preventDefault();
+          startGame();
+          return;
+        }
+      }
+
+      if (!gameState.active || gameState.decisionLocked) return;
+
+      if (e.code === 'KeyA' || e.code === 'Digit1') {
+        submitDecision('APPROVE');
+      } else if (e.code === 'KeyR' || e.code === 'Digit2') {
+        submitDecision('REJECT');
+      } else if (e.code === 'KeyF' || e.code === 'Digit3') {
+        submitDecision('FLAG');
+      }
+    });
+
+    // Mobile Watchlist Drawer Toggle
+    document.getElementById('btn-mobile-watchlist').addEventListener('click', () => {
+      const memo = document.getElementById('watchlist-memo');
+      memo.classList.toggle('open');
+    });
+
+    // CRT Toggle
+    document.getElementById('btn-toggle-scanlines').addEventListener('click', (e) => {
+      const scan = document.getElementById('scanlines');
+      scan.classList.toggle('off');
+      e.target.style.color = scan.classList.contains('off') ? 'var(--paper-dark)' : 'var(--paper)';
+    });
+
+    // SFX Toggle
+    document.getElementById('btn-toggle-sound').addEventListener('click', (e) => {
+      sfxEnabled = !sfxEnabled;
+      e.target.textContent = sfxEnabled ? '🔊 SFX' : '🔇 SFX';
+      e.target.style.color = sfxEnabled ? 'var(--paper)' : 'var(--paper-dark)';
+    });
+  </script>
+</body>
+</html>
