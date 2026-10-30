@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scandal Graph — Interactive Corruption & Procurement Network</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <style>
+    :root {
+      --bg: #12140F;
+      --surface: #181B14;
+      --surface-elevated: #20241B;
+      --border: #2C3125;
+      --crimson: #B4472F;
+      --crimson-soft: #f87171;
+      --cyan: #38bdf8;
+      --amber: #fbbf24;
+      --green: #4ade80;
+      --paper: #EAE6DA;
+      --paper-dim: #A9A599;
+      --paper-dark: #62605B;
+      --font-serif: 'Newsreader', Georgia, serif;
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--paper);
+      font-family: var(--font-sans);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Nav */
+    .top-nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--paper);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-brand span { color: var(--crimson); }
+    .nav-actions { display: flex; gap: 12px; align-items: center; }
+    .nav-btn {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--paper-dim);
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { color: #fff; border-color: var(--paper-dim); }
+
+    /* Graph Main Workspace */
+    .graph-workspace {
+      flex: 1;
+      display: flex;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #network-canvas {
+      flex: 1;
+      height: 100%;
+      background: #0B0D09;
+    }
+
+    /* Floating Legend & Controls Bar */
+    .controls-overlay {
+      position: absolute;
+      top: 18px;
+      left: 20px;
+      z-index: 10;
+      background: rgba(24, 27, 20, 0.94);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      max-width: 320px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .controls-title {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .controls-desc {
+      font-size: 12px;
+      color: var(--paper-dim);
+      margin-bottom: 12px;
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--paper);
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+    }
+    .legend-dot.politician { background: var(--crimson); }
+    .legend-dot.scandal { background: #f87171; border-radius: 50%; }
+    .legend-dot.company { background: var(--cyan); }
+    .legend-dot.institution { background: var(--amber); }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-pill {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--paper-dim);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-pill:hover { color: #fff; border-color: var(--paper-dim); }
+
+    /* Right Sidebar Inspector */
+    .inspector-panel {
+      width: 360px;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      height: 100%;
+      overflow-y: auto;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+    .inspector-head {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--crimson-soft);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .inspector-name {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+    .inspector-type {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-bottom: 16px;
+    }
+    .inspector-type.politician { background: rgba(180, 71, 47, 0.2); color: #f87171; border: 1px solid rgba(180, 71, 47, 0.4); }
+    .inspector-type.scandal { background: rgba(248, 113, 113, 0.2); color: #fca5a5; border: 1px solid rgba(248, 113, 113, 0.4); }
+    .inspector-type.company { background: rgba(56, 189, 248, 0.2); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.4); }
+    .inspector-type.institution { background: rgba(251, 191, 36, 0.2); color: var(--amber); border: 1px solid rgba(251, 191, 36, 0.4); }
+
+    .inspector-desc {
+      font-size: 13.5px;
+      color: var(--paper-dim);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .conn-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--paper);
+      margin-bottom: 10px;
+    }
+    .conn-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .conn-item {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 10px 12px;
+      font-size: 12.5px;
+    }
+    .conn-label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--paper-dim);
+      display: block;
+      margin-bottom: 2px;
+    }
+    .conn-target {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .empty-inspector {
+      margin: auto 0;
+      text-align: center;
+      color: var(--paper-dim);
+      padding: 40px 20px;
+    }
+    .empty-inspector .icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+      color: var(--crimson-soft);
+    }
+
+    @media (max-width: 768px) {
+      .inspector-panel {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Nav -->
+  <nav class="top-nav">
+    <a href="index.html" class="nav-brand">
+      <span>&larr;</span> 25.06.2024 MEMORIAL
+    </a>
+    <div class="nav-actions">
+      <a href="promises-plunder.html" class="nav-btn">Promises &amp; Plunder Tracker &rarr;</a>
+      <a href="public/api/network.json" target="_blank" class="nav-btn">network.json &nearr;</a>
+    </div>
+  </nav>
+
+  <div class="graph-workspace">
+    <!-- Overlay Controls & Legend -->
+    <div class="controls-overlay">
+      <h1 class="controls-title">Scandal Graph</h1>
+      <p class="controls-desc">Interactive connection map linking key political actors, state institutions, corporate concessionaires, and public procurement scandals.</p>
+
+      <div class="legend-row">
+        <div class="legend-item"><span class="legend-dot politician"></span> Politician</div>
+        <div class="legend-item"><span class="legend-dot scandal"></span> Scandal</div>
+        <div class="legend-item"><span class="legend-dot company"></span> Company</div>
+        <div class="legend-item"><span class="legend-dot institution"></span> State Body</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-pill" onclick="resetGraphView()">Fit All</button>
+        <button class="btn-pill" onclick="togglePhysics()">Physics: On</button>
+        <button class="btn-pill" onclick="focusPoliticians()">Politicians</button>
+      </div>
+    </div>
+
+    <!-- Vis.js Graph Canvas -->
+    <div id="network-canvas"></div>
+
+    <!-- Right Node Inspector -->
+    <aside class="inspector-panel" id="inspector-panel">
+      <div class="empty-inspector" id="empty-state">
+        <div class="icon">&odot;</div>
+        <p style="font-size:13px; line-height:1.5;">Click any node on the graph (politician, scandal, or company) to inspect detailed forensic connections and contract details.</p>
+      </div>
+      <div id="inspector-details" style="display:none;"></div>
+    </aside>
+  </div>
+
+  <script>
+    let network = null;
+    let networkData = null;
+    let physicsEnabled = true;
+
+    async function initNetworkGraph() {
+      const container = document.getElementById('network-canvas');
+      const paths = [
+        'api/network.json',
+        'public/api/network.json',
+        './api/network.json',
+        './public/api/network.json'
+      ];
+
+      let rawData = null;
+      for (const p of paths) {
+        try {
+          const res = await fetch(p);
+          if (res.ok) {
+            rawData = await res.json();
+            break;
+          }
+        } catch (e) {}
+      }
+
+      if (!rawData) {
+        rawData = {
+          nodes: [
+            { id: "ruto", label: "William Ruto", type: "politician" },
+            { id: "adani", label: "Adani Group", type: "company" },
+            { id: "jkia", label: "JKIA Lease Scandal", type: "scandal" }
+          ],
+          edges: [
+            { from: "ruto", to: "adani", label: "Signed Lease" },
+            { from: "adani", to: "jkia", label: "Exploited" }
+          ]
+        };
+      }
+
+      networkData = rawData;
+
+      // Color maps
+      const colorMap = {
+        politician: { background: '#B4472F', border: '#f87171', highlight: { background: '#f87171', border: '#fff' } },
+        scandal: { background: '#f87171', border: '#ef4444', highlight: { background: '#fca5a5', border: '#fff' } },
+        company: { background: '#0284c7', border: '#38bdf8', highlight: { background: '#38bdf8', border: '#fff' } },
+        institution: { background: '#d97706', border: '#fbbf24', highlight: { background: '#fde68a', border: '#fff' } }
+      };
+
+      const shapeMap = {
+        politician: 'box',
+        scandal: 'diamond',
+        company: 'box',
+        institution: 'hexagon'
+      };
+
+      const formattedNodes = rawData.nodes.map(n => {
+        const type = n.type || 'institution';
+        const colors = colorMap[type] || colorMap.institution;
+        return {
+          id: n.id,
+          label: n.label,
+          type: type,
+          shape: shapeMap[type] || 'box',
+          color: colors,
+          font: {
+            color: '#fff',
+            face: 'IBM Plex Sans, sans-serif',
+            size: type === 'scandal' ? 14 : 13
+          },
+          margin: 10,
+          borderWidth: 2,
+          shadow: { enabled: true, color: 'rgba(0,0,0,0.5)', size: 8 }
+        };
+      });
+
+      const formattedEdges = rawData.edges.map(e => ({
+        from: e.from,
+        to: e.to,
+        label: e.label,
+        font: {
+          color: '#cbd5e1',
+          face: 'IBM Plex Mono, monospace',
+          size: 10,
+          background: '#12140F',
+          strokeWidth: 0
+        },
+        arrows: { to: { enabled: true, scaleFactor: 0.8 } },
+        color: { color: '#475569', highlight: '#38bdf8' },
+        smooth: { type: 'curvedCW', roundness: 0.2 }
+      }));
+
+      const data = {
+        nodes: new vis.DataSet(formattedNodes),
+        edges: new vis.DataSet(formattedEdges)
+      };
+
+      const options = {
+        physics: {
+          enabled: true,
+          solver: 'forceAtlas2Based',
+          forceAtlas2Based: {
+            gravitationalConstant: -70,
+            centralGravity: 0.015,
+            springLength: 140,
+            springConstant: 0.08
+          },
+          stabilization: { iterations: 200 }
+        },
+        interaction: {
+          hover: true,
+          tooltipDelay: 100,
+          navigationButtons: false,
+          keyboard: false
+        }
+      };
+
+      network = new vis.Network(container, data, options);
+
+      network.on('click', function(params) {
+        if (params.nodes.length > 0) {
+          const selectedNodeId = params.nodes[0];
+          inspectNode(selectedNodeId);
+        } else {
+          closeInspector();
+        }
+      });
+    }
+
+    function inspectNode(nodeId) {
+      const node = networkData.nodes.find(n => n.id === nodeId);
+      if (!node) return;
+
+      const emptyState = document.getElementById('empty-state');
+      const details = document.getElementById('inspector-details');
+      if (emptyState) emptyState.style.display = 'none';
+      if (details) details.style.display = 'block';
+
+      // Find incoming and outgoing edges
+      const connectedEdges = networkData.edges.filter(e => e.from === nodeId || e.to === nodeId);
+
+      const connHtml = connectedEdges.map(e => {
+        const isSource = e.from === nodeId;
+        const otherId = isSource ? e.to : e.from;
+        const otherNode = networkData.nodes.find(n => n.id === otherId);
+        const otherLabel = otherNode ? otherNode.label : otherId;
+        const arrow = isSource ? '&rarr;' : '&larr;';
+
+        return `
+          <li class="conn-item">
+            <span class="conn-label">${arrow} ${escapeHtml(e.label)}</span>
+            <span class="conn-target">${escapeHtml(otherLabel)}</span>
+          </li>
+        `;
+      }).join('');
+
+      details.innerHTML = `
+        <div class="inspector-head">
+          <span>ENTITY INSPECTION</span>
+          <span>ID: ${escapeHtml(node.id)}</span>
+        </div>
+        <h2 class="inspector-name">${escapeHtml(node.label)}</h2>
+        <span class="inspector-type ${escapeHtml(node.type)}">${escapeHtml(node.type.toUpperCase())}</span>
+
+        <p class="inspector-desc">
+          Documented forensic relationship node mapped within Kenya's governance and procurement accountability network.
+        </p>
+
+        <div class="conn-title">Connected Relationships (${connectedEdges.length})</div>
+        <ul class="conn-list">
+          ${connHtml}
+        </ul>
+
+        ${node.type === 'politician' ? `
+          <div style="margin-top:24px; padding-top:14px; border-top:1px solid var(--border);">
+            <a href="promises-plunder.html" class="nav-btn" style="display:block; text-align:center;">
+              Open Full Political Dossier &rarr;
+            </a>
+          </div>
+        ` : ''}
+      `;
+    }
+
+    function closeInspector() {
+      const emptyState = document.getElementById('empty-state');
+      const details = document.getElementById('inspector-details');
+      if (emptyState) emptyState.style.display = 'block';
+      if (details) details.style.display = 'none';
+    }
+
+    function resetGraphView() {
+      if (network) network.fit({ animation: { duration: 800 } });
+      closeInspector();
+    }
+
+    function togglePhysics() {
+      if (!network) return;
+      physicsEnabled = !physicsEnabled;
+      network.setOptions({ physics: { enabled: physicsEnabled } });
+      event.target.textContent = 'Physics: ' + (physicsEnabled ? 'On' : 'Off');
+    }
+
+    function focusPoliticians() {
+      if (!network) return;
+      network.fit({
+        nodes: ['ruto', 'gachagua', 'raila', 'kalonzo'],
+        animation: { duration: 1000 }
+      });
+    }
+
+    function escapeHtml(str) {
+      return (str || '').replace(/[&<>"']/g, m => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[m]);
+    }
+
+    document.addEventListener('DOMContentLoaded', initNetworkGraph);
+  </script>
+</body>
+</html>

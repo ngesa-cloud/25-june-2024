@@ -1,0 +1,34 @@
+{
+  "id": "kalonzo-musyoka",
+  "name": "Stephen Kalonzo Musyoka",
+  "position": "Former Vice President / Wiper Democratic Movement Party Leader",
+  "party": "Azimio",
+  "county": "Kitui / National",
+  "promises": [
+    {
+      "year": 2022,
+      "promise": "Universal primary through tertiary education state subsidy restructuring",
+      "status": "Unfulfilled (Opposition)",
+      "evidence": "Part of 2022 Azimio coalition presidential platform; coalition did not assume executive office."
+    },
+    {
+      "year": 2017,
+      "promise": "Expansion and desiltation of Yatta Canal irrigation network",
+      "status": "In Progress",
+      "evidence": "Phase 1 rehabilitation financed by regional government bodies; ongoing desiltation operations."
+    }
+  ],
+  "scandals": [
+    {
+      "year": 2021,
+      "name": "Yatta National Youth Service (NYS) Land Ownership Inquiry",
+      "amount": "Ksh 350 Million",
+      "status": "Cleared by DCI / EACC in 2021",
+      "summary": "Allegations of irregular acquisition of 200-acre National Youth Service parcel in Yatta, Machakos; DCI investigation concluded ownership transition was lawful."
+    }
+  ],
+  "net_worth": {
+    "declared_on_swearing_in": "Pending Verification",
+    "current_declared": "Pending Verification"
+  }
+}

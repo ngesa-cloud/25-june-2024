@@ -1,0 +1,41 @@
+{
+  "id": "rigathi-gachagua",
+  "name": "Rigathi Gachagua",
+  "position": "Former Deputy President of Kenya (Impeached Oct 2024)",
+  "party": "UDA",
+  "county": "Nyeri / National",
+  "promises": [
+    {
+      "year": 2022,
+      "promise": "Guaranteed minimum returns and cartel eradication for coffee, tea & dairy farmers",
+      "status": "In Progress",
+      "evidence": "Spearheaded coffee reforms taskforce and Coffee Act amendments with ongoing legislative review."
+    },
+    {
+      "year": 2022,
+      "promise": "Clear all verified national and county pending bills within 90 days of taking office",
+      "status": "Broken",
+      "evidence": "National Treasury documented that verified pending bills exceeded Ksh 500 Billion as of late 2024."
+    }
+  ],
+  "scandals": [
+    {
+      "year": 2024,
+      "name": "Parliamentary & Senate Impeachment on Unexplained Wealth",
+      "amount": "Ksh 5.2 Billion",
+      "status": "Impeached by National Assembly and Senate",
+      "summary": "National Assembly and Senate sustained impeachment articles citing unexplained asset accumulation, conflict of interest, and constitutional violations; contested in High Court."
+    },
+    {
+      "year": 2022,
+      "name": "Nyeri County Government Tender Recovery Case",
+      "amount": "Ksh 7.3 Billion",
+      "status": "Withdrawn by ODPP / ARA in late 2022",
+      "summary": "Asset Recovery Agency (ARA) frozen bank accounts case dropped by prosecutors citing insufficient corroborating forensic evidence."
+    }
+  ],
+  "net_worth": {
+    "declared_on_swearing_in": "Ksh 800 Million",
+    "current_declared": "Ksh 5.2 Billion"
+  }
+}

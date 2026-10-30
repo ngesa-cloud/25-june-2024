@@ -1,12 +1,6 @@
 [
-  {
-    "id": "william-ruto",
-    "name": "William Samoei Ruto",
-    "position": "President of Kenya",
-    "party": "UDA",
-    "county": "National",
-    "promises_count": 2,
-    "scandals_count": 1,
-    "api_endpoint": "api/politicians/william-ruto.json"
-  }
+  "william-ruto",
+  "raila-odinga",
+  "rigathi-gachagua",
+  "kalonzo-musyoka"
 ]

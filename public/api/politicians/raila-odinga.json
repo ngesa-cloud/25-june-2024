@@ -1,0 +1,41 @@
+{
+  "id": "raila-odinga",
+  "name": "Raila Amolo Odinga",
+  "position": "Former Prime Minister / Azimio Coalition Leader",
+  "party": "Azimio",
+  "county": "Siaya / National",
+  "promises": [
+    {
+      "year": 2022,
+      "promise": "Ksh 6,000 monthly social protection stipend for vulnerable families",
+      "status": "Unfulfilled (Opposition)",
+      "evidence": "Pledged in 2022 Azimio 10-point manifesto; coalition did not assume executive office."
+    },
+    {
+      "year": 2022,
+      "promise": "Universal Healthcare (Babacare) rollout within first 100 days",
+      "status": "Unfulfilled (Opposition)",
+      "evidence": "Contingent on presidential victory in 2022 general election."
+    }
+  ],
+  "scandals": [
+    {
+      "year": 2011,
+      "name": "Kazi Kwa Vijana (KKV) World Bank Audit",
+      "amount": "Ksh 4.3 Billion",
+      "status": "Cleared by EACC / World Bank Audit Completed",
+      "summary": "World Bank forensic inquiry raised documentation queries over youth empowerment program under Prime Minister's office; cleared of direct culpability."
+    },
+    {
+      "year": 2003,
+      "name": "Kisumu Molasses Plant Privatization",
+      "amount": "Ksh 1.2 Billion",
+      "status": "Parliamentary Public Accounts Committee Review",
+      "summary": "Parliamentary review into asset privatization and state debt write-offs concerning Spectre International enterprise acquisition."
+    }
+  ],
+  "net_worth": {
+    "declared_on_swearing_in": "Ksh 2.0 Billion",
+    "current_declared": "Pending Verification"
+  }
+}
