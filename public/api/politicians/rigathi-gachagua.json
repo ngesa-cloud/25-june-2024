@@ -4,18 +4,49 @@
   "position": "Former Deputy President of Kenya (Impeached Oct 2024)",
   "party": "UDA",
   "county": "Nyeri / National",
+  "governance_level": "Former Deputy President",
+  "evidence": [
+    {
+      "type": "Official Gazettement",
+      "title": "Gazette Notice No. 12940 - Declaration of Impeachment and Vacancy in Office of Deputy President",
+      "url": "http://kenyalaw.org/kenya_gazette/gazette/volume/MjAyNC0xMC0xOA--/Vol.CXXVI-No.162/",
+      "verified": true
+    },
+    {
+      "type": "Court Ruling",
+      "title": "High Court Nairobi Constitutional Petition E565 of 2024 - Rigathi Gachagua v. Speaker of Senate & 5 Others",
+      "url": "https://kenyalaw.org/caselaw/cases/view/299104/",
+      "verified": true
+    }
+  ],
   "promises": [
     {
       "year": 2022,
       "promise": "Guaranteed minimum returns and cartel eradication for coffee, tea & dairy farmers",
       "status": "In Progress",
-      "evidence": "Spearheaded coffee reforms taskforce and Coffee Act amendments with ongoing legislative review."
+      "evidence_summary": "Spearheaded coffee reforms taskforce and Coffee Act amendments with ongoing legislative review.",
+      "evidence": [
+        {
+          "type": "PDF",
+          "title": "Report of the Presidential Taskforce on Coffee Sub-Sector Reforms 2023",
+          "url": "https://kilimo.go.ke/reports/coffee-sub-sector-reforms-taskforce-2023.pdf",
+          "verified": true
+        }
+      ]
     },
     {
       "year": 2022,
       "promise": "Clear all verified national and county pending bills within 90 days of taking office",
       "status": "Broken",
-      "evidence": "National Treasury documented that verified pending bills exceeded Ksh 500 Billion as of late 2024."
+      "evidence_summary": "National Treasury documented that verified pending bills exceeded Ksh 500 Billion as of late 2024.",
+      "evidence": [
+        {
+          "type": "PDF",
+          "title": "National Treasury Pending Bills Verification Committee Progress Report 2024",
+          "url": "https://www.treasury.go.ke/wp-content/uploads/2024/03/Pending-Bills-Verification-Report.pdf",
+          "verified": true
+        }
+      ]
     }
   ],
   "scandals": [
@@ -26,7 +57,27 @@
       "raw_amount": 5200000000,
       "entity": "National Assembly & Senate / Wamunyoro Investments",
       "status": "Impeached by National Assembly and Senate",
-      "summary": "National Assembly and Senate sustained impeachment articles citing unexplained asset accumulation, conflict of interest, and constitutional violations; contested in High Court."
+      "summary": "National Assembly and Senate sustained impeachment articles citing unexplained asset accumulation, conflict of interest, and constitutional violations; contested in High Court.",
+      "evidence": [
+        {
+          "type": "Parliamentary Hansard",
+          "title": "National Assembly Official Hansard Report - Impeachment of Deputy President Rigathi Gachagua",
+          "url": "http://www.parliament.go.ke/sites/default/files/2024-10/National_Assembly_Hansard_Impeachment_Motion.pdf",
+          "verified": true
+        },
+        {
+          "type": "Parliamentary Hansard",
+          "title": "Senate of Kenya Official Hansard - Trial and Vote on Impeachment Articles against Deputy President",
+          "url": "http://www.parliament.go.ke/sites/default/files/2024-10/Senate_Hansard_DP_Impeachment_Trial.pdf",
+          "verified": true
+        },
+        {
+          "type": "Court Ruling",
+          "title": "High Court 3-Judge Bench Ruling on Conservatory Applications in Gachagua Impeachment Challenge",
+          "url": "https://kenyalaw.org/caselaw/cases/view/299104/",
+          "verified": true
+        }
+      ]
     },
     {
       "year": 2022,
@@ -35,7 +86,21 @@
       "raw_amount": 7300000000,
       "entity": "Nyeri County Government / Assets Recovery Agency (ARA)",
       "status": "Withdrawn by ODPP / ARA in late 2022",
-      "summary": "Asset Recovery Agency (ARA) frozen bank accounts case dropped by prosecutors citing insufficient corroborating forensic evidence."
+      "summary": "Asset Recovery Agency (ARA) frozen bank accounts case dropped by prosecutors citing insufficient corroborating forensic evidence.",
+      "evidence": [
+        {
+          "type": "Court Ruling",
+          "title": "High Court Anti-Corruption Division - ARA v. Rigathi Gachagua & 2 Others (ACECA No. 16 of 2020)",
+          "url": "https://kenyalaw.org/caselaw/cases/view/234512/",
+          "verified": true
+        },
+        {
+          "type": "News Article",
+          "title": "High Court allows ARA to withdraw Ksh 7.3B forfeiture suit against DP Rigathi Gachagua - Nation",
+          "url": "https://nation.africa/kenya/news/ara-withdraws-sh7-3bn-case-against-rigathi-gachagua-4015690",
+          "verified": true
+        }
+      ]
     }
   ],
   "net_worth": {

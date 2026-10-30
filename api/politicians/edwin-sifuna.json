@@ -1,0 +1,87 @@
+{
+  "id": "edwin-sifuna",
+  "name": "Edwin Watenya Sifuna",
+  "position": "Senator for Nairobi City County / Senate Deputy Minority Leader",
+  "party": "ODM",
+  "county": "Nairobi",
+  "governance_level": "Senator / County Legislative Oversight",
+  "evidence": [
+    {
+      "type": "Official Gazettement",
+      "title": "Gazette Notice No. 9982 - Declaration of Edwin Sifuna as Nairobi City County Senator",
+      "url": "http://kenyalaw.org/kenya_gazette/gazette/volume/MjAyMi0wOC0xNg--/Vol.CXXIV-No.170/",
+      "verified": true
+    },
+    {
+      "type": "Parliamentary Hansard",
+      "title": "Parliament of Kenya Senate Standing Committee on County Public Accounts (CPAC) Roster",
+      "url": "http://www.parliament.go.ke/the-senate/committees/18",
+      "verified": true
+    }
+  ],
+  "promises": [
+    {
+      "year": 2022,
+      "promise": "Relentless Senate forensic oversight on Nairobi County revenue allocations and anti-corruption accountability",
+      "status": "Fulfilled (Oversight Role)",
+      "evidence_summary": "Championed Senate CPAC summons against Nairobi County Executive over Ksh 21B legal bills, NairobiPay variance, and failure to honor summons.",
+      "evidence": [
+        {
+          "type": "Parliamentary Hansard",
+          "title": "Senate Hansard - Debate on Motion to Fine and Censure Governor Sakaja for CPAC Non-Appearance",
+          "url": "http://www.parliament.go.ke/sites/default/files/2024-04/Senate_Hansard_Sakaja_CPAC_Summons.pdf",
+          "verified": true
+        },
+        {
+          "type": "News Article",
+          "title": "Senator Sifuna moves motion to fine Sakaja Ksh 500k over defiance of Senate audit queries - Citizen Digital",
+          "url": "https://www.citizen.digital/news/senate-cpac-fines-sakaja-over-repeated-failure-to-appear-n341205",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "year": 2022,
+      "promise": "Legislative push for equitable division of national revenue formula favoring high-population urban centers",
+      "status": "In Progress",
+      "evidence_summary": "Sponsored amendments to County Allocation of Revenue Act (CARA) to increase Nairobi equitable share from national exchequer.",
+      "evidence": [
+        {
+          "type": "Parliamentary Hansard",
+          "title": "Senate Hansard - Division of Revenue Bill & County Allocation Debate 2024",
+          "url": "http://www.parliament.go.ke/sites/default/files/2024-06/Senate_Hansard_CARA_Debate.pdf",
+          "verified": true
+        }
+      ]
+    }
+  ],
+  "scandals": [
+    {
+      "year": 2024,
+      "name": "Senate CPAC Special Inquiry into Nairobi County Revenue Defalcation",
+      "amount": "Ksh 10.6 Billion",
+      "raw_amount": 10600000000,
+      "entity": "Senate County Public Accounts Committee (CPAC) / Nairobi County",
+      "status": "Committee Findings Adopted by Senate",
+      "summary": "Led Senate CPAC inquiry establishing systemic revenue undercollection, undeclared bank accounts, and illegal diversion of public revenue away from Nairobi County Revenue Fund.",
+      "evidence": [
+        {
+          "type": "Parliamentary Hansard",
+          "title": "Report of the Senate Standing Committee on County Public Accounts on Nairobi City County Accounts",
+          "url": "http://www.parliament.go.ke/sites/default/files/2024-08/Senate_CPAC_Nairobi_Final_Report.pdf",
+          "verified": true
+        },
+        {
+          "type": "News Article",
+          "title": "Senate adopts report recommending DCI & EACC probe into Nairobi revenue collection officials - Nation",
+          "url": "https://nation.africa/kenya/news/senate-demands-eacc-probe-into-nairobi-revenue-loss-4712890",
+          "verified": true
+        }
+      ]
+    }
+  ],
+  "net_worth": {
+    "declared_on_swearing_in": "Pending Verification",
+    "current_declared": "Pending Verification"
+  }
+}

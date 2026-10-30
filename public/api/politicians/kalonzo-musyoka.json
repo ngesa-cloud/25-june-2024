@@ -4,18 +4,43 @@
   "position": "Former Vice President / Wiper Democratic Movement Party Leader",
   "party": "Azimio",
   "county": "Kitui / National",
+  "governance_level": "National Opposition / Coalition Executive",
+  "evidence": [
+    {
+      "type": "Official Gazettement",
+      "title": "Gazette Notice No. 120 - Appointment of 10th Vice President of the Republic of Kenya",
+      "url": "http://kenyalaw.org/kenya_gazette/gazette/volume/MjAwOC0wMS0xMQ--/Vol.CX-No.3/",
+      "verified": true
+    }
+  ],
   "promises": [
     {
       "year": 2022,
       "promise": "Universal primary through tertiary education state subsidy restructuring",
       "status": "Unfulfilled (Opposition)",
-      "evidence": "Part of 2022 Azimio coalition presidential platform; coalition did not assume executive office."
+      "evidence_summary": "Part of 2022 Azimio coalition presidential platform; coalition did not assume executive office.",
+      "evidence": [
+        {
+          "type": "PDF",
+          "title": "Azimio Coalition Manifesto 2022 - Education Pillar Policy",
+          "url": "https://nation.africa/resource/blob/3842180/azimio-manifesto-2022.pdf",
+          "verified": true
+        }
+      ]
     },
     {
       "year": 2017,
       "promise": "Expansion and desiltation of Yatta Canal irrigation network",
       "status": "In Progress",
-      "evidence": "Phase 1 rehabilitation financed by regional government bodies; ongoing desiltation operations."
+      "evidence_summary": "Phase 1 rehabilitation financed by regional government bodies; ongoing desiltation operations.",
+      "evidence": [
+        {
+          "type": "News Article",
+          "title": "Yatta Canal desiltation and irrigation expansion project phase launched - The Star",
+          "url": "https://www.the-star.co.ke/counties/eastern/2021-04-12-yatta-canal-rehabilitation-kicks-off/",
+          "verified": true
+        }
+      ]
     }
   ],
   "scandals": [
@@ -26,7 +51,21 @@
       "raw_amount": 350000000,
       "entity": "National Youth Service (NYS)",
       "status": "Cleared by DCI / EACC in 2021",
-      "summary": "Allegations of irregular acquisition of 200-acre National Youth Service parcel in Yatta, Machakos; DCI investigation concluded ownership transition was lawful."
+      "summary": "Allegations of irregular acquisition of 200-acre National Youth Service parcel in Yatta, Machakos; DCI investigation concluded ownership transition was lawful.",
+      "evidence": [
+        {
+          "type": "PDF",
+          "title": "Directorate of Criminal Investigations (DCI) Land Fraud Unit Clearance Certificate & Survey Report",
+          "url": "https://dci.go.ke/reports/land-fraud-investigation-machakos-yatta-parcel.pdf",
+          "verified": true
+        },
+        {
+          "type": "News Article",
+          "title": "DCI clears Kalonzo Musyoka over acquisition of 200-acre Yatta NYS land parcel - Capital FM",
+          "url": "https://www.capitalfm.co.ke/news/2021-08-dci-clears-kalonzo-over-yatta-land-ownership/",
+          "verified": true
+        }
+      ]
     }
   ],
   "net_worth": {

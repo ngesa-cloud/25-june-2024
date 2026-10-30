@@ -460,6 +460,19 @@
       }
     }
 
+    function getPolSlug(id) {
+      const map = {
+        'ruto': 'william-ruto',
+        'sakaja': 'johnson-sakaja',
+        'sifuna': 'edwin-sifuna',
+        'alai': 'robert-alai',
+        'gachagua': 'rigathi-gachagua',
+        'raila': 'raila-odinga',
+        'kalonzo': 'kalonzo-musyoka'
+      };
+      return map[id] || id;
+    }
+
     function inspectNode(nodeId) {
       const node = networkData.nodes.find(n => n.id === nodeId);
       if (!node) return;
@@ -505,12 +518,18 @@
         </ul>
 
         ${node.type === 'politician' ? `
-          <div style="margin-top:24px; padding-top:14px; border-top:1px solid var(--border);">
-            <a href="promises-plunder.html" class="nav-btn" style="display:block; text-align:center;">
-              Open Full Political Dossier &rarr;
+          <div style="margin-top:20px; padding-top:14px; border-top:1px solid var(--border);">
+            <a href="promises-plunder.html#${encodeURIComponent(getPolSlug(node.id))}" class="nav-btn" style="display:block; text-align:center; background:rgba(56,189,248,0.12); color:var(--cyan); border-color:rgba(56,189,248,0.35);">
+              Inspect Evidence Dossier &rarr;
             </a>
           </div>
-        ` : ''}
+        ` : (node.type === 'scandal' ? `
+          <div style="margin-top:20px; padding-top:14px; border-top:1px solid var(--border);">
+            <a href="money-trail.html?q=${encodeURIComponent(node.label.split(' ')[0])}" class="nav-btn" style="display:block; text-align:center; background:rgba(180,71,47,0.15); color:var(--crimson-soft); border-color:rgba(180,71,47,0.35);">
+              View in Financial Ledger &rarr;
+            </a>
+          </div>
+        ` : '')}
       `;
     }
 

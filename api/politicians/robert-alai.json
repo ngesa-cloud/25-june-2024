@@ -1,0 +1,81 @@
+{
+  "id": "robert-alai",
+  "name": "Robert Alai Onyango",
+  "position": "Member of County Assembly (MCA), Kileleshwa Ward / Nairobi County Assembly",
+  "party": "ODM",
+  "county": "Nairobi",
+  "governance_level": "MCA / County Assembly Oversight",
+  "evidence": [
+    {
+      "type": "Official Gazettement",
+      "title": "IEBC Gazette Notice No. 9988 - Declaration of MCAs Elected to Nairobi City County Assembly",
+      "url": "http://kenyalaw.org/kenya_gazette/gazette/volume/MjAyMi0wOC0xNg--/Vol.CXXIV-No.170/",
+      "verified": true
+    },
+    {
+      "type": "PDF",
+      "title": "Nairobi City County Assembly Member Profile & Committee Assignment Register",
+      "url": "https://nairobiassembly.go.ke/members/robert-alai-onyango/",
+      "verified": true
+    }
+  ],
+  "promises": [
+    {
+      "year": 2022,
+      "promise": "Establish Kileleshwa Ward Public Accountability Forum & Ward Infrastructure Upgrade",
+      "status": "In Progress",
+      "evidence_summary": "Initiated community oversight townhalls on road rehabilitation, streetlighting on Gichugu Road, and pedestrian sidewalks across Kileleshwa Ward.",
+      "evidence": [
+        {
+          "type": "News Article",
+          "title": "Kileleshwa MCA Robert Alai leads neighborhood audit of unapproved commercial developments - Daily Nation",
+          "url": "https://nation.africa/kenya/counties/nairobi/alai-leads-kileleshwa-residents-protests-against-illegal-buildings-4281900",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "year": 2022,
+      "promise": "Aggressive legislative scrutiny on Nairobi County Executive procurement, garbage tenders, and zoning violations",
+      "status": "Fulfilled (Oversight Role)",
+      "evidence_summary": "Spearheaded motions in County Assembly questioning Nairobi garbage collection multi-million contracts, unapproved high-rise zoning in residential areas, and legal fee disbursements.",
+      "evidence": [
+        {
+          "type": "Parliamentary Hansard",
+          "title": "Nairobi City County Assembly Official Hansard - Motion on Solid Waste Management Contracts Review",
+          "url": "https://nairobiassembly.go.ke/hansard/Assembly_Hansard_Solid_Waste_Contracts_2023.pdf",
+          "verified": true
+        }
+      ]
+    }
+  ],
+  "scandals": [
+    {
+      "year": 2023,
+      "name": "Nairobi County Assembly Electronic Voting & Chamber Systems Tender Inquiry",
+      "amount": "Ksh 50 Million",
+      "raw_amount": 50000000,
+      "entity": "Nairobi City County Assembly Service Board",
+      "status": "Public Accounts Committee Scrutiny",
+      "summary": "County Assembly oversight inquiry into alleged inflated costs and irregularities in the procurement of digital chamber voting systems and audio-visual Hansard streaming hardware.",
+      "evidence": [
+        {
+          "type": "PDF",
+          "title": "Nairobi City County Assembly PAC Review into Chamber ICT Procurement FY 2022/23",
+          "url": "https://nairobiassembly.go.ke/reports/Assembly_PAC_Chamber_ICT_Tender.pdf",
+          "verified": true
+        },
+        {
+          "type": "News Article",
+          "title": "Nairobi MCAs demand investigation into Ksh 50M biometric voting and chamber system costs - The Star",
+          "url": "https://www.the-star.co.ke/counties/nairobi/2023-11-20-mcas-query-assembly-voting-system-costs/",
+          "verified": true
+        }
+      ]
+    }
+  ],
+  "net_worth": {
+    "declared_on_swearing_in": "Pending Verification",
+    "current_declared": "Pending Verification"
+  }
+}

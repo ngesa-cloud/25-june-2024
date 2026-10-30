@@ -440,7 +440,157 @@
       margin-top: 40px;
     }
     .api-dock a { color: var(--cyan); text-decoration: underline; }
-  </style>
+  
+    /* Evidence Locker Vault Styles */
+    .evidence-locker-container {
+      margin-top: 14px;
+      background: rgba(18, 20, 15, 0.85);
+      border: 1px solid var(--border-highlight);
+      border-radius: 6px;
+      padding: 12px 14px;
+    }
+    .locker-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .locker-badge-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--cyan);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .locker-badge-verified {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--green-bright);
+      background: rgba(74, 222, 128, 0.12);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      padding: 1px 7px;
+      border-radius: 3px;
+    }
+    .locker-evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 8px;
+    }
+    .evidence-vault-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px 12px;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      text-decoration: none;
+      color: var(--paper);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .evidence-vault-item:hover {
+      border-color: var(--cyan);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      background: #252a20;
+    }
+    .ev-vault-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+    .ev-type-tag {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-pdf {
+      background: rgba(239, 68, 68, 0.18);
+      color: var(--crimson-soft);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+    .badge-court {
+      background: rgba(168, 85, 247, 0.18);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.35);
+    }
+    .badge-hansard {
+      background: rgba(56, 189, 248, 0.18);
+      color: var(--cyan);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+    .badge-news {
+      background: rgba(245, 158, 11, 0.18);
+      color: var(--amber-soft);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    .ev-verified-check {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--paper-dim);
+    }
+    .evidence-vault-item:hover .ev-verified-check {
+      color: var(--cyan);
+    }
+    .ev-vault-title {
+      font-size: 12.5px;
+      line-height: 1.4;
+      color: var(--paper);
+    }
+
+    /* Official State Vault Top Widget */
+    .official-state-vault {
+      margin-bottom: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
+      border-radius: 6px;
+      padding: 16px 18px;
+    }
+    .vault-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .vault-heading h3 {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      color: #fff;
+    }
+    .vault-counter {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--paper-dim);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .gov-badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--amber-soft);
+      background: rgba(217, 119, 6, 0.15);
+      border: 1px solid rgba(217, 119, 6, 0.35);
+      padding: 2px 6px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+</style>
   <link rel="stylesheet" href="global-search.css">
 </head>
 <body>
@@ -496,11 +646,9 @@
         <div class="stat-sub">Broken, Disputed &amp; In Progress</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Connection Mapping</div>
-        <div class="stat-value" style="font-size:20px; color:var(--cyan);">
-          <a href="scandal-graph.html" style="color:var(--cyan); text-decoration:none;">16 Nodes / 12 Edges &rarr;</a>
-        </div>
-        <div class="stat-sub">View Entity Relation Graph</div>
+        <div class="stat-label">Evidence Locker</div>
+        <div class="stat-value" id="kpi-evidence-count" style="color:var(--green-bright);">26 Verified Files</div>
+        <div class="stat-sub">PDFs, Court Orders, Hansards &amp; Audits</div>
       </div>
     </div>
 
@@ -508,7 +656,9 @@
     <div class="filter-bar">
       <h2 class="filter-title">Political Roster</h2>
       <div class="tabs-group">
-        <button class="tab-btn active" onclick="applyFilter('all', this)">All</button>
+        <button class="tab-btn active" onclick="applyFilter('all', this)">All (7)</button>
+        <button class="tab-btn" onclick="applyFilter('nairobi', this)">Nairobi County</button>
+        <button class="tab-btn" onclick="applyFilter('national', this)">National Executive</button>
         <button class="tab-btn" onclick="applyFilter('UDA', this)">UDA</button>
         <button class="tab-btn" onclick="applyFilter('Azimio', this)">Azimio</button>
         <button class="tab-btn" onclick="applyFilter('high_scandals', this)">High Scandals (&gt;Ksh 1B)</button>
@@ -538,6 +688,22 @@
     let allPoliticians = [];
     let selectedPoliticianId = 'william-ruto';
 
+    function getEvBadgeClass(type) {
+      const t = (type || '').toLowerCase();
+      if (t.includes('pdf') || t.includes('audit')) return 'badge-pdf';
+      if (t.includes('court') || t.includes('ruling')) return 'badge-court';
+      if (t.includes('hansard') || t.includes('gazette')) return 'badge-hansard';
+      return 'badge-news';
+    }
+
+    function getEvIcon(type) {
+      const t = (type || '').toLowerCase();
+      if (t.includes('pdf') || t.includes('audit')) return '📄';
+      if (t.includes('court') || t.includes('ruling')) return '⚖';
+      if (t.includes('hansard') || t.includes('gazette')) return '🏛';
+      return '📰';
+    }
+
     async function loadPoliticiansEngine() {
       const indexPaths = [
         'api/politicians/index.json',
@@ -558,10 +724,12 @@
       }
 
       if (!slugs || !Array.isArray(slugs)) {
-        slugs = ["william-ruto", "raila-odinga", "rigathi-gachagua", "kalonzo-musyoka"];
+        slugs = [
+          "william-ruto", "johnson-sakaja", "edwin-sifuna", "robert-alai",
+          "rigathi-gachagua", "raila-odinga", "kalonzo-musyoka"
+        ];
       }
 
-      // Fetch each politician
       const politiciansList = [];
       for (const slug of slugs) {
         const itemPaths = [
@@ -588,6 +756,42 @@
       }
 
       allPoliticians = politiciansList;
+
+      // Update telemetry dynamically
+      let totalAmountRaw = 0;
+      let totalScandals = 0;
+      let totalPromises = 0;
+      let totalEvidence = 0;
+
+      allPoliticians.forEach(p => {
+        totalPromises += (p.promises || []).length;
+        totalEvidence += (p.evidence || []).length;
+        (p.scandals || []).forEach(s => {
+          totalScandals++;
+          totalAmountRaw += (s.raw_amount || 0);
+          totalEvidence += (s.evidence || []).length;
+        });
+        (p.promises || []).forEach(pr => {
+          totalEvidence += (pr.evidence || []).length;
+        });
+      });
+
+      const kpiPol = document.getElementById('kpi-politicians');
+      if (kpiPol) kpiPol.textContent = `${allPoliticians.length} Leaders`;
+
+      const kpiScandalsVal = document.getElementById('kpi-scandals-val');
+      if (kpiScandalsVal) {
+        kpiScandalsVal.textContent = `Ksh ${(totalAmountRaw / 1e9).toFixed(2)}B`;
+        const sub = kpiScandalsVal.parentElement.querySelector('.stat-sub');
+        if (sub) sub.textContent = `Across ${totalScandals} Major Public Dockets`;
+      }
+
+      const kpiPromises = document.getElementById('kpi-promises');
+      if (kpiPromises) kpiPromises.textContent = `${totalPromises} Pledges`;
+
+      const kpiEv = document.getElementById('kpi-evidence-count');
+      if (kpiEv) kpiEv.textContent = `${totalEvidence} Verified Files`;
+
       renderPoliticiansGrid(allPoliticians);
       if (allPoliticians.length > 0) {
         const hash = window.location.hash.replace('#', '');
@@ -617,17 +821,27 @@
         const scandalsCount = (p.scandals || []).length;
         const promisesCount = (p.promises || []).length;
 
+        let evCount = (p.evidence || []).length;
+        (p.scandals || []).forEach(s => { evCount += (s.evidence || []).length; });
+        (p.promises || []).forEach(pr => { evCount += (pr.evidence || []).length; });
+
+        const isNairobi = (p.county && p.county.toLowerCase().includes('nairobi'));
+        const countyBadge = isNairobi
+          ? `<span style="font-family:var(--font-mono); font-size:10px; color:var(--amber-soft); background:rgba(217,119,6,0.18); border:1px solid rgba(217,119,6,0.35); padding:1px 6px; border-radius:3px;">NAIROBI</span>`
+          : `<span style="font-family:var(--font-mono); font-size:11px; color:var(--paper-dim);">${escapeHtml(p.county)}</span>`;
+
         return `
           <div class="politician-card ${isSelected ? 'active-selected' : ''}" onclick="selectPolitician('${escapeHtml(p.id)}')">
             <div>
               <div class="card-meta-top">
                 <span class="party-badge ${partyClass}">${escapeHtml(p.party)}</span>
-                <span style="font-family:var(--font-mono); font-size:11px; color:var(--paper-dim);">${escapeHtml(p.county)}</span>
+                ${countyBadge}
               </div>
               <h3 class="politician-name">${escapeHtml(p.name)}</h3>
               <p class="politician-position">${escapeHtml(p.position)}</p>
+              ${p.governance_level ? `<div class="gov-badge">${escapeHtml(p.governance_level)}</div>` : ''}
 
-              <div class="card-metrics-row">
+              <div class="card-metrics-row" style="margin-top:14px;">
                 <div>
                   <div class="c-metric-title">Promises</div>
                   <div class="c-metric-val">${promisesCount} Tracked</div>
@@ -636,11 +850,15 @@
                   <div class="c-metric-title">Scandals</div>
                   <div class="c-metric-val" style="color:var(--crimson-soft);">${scandalsCount} Dockets</div>
                 </div>
+                <div>
+                  <div class="c-metric-title">Evidence</div>
+                  <div class="c-metric-val" style="color:var(--green-bright);">${evCount} Files</div>
+                </div>
               </div>
             </div>
 
-            <div class="card-cta-btn">
-              <span>View Full Dossier</span>
+            <div class="card-footer-action">
+              <span>Inspect Evidence Dossier</span>
               <span>&rarr;</span>
             </div>
           </div>
@@ -650,13 +868,11 @@
 
     function selectPolitician(id) {
       selectedPoliticianId = id;
-      // re-render grid to update active card border
       const activeTab = document.querySelector('.tab-btn.active');
       const currentFilter = activeTab ? activeTab.getAttribute('data-filter') || 'all' : 'all';
       filterList(currentFilter);
       renderDossier(id);
 
-      // Smooth scroll to dossier
       const section = document.getElementById('dossier-section');
       if (section) {
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -675,12 +891,59 @@
       const swearingNw = nw.declared_on_swearing_in || 'Pending Verification';
       const currentNw = nw.current_declared || 'Pending Verification';
 
+      // Official State Vault
+      const polEvidenceList = Array.isArray(p.evidence) ? p.evidence : [];
+      const polEvidenceVaultHtml = polEvidenceList.length > 0 ? `
+        <div class="official-state-vault">
+          <div class="vault-heading">
+            <span style="color:var(--cyan); font-size:18px;">🏛</span>
+            <h3>Official State &amp; Gazettement Verification Locker</h3>
+            <span class="vault-counter">${polEvidenceList.length} Official Instruments</span>
+          </div>
+          <div class="locker-evidence-grid">
+            ${polEvidenceList.map(ev => `
+              <a href="${escapeHtml(ev.url)}" target="_blank" rel="noopener noreferrer" class="evidence-vault-item">
+                <div class="ev-vault-top">
+                  <span class="ev-type-tag ${getEvBadgeClass(ev.type)}">${getEvIcon(ev.type)} ${escapeHtml(ev.type)}</span>
+                  <span class="ev-verified-check">Official Source ↗</span>
+                </div>
+                <div class="ev-vault-title">${escapeHtml(ev.title)}</div>
+              </a>
+            `).join('')}
+          </div>
+        </div>
+      ` : '';
+
+      // Promises with Evidence Locker
       const promisesHtml = (p.promises && p.promises.length > 0)
         ? p.promises.map(pr => {
             const st = (pr.status || '').toLowerCase();
             let bClass = 'in-progress';
-            if (st.includes('broken')) bClass = 'broken';
-            else if (st.includes('cleared') || st.includes('kept')) bClass = 'cleared';
+            if (st.includes('broken') || st.includes('unfulfilled')) bClass = 'broken';
+            else if (st.includes('cleared') || st.includes('kept') || st.includes('fulfilled')) bClass = 'cleared';
+
+            const prEvidenceList = Array.isArray(pr.evidence) ? pr.evidence : [];
+            const summaryText = pr.evidence_summary || (typeof pr.evidence === 'string' ? pr.evidence : '');
+
+            const prEvLockerHtml = prEvidenceList.length > 0 ? `
+              <div class="evidence-locker-container">
+                <div class="locker-banner">
+                  <span class="locker-badge-title">🗄 EVIDENCE LOCKER &bull; PLEDGE VERIFICATION (${prEvidenceList.length})</span>
+                  <span class="locker-badge-verified">✓ CORROBORATED</span>
+                </div>
+                <div class="locker-evidence-grid">
+                  ${prEvidenceList.map(ev => `
+                    <a href="${escapeHtml(ev.url)}" target="_blank" rel="noopener noreferrer" class="evidence-vault-item">
+                      <div class="ev-vault-top">
+                        <span class="ev-type-tag ${getEvBadgeClass(ev.type)}">${getEvIcon(ev.type)} ${escapeHtml(ev.type)}</span>
+                        <span class="ev-verified-check">Audit Link ↗</span>
+                      </div>
+                      <div class="ev-vault-title">${escapeHtml(ev.title)}</div>
+                    </a>
+                  `).join('')}
+                </div>
+              </div>
+            ` : '';
 
             return `
               <div class="item-card">
@@ -689,21 +952,46 @@
                   <span class="badge-status ${bClass}">${escapeHtml(pr.status)}</span>
                 </div>
                 <h4 class="item-title">${escapeHtml(pr.promise)}</h4>
-                <div class="item-evidence">
-                  <strong style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--paper); display:block; margin-bottom:2px;">Verifiable Record:</strong>
-                  ${escapeHtml(pr.evidence)}
-                </div>
+                ${summaryText ? `
+                  <div class="item-evidence">
+                    <strong style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--paper); display:block; margin-bottom:2px;">Verifiable Record:</strong>
+                    ${escapeHtml(summaryText)}
+                  </div>
+                ` : ''}
+                ${prEvLockerHtml}
               </div>
             `;
           }).join('')
         : '<p style="color:var(--paper-dim); font-size:13px;">No campaign promises documented.</p>';
 
+      // Scandals with Evidence Locker
       const scandalsHtml = (p.scandals && p.scandals.length > 0)
         ? p.scandals.map(sc => {
             const st = (sc.status || '').toLowerCase();
             let bClass = 'court';
             if (st.includes('cleared') || st.includes('withdrawn')) bClass = 'cleared';
-            else if (st.includes('impeached') || st.includes('blocked')) bClass = 'broken';
+            else if (st.includes('impeached') || st.includes('blocked') || st.includes('suspended')) bClass = 'broken';
+
+            const scEvidenceList = Array.isArray(sc.evidence) ? sc.evidence : [];
+            const scEvLockerHtml = scEvidenceList.length > 0 ? `
+              <div class="evidence-locker-container">
+                <div class="locker-banner">
+                  <span class="locker-badge-title">🗄 EVIDENCE LOCKER &bull; VERIFIED PRIMARY PROOF (${scEvidenceList.length})</span>
+                  <span class="locker-badge-verified">✓ 100% VERIFIED</span>
+                </div>
+                <div class="locker-evidence-grid">
+                  ${scEvidenceList.map(ev => `
+                    <a href="${escapeHtml(ev.url)}" target="_blank" rel="noopener noreferrer" class="evidence-vault-item">
+                      <div class="ev-vault-top">
+                        <span class="ev-type-tag ${getEvBadgeClass(ev.type)}">${getEvIcon(ev.type)} ${escapeHtml(ev.type)}</span>
+                        <span class="ev-verified-check">Source Document ↗</span>
+                      </div>
+                      <div class="ev-vault-title">${escapeHtml(ev.title)}</div>
+                    </a>
+                  `).join('')}
+                </div>
+              </div>
+            ` : '';
 
             return `
               <div class="item-card">
@@ -717,6 +1005,7 @@
                   <strong style="font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--paper); display:block; margin-bottom:2px;">Investigative Summary:</strong>
                   ${escapeHtml(sc.summary)}
                 </div>
+                ${scEvLockerHtml}
               </div>
             `;
           }).join('')
@@ -728,6 +1017,7 @@
             <span class="party-badge ${partyClass}" style="margin-bottom:8px; display:inline-block;">${escapeHtml(p.party)}</span>
             <h2>${escapeHtml(p.name)}</h2>
             <div class="d-sub">${escapeHtml(p.position)} &bull; ${escapeHtml(p.county)}</div>
+            ${p.governance_level ? `<div class="gov-badge">${escapeHtml(p.governance_level)}</div>` : ''}
           </div>
           <div>
             <a href="scandal-graph.html#${encodeURIComponent(p.id)}" class="nav-btn-graph">
@@ -735,6 +1025,8 @@
             </a>
           </div>
         </div>
+
+        ${polEvidenceVaultHtml}
 
         <!-- Net Worth Comparison -->
         <div class="nw-widget">
@@ -776,9 +1068,15 @@
         filtered = allPoliticians.filter(p => (p.party || '').toUpperCase().includes('UDA'));
       } else if (filterKey === 'Azimio') {
         filtered = allPoliticians.filter(p => (p.party || '').toUpperCase().includes('AZIMIO') || (p.party || '').toUpperCase().includes('WIPER') || (p.party || '').toUpperCase().includes('ODM'));
+      } else if (filterKey === 'nairobi') {
+        filtered = allPoliticians.filter(p => (p.county && p.county.toLowerCase().includes('nairobi')) || (p.position && p.position.toLowerCase().includes('nairobi')));
+      } else if (filterKey === 'national') {
+        filtered = allPoliticians.filter(p => (p.governance_level && (p.governance_level.includes('National') || p.governance_level.includes('President'))) || (p.county && p.county.toLowerCase().includes('national')));
       } else if (filterKey === 'high_scandals') {
         filtered = allPoliticians.filter(p => {
           return (p.scandals || []).some(s => {
+            const raw = s.raw_amount || 0;
+            if (raw >= 1000000000) return true;
             const amt = (s.amount || '').toLowerCase();
             return amt.includes('billion') || amt.includes('b');
           });

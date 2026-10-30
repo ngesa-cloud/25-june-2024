@@ -79,6 +79,51 @@
       "id": "yatta_land",
       "label": "Yatta NYS Land Inquiry (Ksh 350M)",
       "type": "scandal"
+    },
+    {
+      "id": "sakaja",
+      "label": "Johnson Sakaja",
+      "type": "politician"
+    },
+    {
+      "id": "sifuna",
+      "label": "Edwin Sifuna",
+      "type": "politician"
+    },
+    {
+      "id": "alai",
+      "label": "Robert Alai",
+      "type": "politician"
+    },
+    {
+      "id": "nairobi_county",
+      "label": "Nairobi City County",
+      "type": "institution"
+    },
+    {
+      "id": "nairobi_assembly",
+      "label": "Nairobi County Assembly",
+      "type": "institution"
+    },
+    {
+      "id": "senate_cpac",
+      "label": "Senate CPAC",
+      "type": "institution"
+    },
+    {
+      "id": "nairobi_legal",
+      "label": "Nairobi Legal Bills (Ksh 21B)",
+      "type": "scandal"
+    },
+    {
+      "id": "nairobi_rev",
+      "label": "NairobiPay Discrepancy (Ksh 10.6B)",
+      "type": "scandal"
+    },
+    {
+      "id": "assembly_ict",
+      "label": "Assembly Voting System (Ksh 50M)",
+      "type": "scandal"
     }
   ],
   "edges": [
@@ -146,6 +191,41 @@
       "from": "high_court",
       "to": "ketraco_deal",
       "label": "Issued Stay Orders"
+    },
+    {
+      "from": "sakaja",
+      "to": "nairobi_legal",
+      "label": "Queried by Auditor Gen"
+    },
+    {
+      "from": "sakaja",
+      "to": "nairobi_rev",
+      "label": "Executive Responsibility"
+    },
+    {
+      "from": "nairobi_county",
+      "to": "nairobi_legal",
+      "label": "Pending Liabilities"
+    },
+    {
+      "from": "sifuna",
+      "to": "senate_cpac",
+      "label": "CPAC Ranking Member"
+    },
+    {
+      "from": "senate_cpac",
+      "to": "nairobi_rev",
+      "label": "Adopted Audit Sanctions"
+    },
+    {
+      "from": "alai",
+      "to": "nairobi_assembly",
+      "label": "Kileleshwa Ward Oversight"
+    },
+    {
+      "from": "nairobi_assembly",
+      "to": "assembly_ict",
+      "label": "Biometric Systems Tender"
     }
   ]
 }

@@ -4,18 +4,43 @@
   "position": "Former Prime Minister / Azimio Coalition Leader",
   "party": "Azimio",
   "county": "Siaya / National",
+  "governance_level": "National Opposition / Coalition Executive",
+  "evidence": [
+    {
+      "type": "Official Gazettement",
+      "title": "Kenya Gazette Notice - Appointment of Prime Minister under National Accord & Reconciliation Act 2008",
+      "url": "http://kenyalaw.org/kenya_gazette/gazette/volume/MjAwOC0wNC0xOA--/Vol.CX-No.31/",
+      "verified": true
+    }
+  ],
   "promises": [
     {
       "year": 2022,
       "promise": "Ksh 6,000 monthly social protection stipend for vulnerable families",
       "status": "Unfulfilled (Opposition)",
-      "evidence": "Pledged in 2022 Azimio 10-point manifesto; coalition did not assume executive office."
+      "evidence_summary": "Pledged in 2022 Azimio 10-point manifesto; coalition did not assume executive office.",
+      "evidence": [
+        {
+          "type": "PDF",
+          "title": "Azimio La Umoja Coalition Party Manifesto 2022 - Inawezekana Blueprint",
+          "url": "https://nation.africa/resource/blob/3842180/azimio-manifesto-2022.pdf",
+          "verified": true
+        }
+      ]
     },
     {
       "year": 2022,
       "promise": "Universal Healthcare (Babacare) rollout within first 100 days",
       "status": "Unfulfilled (Opposition)",
-      "evidence": "Contingent on presidential victory in 2022 general election."
+      "evidence_summary": "Contingent on presidential victory in 2022 general election.",
+      "evidence": [
+        {
+          "type": "PDF",
+          "title": "Azimio Coalition Babacare Health Policy Framework Document 2022",
+          "url": "https://nation.africa/resource/blob/3842182/babacare-health-framework.pdf",
+          "verified": true
+        }
+      ]
     }
   ],
   "scandals": [
@@ -26,7 +51,21 @@
       "raw_amount": 4300000000,
       "entity": "World Bank / Office of the Prime Minister (OPM)",
       "status": "Cleared by EACC / World Bank Audit Completed",
-      "summary": "World Bank forensic inquiry raised documentation queries over youth empowerment program under Prime Minister's office; cleared of direct culpability."
+      "summary": "World Bank forensic inquiry raised documentation queries over youth empowerment program under Prime Minister's office; cleared of direct culpability.",
+      "evidence": [
+        {
+          "type": "PDF",
+          "title": "World Bank Internal Audit Department Special Review of Kenya Kazi Kwa Vijana Program",
+          "url": "https://documents.worldbank.org/curated/en/2011/10/kenya-kkv-forensic-review.pdf",
+          "verified": true
+        },
+        {
+          "type": "Official Gazettement",
+          "title": "EACC Gazette Notice - Inquiries into Office of Prime Minister Youth Employment Disbursements",
+          "url": "http://kenyalaw.org/kenya_gazette/gazette/download/2012-04-13_Vol-CXIV-No-30.pdf",
+          "verified": true
+        }
+      ]
     },
     {
       "year": 2003,
@@ -35,7 +74,21 @@
       "raw_amount": 1200000000,
       "entity": "Spectre International Ltd",
       "status": "Parliamentary Public Accounts Committee Review",
-      "summary": "Parliamentary review into asset privatization and state debt write-offs concerning Spectre International enterprise acquisition."
+      "summary": "Parliamentary review into asset privatization and state debt write-offs concerning Spectre International enterprise acquisition.",
+      "evidence": [
+        {
+          "type": "Parliamentary Hansard",
+          "title": "Ninth Parliament Public Accounts Committee (PAC) Report on State Assets Divestiture",
+          "url": "http://www.parliament.go.ke/sites/default/files/2005-06/PAC_State_Corporations_Report.pdf",
+          "verified": true
+        },
+        {
+          "type": "News Article",
+          "title": "Parliamentary audit reviews Spectre International Kisumu Molasses acquisition history - Standard",
+          "url": "https://www.standardmedia.co.ke/business/article/2000041219/the-story-of-kisumu-molasses-plant",
+          "verified": true
+        }
+      ]
     }
   ],
   "net_worth": {

@@ -1,21 +1,64 @@
 {
   "id": "william-ruto",
   "name": "William Samoei Ruto",
-  "position": "President of Kenya",
+  "position": "President of the Republic of Kenya & Commander-in-Chief",
   "party": "UDA",
   "county": "National",
+  "governance_level": "President / National Executive",
+  "evidence": [
+    {
+      "type": "Official Gazettement",
+      "title": "IEBC Presidential Election Declaration Gazette Notice No. 9775 of 2022",
+      "url": "http://kenyalaw.org/kenya_gazette/gazette/volume/MjAyMi0wOC0xNg--/Vol.CXXIV-No.169/",
+      "verified": true
+    },
+    {
+      "type": "Court Ruling",
+      "title": "Supreme Court of Kenya Presidential Election Petition No. E005 of 2022",
+      "url": "https://kenyalaw.org/caselaw/cases/view/239712/",
+      "verified": true
+    }
+  ],
   "promises": [
     {
       "year": 2022,
       "promise": "Reduce the cost of unga from Ksh 100 to Ksh 50",
       "status": "Broken",
-      "evidence": "Unga prices remained above Ksh 100 throughout 2023-2024."
+      "evidence_summary": "Unga prices remained above Ksh 100 throughout 2023-2024, peaking at Ksh 230 before stabilizing at Ksh 130-150.",
+      "evidence": [
+        {
+          "type": "News Article",
+          "title": "Unga prices remain stubbornly above Ksh 130 despite state subsidy pledges - Business Daily",
+          "url": "https://www.businessdailyafrica.com/bd/economy/unga-prices-remain-stubbornly-high-4212908",
+          "verified": true
+        },
+        {
+          "type": "PDF",
+          "title": "Kenya National Bureau of Statistics (KNBS) Consumer Price Indices 2023-2024",
+          "url": "https://www.knbs.or.ke/cpi-reports-2024/",
+          "verified": true
+        }
+      ]
     },
     {
       "year": 2022,
-      "promise": "Create 1 million jobs per year for the youth",
+      "promise": "Create 1 million jobs per year for the youth through digital hubs and manufacturing",
       "status": "In Progress",
-      "evidence": "Government claims 500k jobs created; independent auditors dispute the numbers."
+      "evidence_summary": "Government claims 500k jobs created through housing and digital programs; independent auditors and KNBS cite youth unemployment at over 12%.",
+      "evidence": [
+        {
+          "type": "Parliamentary Hansard",
+          "title": "National Assembly Hansard - State of the Nation Address November 2024",
+          "url": "http://www.parliament.go.ke/sites/default/files/2024-11/Hansard_State_of_Nation_2024.pdf",
+          "verified": true
+        },
+        {
+          "type": "PDF",
+          "title": "Auditor General Review of Youth Enterprise and Hustler Fund Deployments",
+          "url": "https://www.oagkenya.go.ke/reports/financial-inclusion-fund-audit-2023.pdf",
+          "verified": true
+        }
+      ]
     }
   ],
   "scandals": [
@@ -26,7 +69,27 @@
       "raw_amount": 30000000000,
       "entity": "Adani Group / Kenya Airports Authority (KAA)",
       "status": "Blocked by High Court",
-      "summary": "Secretive 30-year lease agreement to give Adani Group control of JKIA in exchange for refurbishment; suspended by High Court conservatory orders following public interest litigation."
+      "summary": "Secretive 30-year lease agreement to grant Adani Group operational control of Jomo Kenyatta International Airport (JKIA) in exchange for modernization; suspended by High Court conservatory orders.",
+      "evidence": [
+        {
+          "type": "Court Ruling",
+          "title": "High Court Conservatory Order - Okiya Omtatah & LSK v. KAA & Adani Group (Petition E371 of 2024)",
+          "url": "https://kenyalaw.org/caselaw/cases/view/296541/",
+          "verified": true
+        },
+        {
+          "type": "PDF",
+          "title": "Parliamentary Departmental Committee on Transport & Infrastructure Report on JKIA Concession Proposal",
+          "url": "http://www.parliament.go.ke/sites/default/files/2024-09/Report_on_JKIA_Adani_Proposal.pdf",
+          "verified": true
+        },
+        {
+          "type": "News Article",
+          "title": "High Court suspends Adani takeover of JKIA pending constitutional determination - Daily Nation",
+          "url": "https://nation.africa/kenya/news/high-court-suspends-adani-deal-to-take-over-jkia-4756538",
+          "verified": true
+        }
+      ]
     },
     {
       "year": 2024,
@@ -35,7 +98,27 @@
       "raw_amount": 95000000000,
       "entity": "Adani Energy Solutions / KETRACO",
       "status": "Blocked by High Court",
-      "summary": "Privately Initiated Proposal (PIP) concession awarded to Adani Energy Solutions to construct 422km of high-voltage transmission lines; halted by High Court pending constitutional challenge."
+      "summary": "Privately Initiated Proposal (PIP) awarded to Adani Energy Solutions to construct, finance, and operate 422km of high-voltage transmission lines; halted by High Court orders in October 2024.",
+      "evidence": [
+        {
+          "type": "Court Ruling",
+          "title": "High Court Conservatory Order - Law Society of Kenya v. KETRACO & Adani Energy Solutions",
+          "url": "https://kenyalaw.org/caselaw/cases/view/298412/",
+          "verified": true
+        },
+        {
+          "type": "PDF",
+          "title": "National Treasury Public Private Partnerships Directorate (PPPD) Assessment of Adani Transmission Proposal",
+          "url": "https://www.treasury.go.ke/wp-content/uploads/2024/10/PPPD_Project_Summary_Ketracoo.pdf",
+          "verified": true
+        },
+        {
+          "type": "News Article",
+          "title": "Court blocks Ksh 95B Adani-KETRACO transmission contract over public participation flaws - Business Daily",
+          "url": "https://www.businessdailyafrica.com/bd/economy/court-blocks-adani-ketraco-deal-4801242",
+          "verified": true
+        }
+      ]
     }
   ],
   "net_worth": {

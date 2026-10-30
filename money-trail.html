@@ -494,7 +494,61 @@
       .ledger-controls { flex-direction: column; align-items: stretch; }
       .controls-right { max-width: none; }
     }
-  </style>
+  
+    /* Table Evidence Locker Styles */
+    .table-evidence-locker {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+    }
+    .ev-locker-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+    .ev-locker-tag {
+      font-size: 9.5px;
+      color: var(--green-bright);
+      background: rgba(74, 222, 128, 0.12);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+    .ev-locker-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .ev-table-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(20, 24, 17, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 5px 10px;
+      text-decoration: none;
+      color: var(--paper);
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+    .ev-table-link:hover {
+      border-color: var(--cyan);
+      background: #252a20;
+      color: #fff;
+    }
+    .ev-badge-pdf { background: rgba(239, 68, 68, 0.18); color: var(--crimson-soft); border: 1px solid rgba(239, 68, 68, 0.35); }
+    .ev-badge-court { background: rgba(168, 85, 247, 0.18); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.35); }
+    .ev-badge-hansard { background: rgba(56, 189, 248, 0.18); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.35); }
+    .ev-badge-news { background: rgba(245, 158, 11, 0.18); color: var(--amber-soft); border: 1px solid rgba(245, 158, 11, 0.35); }
+    .ev-link-title { flex: 1; line-height: 1.35; }
+    .ev-link-arrow { color: var(--paper-dim); font-size: 11px; }
+
+</style>
 </head>
 <body>
 
@@ -560,6 +614,7 @@
     <div class="ledger-controls">
       <div class="controls-left">
         <button class="filter-chip active" data-filter="all">All Records (<span id="count-all">0</span>)</button>
+        <button class="filter-chip" data-filter="nairobi">Nairobi County (<span id="count-nairobi">0</span>)</button>
         <button class="filter-chip" data-filter="mega">Mega Dockets (&gt; Ksh 5B)</button>
         <button class="filter-chip" data-filter="blocked">Blocked / Injunction</button>
         <button class="filter-chip" data-filter="cleared">Cleared / Closed</button>
@@ -670,7 +725,9 @@
           if (!indexRes || !indexRes.ok) {
             indexRes = await fetch('api/politicians/index.json').catch(() => null);
           }
-          const slugs = indexRes && indexRes.ok ? await indexRes.json() : ['william-ruto', 'raila-odinga', 'rigathi-gachagua', 'kalonzo-musyoka'];
+          const slugs = indexRes && indexRes.ok ? await indexRes.json() : [
+            'william-ruto', 'johnson-sakaja', 'edwin-sifuna', 'robert-alai', 'rigathi-gachagua', 'raila-odinga', 'kalonzo-musyoka'
+          ];
 
           const fetchPromises = slugs.map(slug =>
             fetch(`${base}politicians/${slug}.json`)
@@ -706,8 +763,11 @@
                   politicianName: polName,
                   politicianId: polId,
                   party: party,
+                  county: pol.county || '',
+                  governance_level: pol.governance_level || '',
                   status: scandal.status || 'Active Inquiry',
-                  summary: scandal.summary || 'Official parliamentary and court documentation in public record.'
+                  summary: scandal.summary || 'Official parliamentary and court documentation in public record.',
+                  evidence: Array.isArray(scandal.evidence) ? scandal.evidence : []
                 });
               });
             }
@@ -775,6 +835,9 @@
         document.getElementById('kpi-top-entity').textContent = topEntity;
         document.getElementById('kpi-blocked-money').textContent = formatBillion(blockedRaw);
         document.getElementById('count-all').textContent = data.length;
+        const nairobiCount = data.filter(d => (d.county && d.county.toLowerCase().includes('nairobi')) || (d.entity && d.entity.toLowerCase().includes('nairobi'))).length;
+        const nEl = document.getElementById('count-nairobi');
+        if (nEl) nEl.textContent = nairobiCount;
       }
 
       function renderTable() {
@@ -784,6 +847,12 @@
 
         // 1. Filter
         let filtered = ledgerData.filter(item => {
+          if (currentFilter === 'nairobi') {
+            const isNairobi = (item.county && item.county.toLowerCase().includes('nairobi')) ||
+                              (item.entity && item.entity.toLowerCase().includes('nairobi')) ||
+                              (item.project && item.project.toLowerCase().includes('nairobi'));
+            if (!isNairobi) return false;
+          }
           if (currentFilter === 'mega' && item.amountNum < 5000000000) return false;
           if (currentFilter === 'blocked') {
             const s = item.status.toLowerCase();
@@ -858,7 +927,32 @@
                 <div class="project-title">${escapeHtml(item.project)}</div>
                 <span class="project-summary-toggle" onclick="toggleSummary('${item.politicianId}-${idx}')">Legal / Audit Summary &darr;</span>
                 <div class="project-summary-text" id="summary-${item.politicianId}-${idx}">
-                  ${escapeHtml(item.summary)}
+                  <div>${escapeHtml(item.summary)}</div>
+                  ${item.evidence && item.evidence.length > 0 ? `
+                    <div class="table-evidence-locker">
+                      <div class="ev-locker-head">
+                        <span>🗄 Evidence Locker &bull; ${item.evidence.length} Primary Source Documents</span>
+                        <span class="ev-locker-tag">✓ Corroborated</span>
+                      </div>
+                      <div class="ev-locker-pills">
+                        ${item.evidence.map(ev => {
+                          const t = (ev.type || '').toLowerCase();
+                          let cls = 'ev-badge-news';
+                          if (t.includes('pdf') || t.includes('audit')) cls = 'ev-badge-pdf';
+                          else if (t.includes('court') || t.includes('ruling')) cls = 'ev-badge-court';
+                          else if (t.includes('hansard') || t.includes('gazette')) cls = 'ev-badge-hansard';
+
+                          return `
+                            <a href="${escapeHtml(ev.url)}" target="_blank" rel="noopener noreferrer" class="ev-table-link">
+                              <span class="entity-type-badge ${cls}">${escapeHtml(ev.type)}</span>
+                              <span class="ev-link-title">${escapeHtml(ev.title)}</span>
+                              <span class="ev-link-arrow">↗</span>
+                            </a>
+                          `;
+                        }).join('')}
+                      </div>
+                    </div>
+                  ` : ''}
                 </div>
               </td>
               <td class="td-amount">

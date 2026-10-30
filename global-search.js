@@ -1,6 +1,6 @@
 /**
  * Global Search Engine for 25.06.2024 Accountability Platform
- * Cross-references Politician JSON Dossiers and Network Connection Graph
+ * Cross-references Politician JSON Dossiers, Evidence Locker, and Network Connection Graph
  * Produces structured intelligence queries: "Politician X is connected to Company Y regarding Scandal Z"
  */
 
@@ -42,10 +42,11 @@
       // 1. Fetch index of politicians
       let indexRes = await fetch(`${base}politicians/index.json`).catch(() => null);
       if (!indexRes || !indexRes.ok) {
-        // fallback to alternative relative path
         indexRes = await fetch('api/politicians/index.json').catch(() => null);
       }
-      const slugs = indexRes && indexRes.ok ? await indexRes.json() : ['william-ruto', 'raila-odinga', 'rigathi-gachagua', 'kalonzo-musyoka'];
+      const slugs = indexRes && indexRes.ok ? await indexRes.json() : [
+        'william-ruto', 'johnson-sakaja', 'edwin-sifuna', 'robert-alai', 'rigathi-gachagua', 'raila-odinga', 'kalonzo-musyoka'
+      ];
 
       // 2. Fetch all politician dossiers in parallel
       const politicianPromises = slugs.map(slug =>
@@ -79,6 +80,9 @@
         const polId = pol.id;
         const party = pol.party || '';
         const position = pol.position || '';
+        const county = pol.county || '';
+        const govLevel = pol.governance_level || '';
+        const topEvidence = Array.isArray(pol.evidence) ? pol.evidence : [];
 
         // Index scandals & financial connections
         if (Array.isArray(pol.scandals)) {
@@ -90,14 +94,19 @@
             const status = scandal.status || 'Active Inquiry';
             const year = scandal.year || 2024;
             const summary = scandal.summary || '';
+            const evList = Array.isArray(scandal.evidence) ? scandal.evidence : [];
 
-            // The mandatory relationship sentence
+            // The relationship sentence
             const connectionSentence = `${polName} is connected to ${entity} regarding ${scandalName} (${amount}).`;
+
+            const evTitles = evList.map(e => `${e.type} ${e.title}`).join(' ');
 
             indexRecords.push({
               type: 'financial_scandal',
               politicianName: polName,
               politicianId: polId,
+              county: county,
+              govLevel: govLevel,
               entityName: entity,
               scandalName: scandalName,
               amount: amount,
@@ -106,9 +115,12 @@
               year: year,
               summary: summary,
               sentence: connectionSentence,
+              evidenceCount: evList.length,
+              evidenceList: evList,
               tokens: [
-                polName, polId, entity, scandalName, amount, status, String(year), summary, party, position,
-                amount.replace(/\s+/g, ''), // e.g. "30B", "30Billion"
+                polName, polId, entity, scandalName, amount, status, String(year), summary, party, position, county, govLevel,
+                evTitles,
+                amount.replace(/\s+/g, ''), // e.g. "30B", "21B", "10.6B"
                 ...(entity.split(/[\s/()]+/).filter(w => w.length > 2))
               ].map(t => String(t).toLowerCase())
             });
@@ -121,34 +133,40 @@
             const promiseText = prom.promise || '';
             const status = prom.status || 'Tracked';
             const year = prom.year || 2022;
-            const evidence = prom.evidence || '';
+            const summaryText = prom.evidence_summary || (typeof prom.evidence === 'string' ? prom.evidence : '');
+            const evList = Array.isArray(prom.evidence) ? prom.evidence : [];
+            const evTitles = evList.map(e => `${e.type} ${e.title}`).join(' ');
 
             indexRecords.push({
               type: 'promise',
               politicianName: polName,
               politicianId: polId,
-              entityName: 'Electorate of Kenya',
+              county: county,
+              govLevel: govLevel,
+              entityName: county ? `${county} County` : 'Electorate of Kenya',
               scandalName: promiseText,
               amount: 'Manifesto Commitment',
               rawAmount: 0,
               status: status,
               year: year,
-              summary: evidence,
+              summary: summaryText,
               sentence: `${polName} pledged: "${promiseText}" (${status}).`,
-              tokens: [polName, polId, promiseText, status, String(year), evidence, party, 'promise', 'manifesto']
-                .map(t => String(t).toLowerCase())
+              evidenceCount: evList.length,
+              evidenceList: evList,
+              tokens: [
+                polName, polId, promiseText, status, String(year), summaryText, party, county, govLevel, 'promise', 'manifesto', evTitles
+              ].map(t => String(t).toLowerCase())
             });
           });
         }
       });
 
-      // Cross-reference Network Graph Edges for any company/institution links
+      // Cross-reference Network Graph Edges
       networkEdges.forEach(edge => {
         const fromNode = nodeMap[edge.from];
         const toNode = nodeMap[edge.to];
         if (!fromNode || !toNode) return;
 
-        // If edge connects politician to company/institution or scandal
         const isPol = (fromNode.type === 'politician');
         const isCompanyOrInst = (toNode.type === 'company' || toNode.type === 'institution');
         const isScandal = (toNode.type === 'scandal');
@@ -158,7 +176,6 @@
           const entityOrProject = toNode.label;
           const relation = edge.label || 'Connected to';
 
-          // Avoid exact duplicate sentences
           const alreadyIndexed = indexRecords.some(r =>
             r.politicianName.toLowerCase().includes(polName.toLowerCase()) &&
             r.sentence.toLowerCase().includes(entityOrProject.toLowerCase())
@@ -169,6 +186,7 @@
               type: 'network_edge',
               politicianName: polName,
               politicianId: fromNode.id,
+              county: 'Kenya',
               entityName: entityOrProject,
               scandalName: edge.label,
               amount: 'Network Link',
@@ -177,6 +195,8 @@
               year: 2024,
               summary: `${polName} → [${relation}] → ${entityOrProject}`,
               sentence: `${polName} is connected to ${entityOrProject} via "${relation}".`,
+              evidenceCount: 0,
+              evidenceList: [],
               tokens: [polName, fromNode.id, entityOrProject, toNode.id, relation, 'network', 'graph'].map(t => String(t).toLowerCase())
             });
           }
@@ -198,18 +218,14 @@
     const q = query.trim().toLowerCase();
     if (q.length === 0) return [];
 
-    // Clean search tokens (e.g. handle "30b", "30 billion", "ksh 30b")
     const cleanTokens = q.split(/\s+/).filter(Boolean);
-
     const matches = [];
 
     searchIndex.forEach(item => {
       let score = 0;
       let matchedTerm = false;
 
-      // Check for direct token matches
       cleanTokens.forEach(token => {
-        // Special case: numeric amount e.g. "30b" or "30"
         if (/^\d+[bm]?$/i.test(token)) {
           const numPart = token.replace(/[bm]/gi, '');
           if (item.tokens.some(t => t.includes(token) || t.includes(numPart))) {
@@ -218,33 +234,34 @@
           }
         }
 
-        // Entity name match (e.g. "adani", "ketraco", "world bank", "spectre", "nys")
         if (item.entityName.toLowerCase().includes(token)) {
           score += 25;
           matchedTerm = true;
         }
 
-        // Politician name match (e.g. "ruto", "raila", "gachagua", "kalonzo")
         if (item.politicianName.toLowerCase().includes(token)) {
           score += 20;
           matchedTerm = true;
         }
 
-        // Scandal / project name match
         if (item.scandalName.toLowerCase().includes(token)) {
           score += 20;
           matchedTerm = true;
         }
 
-        // Summary or generic tokens
+        if (item.county && item.county.toLowerCase().includes(token)) {
+          score += 18;
+          matchedTerm = true;
+        }
+
         if (item.tokens.some(t => t.includes(token))) {
           score += 10;
           matchedTerm = true;
         }
       });
 
-      // Priority boost for financial scandals over promises
       if (item.type === 'financial_scandal') score += 5;
+      if (item.evidenceCount > 0) score += 3;
 
       if (matchedTerm && score > 0) {
         matches.push({ item, score });
@@ -274,7 +291,7 @@
         <div class="search-empty-state">
           <div class="empty-icon">🔍</div>
           <div class="empty-text">No direct connections found for <strong>"${escapeHtml(query)}"</strong>.</div>
-          <div class="empty-hint">Try searching: <code>Adani</code>, <code>KETRACO</code>, <code>Ksh 30B</code>, <code>Ruto</code>, <code>Gachagua</code>, <code>World Bank</code>, or <code>Impeachment</code>.</div>
+          <div class="empty-hint">Try searching: <code>Sakaja</code>, <code>Nairobi</code>, <code>Adani</code>, <code>KETRACO</code>, <code>Auditor General</code>, <code>Ksh 21B</code>, or <code>Impeachment</code>.</div>
         </div>
       `;
       dropdown.style.display = 'block';
@@ -298,12 +315,22 @@
         ? `money-trail.html?q=${encodeURIComponent(res.entityName.split(/[\s/]+/)[0])}#${res.politicianId}`
         : (res.type === 'promise' ? `promises-plunder.html#${res.politicianId}` : `scandal-graph.html`);
 
+      const evBadge = res.evidenceCount > 0 
+        ? `<span class="result-ev-count" title="${res.evidenceCount} verified documents in Evidence Locker">🗄 ${res.evidenceCount} Evidences</span>` 
+        : '';
+
+      const countyBadge = res.county 
+        ? `<span class="result-county-badge">${escapeHtml(res.county)}</span>` 
+        : '';
+
       html += `
         <a href="${targetUrl}" class="search-result-item" data-index="${idx}">
           <div class="result-top-row">
             <span class="result-badge ${badgeClass}">${badgeText}</span>
+            ${countyBadge}
             ${res.amount && res.amount !== 'Manifesto Commitment' ? `<span class="result-amount">${escapeHtml(res.amount)}</span>` : ''}
             <span class="result-year">${res.year}</span>
+            ${evBadge}
             <span class="result-status status-pill">${escapeHtml(res.status)}</span>
           </div>
           <div class="result-sentence">
@@ -353,12 +380,10 @@
     return escaped;
   }
 
-  // Mount search component onto DOM elements
   function attachSearch(container) {
     const input = container.querySelector('input.global-search-input');
     if (!input) return;
 
-    // Trigger preload on focus or hover
     input.addEventListener('focus', () => initSearchIndex());
     container.addEventListener('mouseenter', () => initSearchIndex());
 
@@ -378,7 +403,6 @@
       renderDropdown(results, val, container, input);
     });
 
-    // Close on escape
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         const dropdown = container.querySelector('.global-search-dropdown');
@@ -395,7 +419,6 @@
       }
     });
 
-    // Global click listener to close dropdown when clicking outside
     document.addEventListener('click', (e) => {
       if (!container.contains(e.target)) {
         const dropdown = container.querySelector('.global-search-dropdown');
@@ -404,11 +427,9 @@
     });
   }
 
-  // Auto-init on page load
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.global-search-component').forEach(attachSearch);
     
-    // Global keyboard shortcut: Ctrl+K or / to focus search
     document.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
@@ -428,7 +449,6 @@
     });
   });
 
-  // Export search helpers for pages that need programmatic search
   window.AgyGlobalSearch = {
     init: initSearchIndex,
     search: search,

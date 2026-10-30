@@ -1,0 +1,128 @@
+{
+  "id": "johnson-sakaja",
+  "name": "Johnson Arthur Sakaja",
+  "position": "Governor of Nairobi City County",
+  "party": "UDA",
+  "county": "Nairobi",
+  "governance_level": "Governor / Nairobi County Executive",
+  "evidence": [
+    {
+      "type": "Official Gazettement",
+      "title": "Gazette Notice No. 9980 - Declaration of Governor Johnson Sakaja as Nairobi County Governor",
+      "url": "http://kenyalaw.org/kenya_gazette/gazette/volume/MjAyMi0wOC0xNg--/Vol.CXXIV-No.170/",
+      "verified": true
+    },
+    {
+      "type": "PDF",
+      "title": "County Governments Budget Implementation Review Report (CBIRR) - Nairobi City County FY 2023/24",
+      "url": "https://cob.go.ke/reports/county-budget-implementation-review-reports/",
+      "verified": true
+    }
+  ],
+  "promises": [
+    {
+      "year": 2022,
+      "promise": "Dishi na County: Daily subsidized Ksh 5 hot lunch for all public primary school children across Nairobi",
+      "status": "In Progress",
+      "evidence_summary": "17 central mega-kitchens constructed and operational serving over 300,000 children daily; County Assembly flagged procurement transparency and nutritional variance queries.",
+      "evidence": [
+        {
+          "type": "News Article",
+          "title": "Sakaja launches Dishi na County school feeding program across Nairobi primary schools - The Star",
+          "url": "https://www.the-star.co.ke/counties/nairobi/2023-08-28-dishi-na-county-feeding-program-launched/",
+          "verified": true
+        },
+        {
+          "type": "PDF",
+          "title": "Nairobi City County Assembly Committee on Early Childhood Education Assessment of Feeding Scheme",
+          "url": "https://nairobiassembly.go.ke/reports/Committee_Education_Dishi_Na_County_2024.pdf",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "year": 2022,
+      "promise": "Automate 100% of Nairobi revenue collection and hit Ksh 20 Billion annual own-source revenue",
+      "status": "Broken",
+      "evidence_summary": "Nairobi own-source revenue fell short of targets, generating Ksh 12.8B in FY 2023/24 against a Ksh 20B target, with major variance queried in electronic payment systems.",
+      "evidence": [
+        {
+          "type": "PDF",
+          "title": "Controller of Budget Annual County Governments Budget Implementation Report 2023/24",
+          "url": "https://cob.go.ke/reports/birr-fy-2023-2024-counties.pdf",
+          "verified": true
+        },
+        {
+          "type": "News Article",
+          "title": "Nairobi County misses revenue target by Ksh 7 Billion amid payment portal dispute - Standard Media",
+          "url": "https://www.standardmedia.co.ke/business/article/2001498112/nairobi-revenue-collection-falls-short-of-target",
+          "verified": true
+        }
+      ]
+    }
+  ],
+  "scandals": [
+    {
+      "year": 2024,
+      "name": "Nairobi County Legal Fees & Pending Bills Allocation",
+      "amount": "Ksh 21.0 Billion",
+      "raw_amount": 21000000000,
+      "entity": "Nairobi City County Executive / External Law Firms",
+      "status": "Senate CPAC Inquiry",
+      "summary": "Auditor General flagged Ksh 21 Billion in pending legal bills and questionable priority payments of hundreds of millions to select external legal firms without verifiable case files or SLA documentation.",
+      "evidence": [
+        {
+          "type": "PDF",
+          "title": "Auditor General Report on the Financial Statements of Nairobi City County Executive for FY 2022/2023",
+          "url": "https://www.oagkenya.go.ke/reports/nairobi-city-county-executive-2022-2023.pdf",
+          "verified": true
+        },
+        {
+          "type": "Parliamentary Hansard",
+          "title": "Senate County Public Accounts Committee (CPAC) Hansard on Nairobi County Legal Payments Investigation",
+          "url": "http://www.parliament.go.ke/sites/default/files/2024-04/Senate_CPAC_Nairobi_Legal_Hansard.pdf",
+          "verified": true
+        },
+        {
+          "type": "News Article",
+          "title": "Auditor General Nancy Gathungu queries Ksh 21B Nairobi legal fees paid to select law firms - Standard Digital",
+          "url": "https://www.standardmedia.co.ke/counties/article/2001493210/gathungu-flags-nairobi-county-sh21b-legal-bills",
+          "verified": true
+        }
+      ]
+    },
+    {
+      "year": 2024,
+      "name": "NairobiPay Revenue Reconciliation Gap & Unauthorized Bank Accounts",
+      "amount": "Ksh 10.6 Billion",
+      "raw_amount": 10600000000,
+      "entity": "Nairobi City County / NairobiPay / National Bank",
+      "status": "County Assembly Ad-Hoc Committee Investigation",
+      "summary": "Nairobi County Assembly ad-hoc committee and Auditor General uncovered Ksh 10.6B variance between NairobiPay portal collections and actual bank remittances, alongside 14 unauthorized commercial bank accounts.",
+      "evidence": [
+        {
+          "type": "PDF",
+          "title": "Nairobi City County Assembly Ad-Hoc Committee on Own-Source Revenue Collection Report 2024",
+          "url": "https://nairobiassembly.go.ke/reports/Adhoc_Committee_Report_Revenue_Collection.pdf",
+          "verified": true
+        },
+        {
+          "type": "News Article",
+          "title": "Nairobi Assembly committee flags Ksh 10.6B discrepancy in revenue accounts and undeclared bank accounts - People Daily",
+          "url": "https://www.peopledaily.co.ke/news/nairobi-assembly-probes-sh10b-revenue-discrepancy",
+          "verified": true
+        },
+        {
+          "type": "PDF",
+          "title": "EACC Summons and Inquiry Notice into Nairobi City County Electronic Payment Systems",
+          "url": "https://eacc.go.ke/press-releases/investigation-nairobi-county-revenue-systems.pdf",
+          "verified": true
+        }
+      ]
+    }
+  ],
+  "net_worth": {
+    "declared_on_swearing_in": "Pending Verification",
+    "current_declared": "Pending Verification"
+  }
+}

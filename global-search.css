@@ -273,3 +273,27 @@
   text-decoration: underline;
   color: #fff;
 }
+
+/* Additional Evidence & County Badges */
+.result-ev-count {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: var(--green-bright, #4ade80);
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  padding: 1px 6px;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.result-county-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: var(--amber-soft, #fbbf24);
+  background: rgba(217, 119, 6, 0.15);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
