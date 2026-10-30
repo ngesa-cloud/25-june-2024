@@ -65,10 +65,22 @@
         .then(r => r.ok ? r.json() : fetch('api/leaks/index.json').then(r2 => r2.json()))
         .catch(() => []);
 
-      const [politicians, networkData, leaksData] = await Promise.all([
+      // 5. Fetch Nairobi properties index
+      const propertiesPromise = fetch(`${base}properties.json`)
+        .then(r => r.ok ? r.json() : fetch('api/properties.json').then(r2 => r2.json()))
+        .catch(() => []);
+
+      // 6. Fetch NSE Insider Equities index
+      const nsePromise = fetch(`${base}nse_insider.json`)
+        .then(r => r.ok ? r.json() : fetch('api/nse_insider.json').then(r2 => r2.json()))
+        .catch(() => []);
+
+      const [politicians, networkData, leaksData, propertiesData, nseData] = await Promise.all([
         Promise.all(politicianPromises),
         networkPromise,
-        leaksPromise
+        leaksPromise,
+        propertiesPromise,
+        nsePromise
       ]);
 
       const validPoliticians = politicians.filter(Boolean);
@@ -248,6 +260,77 @@
         });
       });
 
+      // Index Nairobi Properties
+      const validProps = Array.isArray(propertiesData) ? propertiesData : [];
+      validProps.forEach(prop => {
+        const owner = prop.owner || 'Unknown Politician';
+        const propName = prop.property_name || 'Prime Real Estate';
+        const loc = prop.location || 'Nairobi';
+        const valKsh = `Ksh ${prop.value_ksh}`;
+        const rawVal = prop.value_numeric || parseAmountToNumber(prop.value_ksh);
+        const status = prop.status || 'Verified';
+        const summary = prop.summary || '';
+
+        indexRecords.push({
+          type: 'property_record',
+          politicianName: owner,
+          politicianId: prop.politician_id || 'william-ruto',
+          county: loc,
+          entityName: propName,
+          scandalName: propName,
+          amount: valKsh,
+          rawAmount: rawVal,
+          status: status,
+          year: 2024,
+          summary: summary,
+          sentence: `[PROPERTY] ${owner}: ${propName} in ${loc} (${valKsh}) — ${status}`,
+          targetUrl: 'nairobi-property.html',
+          evidenceCount: 1,
+          evidenceList: [],
+          tokens: [
+            owner, propName, loc, status, valKsh, summary, prop.category || '', prop.source || '',
+            'property', 'land', 'real estate', 'karen', 'lavington', 'muthaiga', 'langata'
+          ].map(t => String(t).toLowerCase())
+        });
+      });
+
+      // Index NSE Insider Equities
+      const validNse = Array.isArray(nseData) ? nseData : [];
+      validNse.forEach(item => {
+        const ticker = item.ticker || 'NSE';
+        const company = item.company_name || 'Listed PLC';
+        const deal = item.transaction_title || 'Equity Concession';
+        const polName = item.politician_name || 'State Principal';
+        const capKsh = item.capital_ksh || 'Ksh 0';
+        const rawCap = item.capital_numeric || parseAmountToNumber(capKsh);
+        const status = item.status || 'Active';
+        const year = item.transaction_year || 2024;
+        const summary = item.summary || '';
+
+        indexRecords.push({
+          type: 'nse_equity',
+          ticker: ticker,
+          politicianName: polName,
+          politicianId: item.politician_id || 'william-ruto',
+          county: item.sector || 'Equities',
+          entityName: `${company} (${ticker})`,
+          scandalName: deal,
+          amount: capKsh,
+          rawAmount: rawCap,
+          status: status,
+          year: year,
+          summary: summary,
+          sentence: `[NSE ${ticker}] ${company}: ${deal} — ${polName} (${capKsh})`,
+          targetUrl: 'nse-ledger.html',
+          evidenceCount: 1,
+          evidenceList: [],
+          tokens: [
+            ticker, company, deal, polName, item.sector || '', item.regulatory_body || '', status, capKsh, String(year), summary,
+            'nse', 'stock', 'equity', 'shares', 'insider', 'cma'
+          ].map(t => String(t).toLowerCase())
+        });
+      });
+
       searchIndex = indexRecords;
       isLoaded = true;
       return searchIndex;
@@ -355,11 +438,27 @@
     results.forEach((res, idx) => {
       const isLeak = res.type === 'leak_file';
       const isScandal = res.type === 'financial_scandal';
-      const badgeClass = isLeak ? 'badge-leak' : (isScandal ? 'badge-scandal' : (res.type === 'promise' ? 'badge-promise' : 'badge-network'));
-      const badgeText = isLeak ? 'LEAKED FILE' : (isScandal ? 'MONEY TRAIL' : (res.type === 'promise' ? 'PROMISE' : 'NETWORK GRAPH'));
-      
-      const targetUrl = isLeak ? res.githubUrl : `profile.html?id=${encodeURIComponent(res.politicianId)}`;
-      const targetAttr = isLeak ? 'target="_blank" rel="noopener noreferrer"' : '';
+      const isProperty = res.type === 'property_record';
+      const isNSE = res.type === 'nse_equity';
+
+      let badgeClass = 'badge-network';
+      let badgeText = 'NETWORK GRAPH';
+      if (isLeak) { badgeClass = 'badge-leak'; badgeText = 'LEAKED FILE'; }
+      else if (isProperty) { badgeClass = 'badge-property'; badgeText = 'PROPERTY'; }
+      else if (isNSE) { badgeClass = 'badge-nse'; badgeText = 'NSE EQUITIES'; }
+      else if (isScandal) { badgeClass = 'badge-scandal'; badgeText = 'MONEY TRAIL'; }
+      else if (res.type === 'promise') { badgeClass = 'badge-promise'; badgeText = 'PROMISE'; }
+
+      let targetUrl = `profile.html?id=${encodeURIComponent(res.politicianId)}`;
+      let targetAttr = '';
+      if (isLeak) {
+        targetUrl = res.githubUrl;
+        targetAttr = 'target="_blank" rel="noopener noreferrer"';
+      } else if (isProperty) {
+        targetUrl = 'nairobi-property.html';
+      } else if (isNSE) {
+        targetUrl = 'nse-ledger.html';
+      }
 
       const evBadge = (!isLeak && res.evidenceCount > 0)
         ? `<span class="result-ev-count" title="${res.evidenceCount} verified documents in Evidence Locker">🗄 ${res.evidenceCount} Evidences</span>` 
@@ -374,7 +473,7 @@
         : '';
 
       html += `
-        <a href="${escapeHtml(targetUrl)}" ${targetAttr} class="search-result-item ${isLeak ? 'item-leak' : ''}" data-index="${idx}">
+        <a href="${escapeHtml(targetUrl)}" ${targetAttr} class="search-result-item ${isLeak ? 'item-leak' : (isProperty ? 'item-property' : (isNSE ? 'item-nse' : ''))}" data-index="${idx}">
           <div class="result-top-row">
             <span class="result-badge ${badgeClass}">${badgeText}</span>
             ${extraFileBadge}

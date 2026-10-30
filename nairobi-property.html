@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nairobi Property Tracker — Real Estate &amp; Land Dossiers | 25 June Accountability</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global-search.css">
+  <style>
+    :root {
+      --bg: #12140F;
+      --surface: #181B14;
+      --surface-elevated: #20241B;
+      --surface-hover: #262c20;
+      --border: #2C3125;
+      --border-highlight: #3D4433;
+      --crimson: #B4472F;
+      --crimson-soft: #f87171;
+      --crimson-dim: rgba(180, 71, 47, 0.15);
+      --amber: #D97706;
+      --amber-soft: #fbbf24;
+      --amber-dim: rgba(217, 119, 6, 0.15);
+      --cyan: #38bdf8;
+      --cyan-dim: rgba(56, 189, 248, 0.12);
+      --green: #6C7A5A;
+      --green-bright: #4ade80;
+      --green-dim: rgba(74, 222, 128, 0.12);
+      --paper: #EAE6DA;
+      --paper-dim: #A9A599;
+      --paper-dark: #62605B;
+      --font-serif: 'Newsreader', Georgia, serif;
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--paper);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 0 0 100px;
+    }
+
+    /* Pinned Navigation */
+    .top-nav {
+      background: rgba(24, 27, 20, 0.95);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 24px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      gap: 16px;
+    }
+    .nav-brand {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--paper);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--crimson); }
+    .nav-search-wrap {
+      flex: 1;
+      max-width: 500px;
+    }
+    .nav-links { display: flex; gap: 12px; align-items: center; white-space: nowrap; }
+    .nav-link {
+      color: var(--paper-dim);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-family: var(--font-mono);
+      transition: color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--paper); }
+    .nav-link.active { color: #fff; font-weight: 600; }
+    .nav-btn-graph {
+      background: var(--cyan-dim);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--cyan);
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .nav-btn-graph:hover {
+      background: rgba(56, 189, 248, 0.22);
+      border-color: var(--cyan);
+    }
+    .random-btn {
+      background: rgba(217, 119, 6, 0.15);
+      border: 1px solid rgba(217, 119, 6, 0.4);
+      color: var(--amber-soft);
+      padding: 5px 11px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .random-btn:hover {
+      background: rgba(217, 119, 6, 0.28);
+      border-color: var(--amber);
+      color: #fff;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 36px 24px 0;
+    }
+
+    /* Header */
+    .header-section {
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+    .kicker {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--crimson);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .kicker::before {
+      content: "";
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: var(--crimson);
+      border-radius: 50%;
+    }
+    h1.main-title {
+      font-family: var(--font-serif);
+      font-size: clamp(32px, 4.8vw, 48px);
+      font-weight: 500;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .subtitle {
+      color: var(--paper-dim);
+      font-size: 15.5px;
+      max-width: 880px;
+      line-height: 1.6;
+    }
+
+    /* Telemetry KPI Grid */
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .stat-card:hover { border-color: var(--border-highlight); }
+    .stat-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .card-money::before { background: var(--amber); }
+    .card-parcels::before { background: var(--cyan); }
+    .card-karen::before { background: var(--green-bright); }
+    .card-contested::before { background: var(--crimson); }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--paper-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .stat-value {
+      font-family: var(--font-mono);
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+      letter-spacing: -0.02em;
+    }
+    .stat-sub {
+      font-size: 12.5px;
+      color: var(--paper-dark);
+    }
+
+    /* Filter Controls Bar */
+    .filter-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .search-input-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+    }
+    .search-input-wrap svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--paper-dark);
+      pointer-events: none;
+    }
+    .prop-search-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--paper);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      padding: 9px 12px 9px 36px;
+      border-radius: 4px;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .prop-search-input:focus {
+      border-color: var(--amber);
+      box-shadow: 0 0 0 2px var(--amber-dim);
+    }
+    .chips-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--paper-dim);
+      padding: 6px 13px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .chip:hover {
+      border-color: var(--border-highlight);
+      color: var(--paper);
+    }
+    .chip.active {
+      background: var(--amber-dim);
+      border-color: var(--amber);
+      color: var(--amber-soft);
+      font-weight: 600;
+    }
+    .sort-wrap select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--paper-dim);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 7px 12px;
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Property Cards Grid */
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .prop-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .prop-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--border-highlight);
+    }
+
+    .prop-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .location-badge {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--cyan);
+      background: var(--cyan-dim);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 3px 8px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .value-pill {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--amber-soft);
+      white-space: nowrap;
+    }
+
+    .prop-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .owner-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: var(--surface-elevated);
+      border-radius: 4px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .owner-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .owner-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--paper-dim);
+    }
+    .owner-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--paper);
+    }
+    .owner-link {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--cyan);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .owner-link:hover { text-decoration: underline; }
+
+    .prop-summary {
+      font-size: 13.5px;
+      color: var(--paper-dim);
+      line-height: 1.55;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .meta-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+    .tag-category {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--paper-dim);
+      border: 1px solid var(--border);
+    }
+    .tag-status-verified {
+      background: var(--green-dim);
+      color: var(--green-bright);
+      border: 1px solid rgba(74, 222, 128, 0.25);
+    }
+    .tag-status-contested {
+      background: var(--crimson-dim);
+      color: var(--crimson-soft);
+      border: 1px solid rgba(180, 71, 47, 0.35);
+    }
+
+    .linked-scandal-box {
+      background: rgba(180, 71, 47, 0.08);
+      border: 1px dashed rgba(180, 71, 47, 0.3);
+      padding: 10px 12px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+      font-size: 12px;
+    }
+    .scandal-box-title {
+      font-family: var(--font-mono);
+      color: var(--crimson-soft);
+      font-weight: 600;
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .scandal-box-text {
+      color: var(--paper-dim);
+      line-height: 1.45;
+    }
+
+    .prop-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+    }
+    .source-label {
+      color: var(--paper-dark);
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .evidence-btn {
+      color: var(--amber-soft);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+    .evidence-btn:hover { color: #fff; text-decoration: underline; }
+
+    /* Cross-referenced County Registry Section */
+    .cross-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 28px;
+      margin-top: 48px;
+    }
+    .cross-header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+    .cross-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .cross-desc {
+      color: var(--paper-dim);
+      font-size: 13.5px;
+    }
+    .intel-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .intel-table th {
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--paper-dark);
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .intel-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      vertical-align: middle;
+    }
+    .intel-table tr:hover td {
+      background: var(--surface-elevated);
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--paper-dim);
+      font-family: var(--font-mono);
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 860px) {
+      .top-nav { flex-wrap: wrap; }
+      .nav-search-wrap { order: 3; max-width: 100%; width: 100%; }
+      .property-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation Bar -->
+  <nav class="top-nav">
+    <a href="index.html" class="nav-brand">
+      <span>&bull;</span> 25 JUNE <span>ACCOUNTABILITY</span>
+    </a>
+
+    <!-- Global Search Bar wrapper -->
+    <div class="nav-search-wrap">
+      <div class="global-search-container">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input 
+            type="text" 
+            id="global-search-input" 
+            class="global-search-input" 
+            placeholder="Search Nairobi land, Karen parcels, politicians, tickers..." 
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <span class="search-kbd-shortcut">Ctrl K</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <button id="random-btn" class="random-btn" onclick="exposeRandomPolitician()" title="Expose a random corrupt politician profile">
+        <span>🎲</span> Expose Random
+      </button>
+      <a href="promises-plunder.html" class="nav-link">Promises &amp; Plunder</a>
+      <a href="money-trail.html" class="nav-link">Financial Ledger</a>
+      <a href="nairobi-property.html" class="nav-link active">Properties</a>
+      <a href="nse-ledger.html" class="nav-link">NSE Ledger</a>
+      <a href="scandal-graph.html" class="nav-btn-graph">
+        <span>&odot;</span> Scandal Graph &rarr;
+      </a>
+      <a href="contribute.html" class="nav-link" style="color:var(--cyan);">✍ Contribute</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header-section">
+      <div class="kicker">Cadastral &amp; Asset Disclosures &bull; Nairobi County &amp; National Registry</div>
+      <h1 class="main-title">The Nairobi Property Tracker</h1>
+      <p class="subtitle">A specialized forensic register auditing high-value private residences, contentious state land acquisitions, and institutional real estate held by national and county executive leaders in Nairobi's prime corridors (Karen, Lavington, Muthaiga, Kileleshwa, and Lang'ata).</p>
+    </header>
+
+    <!-- Telemetry Cards -->
+    <section class="telemetry-grid">
+      <div class="stat-card card-money">
+        <div class="stat-label">Total Real Estate Tracked</div>
+        <div class="stat-value" id="kpi-total-val">Ksh 6.73B</div>
+        <div class="stat-sub" id="kpi-total-sub">Ksh 6,730,000,000 estimated valuation</div>
+      </div>
+      <div class="stat-card card-parcels">
+        <div class="stat-label">Parcels Cataloged</div>
+        <div class="stat-value" id="kpi-parcel-count">9 Properties</div>
+        <div class="stat-sub">Across 7 senior public figures</div>
+      </div>
+      <div class="stat-card card-karen">
+        <div class="stat-label">Prime Corridor Density</div>
+        <div class="stat-value">Karen &amp; Lavington</div>
+        <div class="stat-sub">7 of 9 properties situated in leafy enclaves</div>
+      </div>
+      <div class="stat-card card-contested">
+        <div class="stat-label">Contested / Aviation Land</div>
+        <div class="stat-value">Ksh 2.50B</div>
+        <div class="stat-sub">Active appellate litigation (Weston Hotel)</div>
+      </div>
+    </section>
+
+    <!-- Filter & Search Controls -->
+    <section class="filter-bar">
+      <div class="search-input-wrap">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input 
+          type="text" 
+          id="prop-filter-input" 
+          class="prop-search-input" 
+          placeholder="Filter by owner, parcel, location (e.g. Karen, Sakaja)..."
+        >
+      </div>
+
+      <div class="chips-group" id="filter-chips">
+        <button class="chip active" data-filter="all">All Properties (<span id="count-all">9</span>)</button>
+        <button class="chip" data-filter="karen">Karen</button>
+        <button class="chip" data-filter="lavington">Lavington</button>
+        <button class="chip" data-filter="high-value">High Value (&ge; Ksh 500M)</button>
+        <button class="chip" data-filter="contested">Contested / Litigation</button>
+      </div>
+
+      <div class="sort-wrap">
+        <select id="prop-sort-select">
+          <option value="val-desc">Highest Valuation &darr;</option>
+          <option value="val-asc">Lowest Valuation &uarr;</option>
+          <option value="name-asc">Owner Name (A-Z)</option>
+          <option value="loc-asc">Location (A-Z)</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Property Dossier Grid -->
+    <section class="property-grid" id="property-cards-container">
+      <!-- Injected via JavaScript -->
+    </section>
+
+    <!-- Cross-Referenced Politician Land Intelligence Table -->
+    <section class="cross-section">
+      <div class="cross-header">
+        <h2 class="cross-title">Politician Land &amp; Property Scandals Cross-Index</h2>
+        <p class="cross-desc">Extracted dynamically from national and Nairobi County politician dossiers where official records cite "Land", "Property", "Karen", "Muthaiga", "Runda", or "Lavington".</p>
+      </div>
+      <div style="overflow-x: auto;">
+        <table class="intel-table">
+          <thead>
+            <tr>
+              <th>Politician</th>
+              <th>Jurisdiction</th>
+              <th>Scandal / Docket Item</th>
+              <th>Est. Capital</th>
+              <th>Status</th>
+              <th>Dossier Action</th>
+            </tr>
+          </thead>
+          <tbody id="cross-intel-tbody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="global-search.js"></script>
+  <script>
+    let allProperties = [];
+    let activeFilter = 'all';
+    let searchQuery = '';
+    let currentSort = 'val-desc';
+
+    async function initPropertiesTracker() {
+      try {
+        const res = await fetch('public/api/properties.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        allProperties = await res.json();
+      } catch (err) {
+        console.warn('Fallback loading public/api/properties.json:', err);
+        try {
+          const res2 = await fetch('api/properties.json');
+          allProperties = await res2.json();
+        } catch (e2) {
+          console.error('Failed to load properties data:', e2);
+          document.getElementById('property-cards-container').innerHTML = 
+            '<div class="empty-state">Failed to load property dossiers. Please refresh or verify API status.</div>';
+          return;
+        }
+      }
+
+      // Update KPI metrics
+      updateKPIs();
+      renderProperties();
+      setupEventListeners();
+      loadCrossReferencedIntel();
+    }
+
+    function updateKPIs() {
+      const totalNumeric = allProperties.reduce((acc, p) => acc + (p.value_numeric || 0), 0);
+      const totalBillion = (totalNumeric / 1e9).toFixed(2);
+      document.getElementById('kpi-total-val').textContent = `Ksh ${totalBillion}B`;
+      document.getElementById('kpi-total-sub').textContent = `Ksh ${totalNumeric.toLocaleString()} estimated valuation`;
+      document.getElementById('kpi-parcel-count').textContent = `${allProperties.length} Properties`;
+      document.getElementById('count-all').textContent = allProperties.length;
+    }
+
+    function renderProperties() {
+      const container = document.getElementById('property-cards-container');
+      container.innerHTML = '';
+
+      let filtered = allProperties.filter(item => {
+        // Text search filter
+        const matchText = (
+          (item.owner || '').toLowerCase().includes(searchQuery) ||
+          (item.property_name || '').toLowerCase().includes(searchQuery) ||
+          (item.location || '').toLowerCase().includes(searchQuery) ||
+          (item.summary || '').toLowerCase().includes(searchQuery) ||
+          (item.source || '').toLowerCase().includes(searchQuery)
+        );
+        if (!matchText) return false;
+
+        // Category chip filter
+        if (activeFilter === 'karen') {
+          return (item.location || '').toLowerCase().includes('karen');
+        } else if (activeFilter === 'lavington') {
+          return (item.location || '').toLowerCase().includes('lavington');
+        } else if (activeFilter === 'high-value') {
+          return (item.value_numeric || 0) >= 500000000;
+        } else if (activeFilter === 'contested') {
+          return (item.status || '').toLowerCase().includes('contested') || 
+                 (item.status || '').toLowerCase().includes('court') || 
+                 (item.status || '').toLowerCase().includes('appeal') ||
+                 (item.status || '').toLowerCase().includes('trial');
+        }
+        return true;
+      });
+
+      // Sorting
+      filtered.sort((a, b) => {
+        if (currentSort === 'val-desc') return (b.value_numeric || 0) - (a.value_numeric || 0);
+        if (currentSort === 'val-asc') return (a.value_numeric || 0) - (b.value_numeric || 0);
+        if (currentSort === 'name-asc') return (a.owner || '').localeCompare(b.owner || '');
+        if (currentSort === 'loc-asc') return (a.location || '').localeCompare(b.location || '');
+        return 0;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <p style="font-size: 16px; margin-bottom: 8px;">No properties matched your criteria.</p>
+            <p style="color: var(--paper-dark); font-size: 12.5px;">Try clearing filters or search terms.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(prop => {
+        const isContested = (prop.status || '').toLowerCase().includes('contested') || 
+                            (prop.status || '').toLowerCase().includes('trial') ||
+                            (prop.status || '').toLowerCase().includes('court');
+        const statusTagClass = isContested ? 'tag-status-contested' : 'tag-status-verified';
+
+        const card = document.createElement('article');
+        card.className = 'prop-card';
+        card.innerHTML = `
+          <div class="prop-header">
+            <span class="location-badge">📍 ${prop.location || 'Nairobi'}</span>
+            <span class="value-pill">Ksh ${prop.value_ksh || 'Undisclosed'}</span>
+          </div>
+
+          <h3 class="prop-title">${prop.property_name || 'Prime Real Estate Holding'}</h3>
+
+          <div class="owner-row">
+            <div class="owner-info">
+              <div class="owner-avatar">${(prop.owner || 'U')[0]}</div>
+              <span class="owner-name">${prop.owner}</span>
+            </div>
+            ${prop.politician_id ? `<a href="profile.html?id=${prop.politician_id}" class="owner-link">View Wiki &rarr;</a>` : ''}
+          </div>
+
+          <p class="prop-summary">${prop.summary || 'Documented real estate asset tied to political principal asset filings.'}</p>
+
+          <div class="meta-tags">
+            <span class="tag tag-category">${prop.category || 'Real Estate'}</span>
+            <span class="tag ${statusTagClass}">● ${prop.status || 'Reported'}</span>
+          </div>
+
+          <div class="prop-footer">
+            <span class="source-label" title="${prop.source || 'Public Record'}">
+              📄 ${prop.source || 'Public Record'}
+            </span>
+            ${prop.evidence_url ? `
+              <a href="${prop.evidence_url}" target="_blank" rel="noopener noreferrer" class="evidence-btn">
+                Evidence ↗
+              </a>
+            ` : ''}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function setupEventListeners() {
+      // Search input
+      const searchInput = document.getElementById('prop-filter-input');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          searchQuery = e.target.value.trim().toLowerCase();
+          renderProperties();
+        });
+      }
+
+      // Filter chips
+      const chips = document.querySelectorAll('#filter-chips .chip');
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          activeFilter = chip.getAttribute('data-filter');
+          renderProperties();
+        });
+      });
+
+      // Sort dropdown
+      const sortSelect = document.getElementById('prop-sort-select');
+      if (sortSelect) {
+        sortSelect.addEventListener('change', (e) => {
+          currentSort = e.target.value;
+          renderProperties();
+        });
+      }
+    }
+
+    // Dynamic extraction of Nairobi and National politician land scandals
+    async function loadCrossReferencedIntel() {
+      const tbody = document.getElementById('cross-intel-tbody');
+      if (!tbody) return;
+
+      const keywords = ['land', 'property', 'karen', 'muthaiga', 'runda', 'lavington'];
+
+      try {
+        const idxRes = await fetch('public/api/politicians/index.json');
+        if (!idxRes.ok) return;
+        const slugs = await idxRes.json();
+
+        let rowsHtml = '';
+        for (const slug of slugs) {
+          try {
+            const pRes = await fetch(`public/api/politicians/${slug}.json`);
+            if (!pRes.ok) continue;
+            const pol = await pRes.json();
+
+            const cty = (pol.county || '').toLowerCase();
+            const isTargetCounty = cty.includes('nairobi') || cty.includes('national');
+            if (!isTargetCounty) continue;
+
+            const scandals = pol.scandals || [];
+            scandals.forEach(sc => {
+              const textToSearch = `${sc.title || ''} ${sc.evidence || ''} ${sc.description || ''} ${sc.entity_involved || ''}`.toLowerCase();
+              const hasKeyword = keywords.some(k => textToSearch.includes(k));
+              if (hasKeyword) {
+                rowsHtml += `
+                  <tr>
+                    <td>
+                      <strong><a href="profile.html?id=${pol.id}" style="color:var(--paper); text-decoration:none;">${pol.name}</a></strong>
+                      <div style="font-family:var(--font-mono); font-size:11px; color:var(--paper-dark);">${pol.position || ''}</div>
+                    </td>
+                    <td>
+                      <span style="font-family:var(--font-mono); font-size:11.5px; color:var(--cyan);">${pol.county || 'National'}</span>
+                    </td>
+                    <td>
+                      <div style="font-weight:600; color:#fff; margin-bottom:2px;">${sc.title || 'Land/Property Inquiry'}</div>
+                      <div style="font-size:12px; color:var(--paper-dim); max-width:440px;">${sc.evidence || sc.description || ''}</div>
+                    </td>
+                    <td style="font-family:var(--font-mono); color:var(--amber-soft); white-space:nowrap;">
+                      ${sc.amount_ksh || 'Court / EACC Sub Judice'}
+                    </td>
+                    <td>
+                      <span style="font-family:var(--font-mono); font-size:11px; color:var(--crimson-soft);">
+                        ${sc.status || 'Under Inquiry'}
+                      </span>
+                    </td>
+                    <td>
+                      <a href="profile.html?id=${pol.id}" class="owner-link" style="font-size:11.5px;">
+                        Open Dossier &rarr;
+                      </a>
+                    </td>
+                  </tr>
+                `;
+              }
+            });
+          } catch (e) {
+            console.warn('Error reading politician file for cross-intel:', slug, e);
+          }
+        }
+
+        if (rowsHtml) {
+          tbody.innerHTML = rowsHtml;
+        } else {
+          tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:var(--paper-dim); padding:20px;">No additional cross-referenced land scandals identified.</td></tr>';
+        }
+      } catch (err) {
+        console.error('Error loading cross referenced land intel:', err);
+      }
+    }
+
+    async function exposeRandomPolitician() {
+      try {
+        const res = await fetch('public/api/politicians/index.json');
+        const slugs = await res.json();
+        const rand = slugs[Math.floor(Math.random() * slugs.length)];
+        window.location.href = `profile.html?id=${rand}`;
+      } catch (e) {
+        window.location.href = 'profile.html?id=william-ruto';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initPropertiesTracker);
+  </script>
+</body>
+</html>

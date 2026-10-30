@@ -352,3 +352,26 @@
   font-size: 12.5px !important;
   line-height: 1.5;
 }
+
+/* Nairobi Property & NSE Insider Badges */
+.badge-property {
+  background: rgba(217, 119, 6, 0.22) !important;
+  color: var(--amber-soft, #fbbf24) !important;
+  border: 1px solid rgba(217, 119, 6, 0.5) !important;
+  font-weight: 600 !important;
+}
+
+.item-property {
+  border-left: 3px solid var(--amber, #D97706) !important;
+}
+
+.badge-nse {
+  background: rgba(74, 222, 128, 0.18) !important;
+  color: var(--green-bright, #4ade80) !important;
+  border: 1px solid rgba(74, 222, 128, 0.45) !important;
+  font-weight: 700 !important;
+}
+
+.item-nse {
+  border-left: 3px solid var(--green-bright, #4ade80) !important;
+}
