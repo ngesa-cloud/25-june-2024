@@ -1,0 +1,34 @@
+{
+  "id": "william-ruto",
+  "name": "William Samoei Ruto",
+  "position": "President of Kenya",
+  "party": "UDA",
+  "county": "National",
+  "promises": [
+    {
+      "year": 2022,
+      "promise": "Reduce the cost of unga from Ksh 100 to Ksh 50",
+      "status": "Broken",
+      "evidence": "Unga prices remained above Ksh 100 throughout 2023-2024."
+    },
+    {
+      "year": 2022,
+      "promise": "Create 1 million jobs per year for the youth",
+      "status": "In Progress",
+      "evidence": "Government claims 500k jobs created; independent auditors dispute the numbers."
+    }
+  ],
+  "scandals": [
+    {
+      "year": 2024,
+      "name": "Adani Group Airport Lease",
+      "amount": "Ksh 30 Billion",
+      "status": "Blocked by High Court",
+      "summary": "Secretive lease agreement to give Adani control of JKIA for 30 years in exchange for upgrades."
+    }
+  ],
+  "net_worth": {
+    "declared_on_swearing_in": "Ksh 1.2 Billion",
+    "current_declared": "Ksh 1.5 Billion"
+  }
+}

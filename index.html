@@ -275,6 +275,43 @@
   }
   .hero-scroll-cue .line{ width:28px; height:1px; background:var(--paper-dim); }
 
+  
+  /* ---------- Pinned Top Tracker Button ---------- */
+  .tracker-nav-btn {
+    position: fixed;
+    top: 20px;
+    right: 28px;
+    z-index: 1000;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(24, 27, 20, 0.94);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--rule);
+    color: var(--paper);
+    padding: 8px 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.6), 0 0 0 1px rgba(52, 55, 44, 0.6);
+  }
+  .tracker-nav-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(180, 71, 47, 0.45);
+  }
+  @media (max-width: 640px) {
+    .tracker-nav-btn {
+      top: 14px;
+      right: 16px;
+      padding: 7px 11px;
+      font-size: 11px;
+    }
+  }
+
   /* ---------- Pinned Top Soundtrack Shuffle Button ---------- */
   .soundtrack-toggle-btn{
     position:fixed;
@@ -2051,6 +2088,13 @@
     <span></span><span></span><span></span>
   </span>
 </button>
+
+<!-- Top Fixed Link to Promises & Plunder Tracker -->
+<a href="promises-plunder.html" class="tracker-nav-btn" aria-label="Open Promises & Plunder Tracker">
+  <span style="color:var(--accent);">⚖</span>
+  <span>promises &amp; plunder &rarr;</span>
+</a>
+
 
 <header class="hero">
   <div class="wrap" style="padding:0; max-width:920px; margin:0 auto; width:100%;">
