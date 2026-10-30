@@ -256,7 +256,29 @@
         display: none;
       }
     }
-  </style>
+  
+    .random-btn {
+      background: rgba(217, 119, 6, 0.15);
+      border: 1px solid rgba(217, 119, 6, 0.4);
+      color: var(--amber-soft);
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .random-btn:hover {
+      background: rgba(217, 119, 6, 0.25);
+      border-color: var(--amber-soft);
+      color: #fff;
+    }
+
+</style>
   <link rel="stylesheet" href="global-search.css">
 </head>
 <body>
@@ -279,9 +301,12 @@
     </div>
 
     <div class="nav-actions" style="display:flex; gap:10px; align-items:center;">
-      <a href="promises-plunder.html" class="nav-btn">Promises &amp; Plunder</a>
-      <a href="money-trail.html" class="nav-btn">Financial Ledger</a>
-      <a href="public/api/network.json" target="_blank" class="nav-btn" style="color:var(--paper-dark);">JSON &nearr;</a>
+      <button id="random-btn" class="random-btn" onclick="exposeRandomPolitician()" title="Expose a random corrupt politician profile">
+        <span>🎲</span> Expose Random
+      </button>
+      <a href="promises-plunder.html" class="nav-btn">Roster</a>
+      <a href="money-trail.html" class="nav-btn">Ledger</a>
+      <a href="contribute.html" class="nav-btn" style="color:var(--cyan); border-color:rgba(56,189,248,0.35);">✍ Contribute</a>
     </div>
   </nav>
 
@@ -460,6 +485,24 @@
       }
     }
 
+    
+    async function exposeRandomPolitician() {
+      const isPublic = window.location.pathname.includes('/public/');
+      const base = isPublic ? 'api/' : 'public/api/';
+      try {
+        let res = await fetch(`${base}politicians/index.json`).catch(() => null);
+        if (!res || !res.ok) {
+          res = await fetch('api/politicians/index.json').catch(() => null);
+        }
+        const slugs = res && res.ok ? await res.json() : ['william-ruto', 'johnson-sakaja', 'edwin-sifuna', 'robert-alai', 'rigathi-gachagua', 'raila-odinga', 'kalonzo-musyoka'];
+        const randomSlug = slugs[Math.floor(Math.random() * slugs.length)];
+        window.location.href = `profile.html?id=${encodeURIComponent(randomSlug)}`;
+      } catch (e) {
+        window.location.href = 'profile.html?id=johnson-sakaja';
+      }
+    }
+    window.exposeRandomPolitician = exposeRandomPolitician;
+
     function getPolSlug(id) {
       const map = {
         'ruto': 'william-ruto',
@@ -519,8 +562,8 @@
 
         ${node.type === 'politician' ? `
           <div style="margin-top:20px; padding-top:14px; border-top:1px solid var(--border);">
-            <a href="promises-plunder.html#${encodeURIComponent(getPolSlug(node.id))}" class="nav-btn" style="display:block; text-align:center; background:rgba(56,189,248,0.12); color:var(--cyan); border-color:rgba(56,189,248,0.35);">
-              Inspect Evidence Dossier &rarr;
+            <a href="profile.html?id=${encodeURIComponent(getPolSlug(node.id))}" class="nav-btn" style="display:block; text-align:center; background:rgba(217,119,6,0.18); color:var(--amber-soft); border-color:rgba(217,119,6,0.4);">
+              Read OpenSource Wiki Profile &rarr;
             </a>
           </div>
         ` : (node.type === 'scandal' ? `

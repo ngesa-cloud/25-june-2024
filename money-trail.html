@@ -548,6 +548,28 @@
     .ev-link-title { flex: 1; line-height: 1.35; }
     .ev-link-arrow { color: var(--paper-dim); font-size: 11px; }
 
+
+    .random-btn {
+      background: rgba(217, 119, 6, 0.15);
+      border: 1px solid rgba(217, 119, 6, 0.4);
+      color: var(--amber-soft);
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .random-btn:hover {
+      background: rgba(217, 119, 6, 0.25);
+      border-color: var(--amber-soft);
+      color: #fff;
+    }
+
 </style>
 </head>
 <body>
@@ -570,11 +592,15 @@
     </div>
 
     <div class="nav-links">
+      <button id="random-btn" class="random-btn" onclick="exposeRandomPolitician()" title="Expose a random corrupt politician profile">
+        <span>🎲</span> Expose Random
+      </button>
       <a href="promises-plunder.html" class="nav-link">Promises &amp; Plunder</a>
       <a href="money-trail.html" class="nav-link active">Financial Ledger</a>
       <a href="scandal-graph.html" class="nav-btn-graph">
         <span>&odot;</span> Scandal Graph &rarr;
       </a>
+      <a href="contribute.html" class="nav-link" style="color:var(--cyan);">✍ Contribute</a>
     </div>
   </nav>
 
@@ -672,6 +698,24 @@
       let currentSort = { column: 'amount', direction: 'desc' };
 
       // Helper to parse amount strings to integers
+      
+      async function exposeRandomPolitician() {
+        const isPublic = window.location.pathname.includes('/public/');
+        const base = isPublic ? 'api/' : 'public/api/';
+        try {
+          let res = await fetch(`${base}politicians/index.json`).catch(() => null);
+          if (!res || !res.ok) {
+            res = await fetch('api/politicians/index.json').catch(() => null);
+          }
+          const slugs = res && res.ok ? await res.json() : ['william-ruto', 'johnson-sakaja', 'edwin-sifuna', 'robert-alai', 'rigathi-gachagua', 'raila-odinga', 'kalonzo-musyoka'];
+          const randomSlug = slugs[Math.floor(Math.random() * slugs.length)];
+          window.location.href = `profile.html?id=${encodeURIComponent(randomSlug)}`;
+        } catch (e) {
+          window.location.href = 'profile.html?id=johnson-sakaja';
+        }
+      }
+      window.exposeRandomPolitician = exposeRandomPolitician;
+
       function parseAmount(str) {
         if (!str) return 0;
         const clean = str.toLowerCase().replace(/,/g, '').trim();
@@ -965,7 +1009,7 @@
                 </div>
               </td>
               <td class="td-politician">
-                <a href="promises-plunder.html#${item.politicianId}" title="View politician dossier">
+                <a href="profile.html?id=${item.politicianId}" title="Read open-source wiki article">
                   <span class="pol-avatar-circle">${initial}</span>
                   <span>${escapeHtml(item.politicianName)}</span>
                 </a>

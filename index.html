@@ -2097,6 +2097,19 @@
     }
   }
 
+
+  .random-nav-btn {
+    background: rgba(217, 119, 6, 0.18) !important;
+    border-color: rgba(217, 119, 6, 0.45) !important;
+    color: var(--focus) !important;
+    cursor: pointer;
+  }
+  .random-nav-btn:hover {
+    background: rgba(217, 119, 6, 0.28) !important;
+    border-color: var(--focus) !important;
+    color: #fff !important;
+  }
+
 </style>
   <link rel="stylesheet" href="global-search.css">
 </head>
@@ -2145,6 +2158,10 @@
 
 <!-- Top Fixed Links to Trackers -->
 <div class="index-top-right-nav">
+  <button id="random-btn" class="tracker-nav-btn random-nav-btn" onclick="exposeRandomPolitician()" title="Expose a random corrupt politician profile">
+    <span>🎲</span>
+    <span>expose random</span>
+  </button>
   <a href="promises-plunder.html" class="tracker-nav-btn" aria-label="Open Promises & Plunder Tracker">
     <span style="color:var(--accent);">⚖</span>
     <span>promises &amp; plunder</span>

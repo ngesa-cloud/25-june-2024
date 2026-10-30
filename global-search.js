@@ -311,9 +311,7 @@
       const badgeClass = isScandal ? 'badge-scandal' : (res.type === 'promise' ? 'badge-promise' : 'badge-network');
       const badgeText = isScandal ? 'MONEY TRAIL' : (res.type === 'promise' ? 'PROMISE' : 'NETWORK GRAPH');
       
-      const targetUrl = isScandal 
-        ? `money-trail.html?q=${encodeURIComponent(res.entityName.split(/[\s/]+/)[0])}#${res.politicianId}`
-        : (res.type === 'promise' ? `promises-plunder.html#${res.politicianId}` : `scandal-graph.html`);
+      const targetUrl = `profile.html?id=${encodeURIComponent(res.politicianId)}`;
 
       const evBadge = res.evidenceCount > 0 
         ? `<span class="result-ev-count" title="${res.evidenceCount} verified documents in Evidence Locker">🗄 ${res.evidenceCount} Evidences</span>` 
@@ -346,7 +344,10 @@
 
     html += `
       </div>
-      <div class="search-results-footer">
+      <div class="search-results-footer" style="display:flex; justify-content:space-between; align-items:center;">
+        <a href="contribute.html" class="search-view-all" style="color:var(--amber-soft);">
+          ✍ Propose a New Politician or Evidence &nearr;
+        </a>
         <a href="money-trail.html?q=${encodeURIComponent(query)}" class="search-view-all">
           View full ledger results in Financial Ledger &rarr;
         </a>

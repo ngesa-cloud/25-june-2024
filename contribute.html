@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Contribution Guide — OpenSource Corruption Wiki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global-search.css">
+  <style>
+    :root {
+      --bg: #12140F;
+      --surface: #181B14;
+      --surface-elevated: #20241B;
+      --border: #2C3125;
+      --border-highlight: #3D4433;
+      --crimson: #B4472F;
+      --crimson-soft: #f87171;
+      --amber: #D97706;
+      --amber-soft: #fbbf24;
+      --cyan: #38bdf8;
+      --green: #6C7A5A;
+      --green-bright: #4ade80;
+      --paper: #EAE6DA;
+      --paper-dim: #A9A599;
+      --paper-dark: #62605B;
+      --font-serif: 'Newsreader', Georgia, serif;
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--paper);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      padding: 0 0 100px;
+    }
+
+    /* Pinned Navigation */
+    .top-nav {
+      background: rgba(24, 27, 20, 0.95);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 24px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      gap: 16px;
+    }
+    .nav-brand {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--paper);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--crimson); }
+    .nav-search-wrap { flex: 1; max-width: 480px; }
+    .nav-links { display: flex; gap: 12px; align-items: center; white-space: nowrap; }
+    .nav-link {
+      color: var(--paper-dim);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-family: var(--font-mono);
+      transition: color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--paper); }
+
+    .random-btn {
+      background: rgba(217, 119, 6, 0.15);
+      border: 1px solid rgba(217, 119, 6, 0.4);
+      color: var(--amber-soft);
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .random-btn:hover {
+      background: rgba(217, 119, 6, 0.25);
+      border-color: var(--amber-soft);
+      color: #fff;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 36px 24px 0;
+    }
+
+    .header-section {
+      margin-bottom: 36px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+    .kicker {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+    h1.main-title {
+      font-family: var(--font-serif);
+      font-size: clamp(34px, 5vw, 50px);
+      font-weight: 500;
+      line-height: 1.15;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .subtitle {
+      font-size: 16.5px;
+      color: var(--paper-dim);
+      line-height: 1.6;
+    }
+
+    /* Anonymity Callout Banner */
+    .anonymity-banner {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-left: 4px solid var(--cyan);
+      border-radius: 6px;
+      padding: 20px 22px;
+      margin-bottom: 36px;
+    }
+    .anonymity-title {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .anonymity-text {
+      font-size: 14.5px;
+      color: var(--paper);
+      line-height: 1.6;
+    }
+
+    /* Step Cards Grid */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 22px 24px;
+      position: relative;
+      transition: all 0.2s;
+    }
+    .step-card:hover {
+      border-color: var(--border-highlight);
+      transform: translateY(-2px);
+    }
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--amber-soft);
+      background: rgba(217, 119, 6, 0.15);
+      border: 1px solid rgba(217, 119, 6, 0.35);
+      padding: 2px 8px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .step-title {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 14.5px;
+      color: var(--paper);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .step-action-box {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--paper-dim);
+    }
+    .step-action-box code {
+      color: var(--cyan);
+    }
+
+    /* Evidentiary Standards */
+    .standards-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 24px 28px;
+      margin-bottom: 40px;
+    }
+    .standards-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+    .standards-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .standards-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(44, 49, 37, 0.5);
+      display: flex;
+      gap: 12px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .standards-list li:last-child { border-bottom: none; }
+    .icon-check { color: var(--green-bright); font-weight: bold; }
+    .icon-cross { color: var(--crimson-soft); font-weight: bold; }
+
+    /* Schema Template Box */
+    .schema-section {
+      margin-bottom: 40px;
+    }
+    .schema-title {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    pre.code-block {
+      background: #0f110c;
+      border: 1px solid var(--border-highlight);
+      border-radius: 6px;
+      padding: 20px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #e5e7eb;
+      line-height: 1.5;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .btn-github-repo {
+      background: var(--amber);
+      color: #12140F;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px 22px;
+      border-radius: 4px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-github-repo:hover {
+      background: #f59e0b;
+      transform: translateY(-1px);
+    }
+    .btn-back-roster {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--paper);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      padding: 12px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-back-roster:hover {
+      border-color: var(--cyan);
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .top-nav { flex-wrap: wrap; }
+      .nav-search-wrap { order: 3; width: 100%; max-width: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pinned Sticky Navigation -->
+  <nav class="top-nav">
+    <a href="index.html" class="nav-brand">
+      <span>&larr;</span> 25.06.2024 MEMORIAL
+    </a>
+
+    <!-- Central Global Search Engine Component -->
+    <div class="nav-search-wrap">
+      <div class="global-search-component">
+        <div class="search-input-wrapper">
+          <span class="search-icon-prefix">🔍</span>
+          <input type="text" class="global-search-input" placeholder="Search Corruption Wiki: 'Ruto', 'Sakaja', 'Adani'..." autocomplete="off">
+          <span class="search-kbd-shortcut">Ctrl K</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <button id="random-btn" class="random-btn" title="Jump to a random corrupt politician profile">
+        <span>🎲</span> Expose Random Politician
+      </button>
+      <a href="promises-plunder.html" class="nav-link">Roster</a>
+      <a href="money-trail.html" class="nav-link">Ledger</a>
+      <a href="scandal-graph.html" class="nav-link">Graph</a>
+      <a href="contribute.html" class="nav-link active" style="color:var(--cyan);">✍ Contribute</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header class="header-section">
+      <div class="kicker">Decentralized Intelligence &bull; Open Governance</div>
+      <h1 class="main-title">The OpenSource Corruption Wiki Contribution Guide</h1>
+      <p class="subtitle">This platform is entirely public, open-source, and decentralized. Anyone—investigative journalists, citizens, whistleblowers, or researchers—can submit verifiable evidence to expose corrupt politicians across Nairobi County and Kenya via GitHub Pull Requests.</p>
+    </header>
+
+    <!-- Anonymity Banner -->
+    <div class="anonymity-banner">
+      <div class="anonymity-title">
+        <span>🛡 Whistleblower Protection &amp; Total Anonymity</span>
+      </div>
+      <p class="anonymity-text">
+        <strong>You do not need to use your real identity.</strong> To contribute safely:
+        <br>&bull; Create a free <strong>burner GitHub account</strong> using a disposable or encrypted email service (such as ProtonMail, Tuta, or SimpleLogin).
+        <br>&bull; You can submit edits and Pull Requests entirely through GitHub's web interface behind a VPN or Tor Browser.
+        <br>&bull; We do not log IP addresses or request contributor identities. Only the objective validity of your evidence matters.
+      </p>
+    </div>
+
+    <!-- 4-Step Tutorial -->
+    <section class="steps-grid">
+      <div class="step-card">
+        <span class="step-num">STEP 1</span>
+        <h2 class="step-title">Create a GitHub Account</h2>
+        <p class="step-desc">
+          Sign up at <a href="https://github.com/signup" target="_blank" style="color:var(--cyan);">GitHub.com</a> using any username or burner email. No special permissions or software installations are needed—everything works right in your web browser.
+        </p>
+        <div class="step-action-box">
+          Tip: You can use an alias handle like <code>@kenya-watchdog-01</code> to maintain operational security.
+        </div>
+      </div>
+
+      <div class="step-card">
+        <span class="step-num">STEP 2</span>
+        <h2 class="step-title">Navigate to the Data Repository</h2>
+        <p class="step-desc">
+          All politician dossiers, scandals, and Evidence Locker records are stored as transparent JSON files in our public repository folder:
+        </p>
+        <div class="step-action-box">
+          Directory: <code>https://github.com/ngesa-cloud/25-june-2024/tree/main/public/api/politicians/</code>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <span class="step-num">STEP 3</span>
+        <h2 class="step-title">Edit an Existing Dossier or Create a New Politician</h2>
+        <p class="step-desc">
+          &bull; <strong>To update an existing politician:</strong> Open their JSON file (e.g., <code>johnson-sakaja.json</code>) and click the pencil icon (<code>✎ Edit this file</code>) on GitHub.<br>
+          &bull; <strong>To add a new politician or MCA:</strong> Click <strong>"Add file" &rarr; "Create new file"</strong>, name it <code>[politician-slug].json</code>, and paste the template below.<br>
+          &bull; If adding a new politician, also add their slug into <code>index.json</code>.
+        </p>
+        <div class="step-action-box">
+          Example Slugs: <code>william-ruto</code>, <code>johnson-sakaja</code>, <code>edwin-sifuna</code>, <code>robert-alai</code>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <span class="step-num">STEP 4</span>
+        <h2 class="step-title">Submit a Pull Request with Verifiable Evidence</h2>
+        <p class="step-desc">
+          At the bottom of the GitHub editor, describe your changes in the commit summary (e.g., <em>"Add Nairobi County health facility audit evidence"</em>), select <strong>"Create a new branch for this commit and start a pull request"</strong>, and click <strong>"Propose changes"</strong>.
+        </p>
+        <div class="step-action-box">
+          Our automated validation checks verify the JSON syntax and our editorial team reviews the attached primary source proof. Once merged, the live wiki updates automatically within 60 seconds!
+        </div>
+      </div>
+    </section>
+
+    <!-- Evidentiary Standards -->
+    <section class="standards-section">
+      <h2 class="standards-title">Evidentiary Standards: What Gets Approved</h2>
+      <ul class="standards-list">
+        <li>
+          <span class="icon-check">✓</span>
+          <div>
+            <strong>Court Documents &amp; Injunctions:</strong> High Court, Court of Appeal, or Supreme Court rulings and orders (e.g., Kenya Law Reports).
+          </div>
+        </li>
+        <li>
+          <span class="icon-check">✓</span>
+          <div>
+            <strong>Statutory Oversight Reports:</strong> Auditor General reports, Controller of Budget reviews (CBIRR), Public Procurement Regulatory Authority (PPRA) rulings, or EACC statements.
+          </div>
+        </li>
+        <li>
+          <span class="icon-check">✓</span>
+          <div>
+            <strong>Legislative Hansard:</strong> Official debate records, committee reports, and impeachment proceedings from the National Assembly, Senate, or County Assemblies.
+          </div>
+        </li>
+        <li>
+          <span class="icon-check">✓</span>
+          <div>
+            <strong>Investigative Journalism:</strong> Corroborated investigations from established media houses with documented paper trails.
+          </div>
+        </li>
+        <li>
+          <span class="icon-cross">✗</span>
+          <div>
+            <strong>Strictly Prohibited:</strong> Unverified social media rumors, partisan blogs without documentation, personal family attacks, or fabricated allegations. Submissions lacking primary proof are rejected.
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Schema Template -->
+    <section class="schema-section">
+      <h2 class="schema-title">Politician JSON Template</h2>
+      <p style="font-size:14.5px; color:var(--paper-dim); margin-bottom:12px;">
+        Copy this format when contributing a new politician or MCA profile:
+      </p>
+      <pre class="code-block"><code>{
+  "id": "politician-slug",
+  "name": "Full Legal Name",
+  "position": "Governor / Senator / MCA / Cabinet Secretary",
+  "party": "UDA / ODM / Jubilee / Independent",
+  "county": "Nairobi / National / Kiambu",
+  "governance_level": "Governor / County Executive",
+  "summary": "1-2 sentence lead paragraph summarizing their career and controversies.",
+  "introduction": "Comprehensive biographical paragraph detailing their career timeline and legislative record.",
+  "evidence": [
+    {
+      "type": "Official Gazettement",
+      "title": "IEBC Election Declaration Gazette Notice No. 1234",
+      "url": "http://kenyalaw.org/kenya_gazette/...",
+      "verified": true
+    }
+  ],
+  "promises": [
+    {
+      "year": 2022,
+      "promise": "Campaign pledge description",
+      "status": "In Progress / Broken / Fulfilled",
+      "evidence_summary": "Documented outcome",
+      "evidence": [
+        {
+          "type": "News Article",
+          "title": "Report on pledge status",
+          "url": "https://...",
+          "verified": true
+        }
+      ]
+    }
+  ],
+  "scandals": [
+    {
+      "year": 2024,
+      "name": "Title of Tender or Procurement Scandal",
+      "amount": "Ksh 10.0 Billion",
+      "raw_amount": 10000000000,
+      "entity": "Involved Company or State Institution",
+      "status": "Under Investigation / Blocked by High Court",
+      "summary": "Forensic description of what occurred, citing oversight reports.",
+      "evidence": [
+        {
+          "type": "PDF",
+          "title": "Auditor General Report FY 2023",
+          "url": "https://www.oagkenya.go.ke/...",
+          "verified": true
+        }
+      ]
+    }
+  ],
+  "net_worth": {
+    "declared_on_swearing_in": "Ksh 500 Million",
+    "current_declared": "Ksh 1.2 Billion"
+  }
+}</code></pre>
+
+      <div class="cta-row">
+        <a href="https://github.com/ngesa-cloud/25-june-2024/tree/main/public/api/politicians" target="_blank" rel="noopener noreferrer" class="btn-github-repo">
+          📁 Open Politicians Directory on GitHub &nearr;
+        </a>
+        <a href="promises-plunder.html" class="btn-back-roster">
+          ← Return to Political Roster
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <script src="global-search.js"></script>
+  <script>
+    async function exposeRandomPolitician() {
+      const isPublic = window.location.pathname.includes('/public/');
+      const base = isPublic ? 'api/' : 'public/api/';
+      try {
+        let res = await fetch(`${base}politicians/index.json`).catch(() => null);
+        if (!res || !res.ok) {
+          res = await fetch('api/politicians/index.json').catch(() => null);
+        }
+        const slugs = res && res.ok ? await res.json() : ['william-ruto', 'johnson-sakaja', 'edwin-sifuna', 'robert-alai', 'rigathi-gachagua', 'raila-odinga', 'kalonzo-musyoka'];
+        const randomSlug = slugs[Math.floor(Math.random() * slugs.length)];
+        window.location.href = `profile.html?id=${encodeURIComponent(randomSlug)}`;
+      } catch (e) {
+        window.location.href = 'profile.html?id=johnson-sakaja';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const randBtn = document.getElementById('random-btn');
+      if (randBtn) randBtn.addEventListener('click', exposeRandomPolitician);
+    });
+  </script>
+</body>
+</html>
