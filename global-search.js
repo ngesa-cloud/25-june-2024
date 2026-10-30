@@ -689,6 +689,109 @@
     }
   });
 
+  // =====================================================================
+  // UNIFIED SITE MENU CONTROLLER
+  // =====================================================================
+  window.toggleSiteMenu = function (e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const overlay = document.getElementById('site-menu-overlay');
+    const btn = document.getElementById('site-menu-btn');
+    if (!overlay) return;
+
+    const isOpen = overlay.classList.contains('open');
+    if (isOpen) {
+      window.closeSiteMenu();
+    } else {
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      if (btn) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+
+      // Sync soundtrack status badge
+      const trackBtn = document.getElementById('soundtrack-btn');
+      const badge = document.getElementById('menu-soundtrack-badge');
+      if (trackBtn && badge) {
+        const isPlaying = trackBtn.classList.contains('is-playing');
+        badge.textContent = isPlaying ? 'PLAYING ⏸' : 'PAUSED ▶';
+        badge.className = isPlaying ? 'card-badge badge-green' : 'card-badge badge-cyan';
+      }
+    }
+  };
+
+  window.closeSiteMenu = function (e) {
+    if (e) {
+      e.stopPropagation();
+    }
+    const overlay = document.getElementById('site-menu-overlay');
+    const btn = document.getElementById('site-menu-btn');
+    if (overlay) {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+    document.body.style.overflow = '';
+    if (btn) {
+      btn.classList.remove('active');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  };
+
+  window.handleMenuExposeRandom = async function () {
+    window.closeSiteMenu();
+    if (typeof window.exposeRandomPolitician === 'function') {
+      window.exposeRandomPolitician();
+      return;
+    }
+
+    // Fallback: pick random politician slug and navigate to profile.html
+    const fallbackSlugs = [
+      'william-ruto', 'johnson-sakaja', 'edwin-sifuna', 'robert-alai',
+      'rigathi-gachagua', 'raila-odinga', 'kalonzo-musyoka'
+    ];
+    try {
+      const base = getApiBase();
+      const res = await fetch(`${base}politicians/index.json`).catch(() => null);
+      const slugs = res && res.ok ? await res.json() : fallbackSlugs;
+      const randomSlug = slugs[Math.floor(Math.random() * slugs.length)];
+      window.location.href = `profile.html?id=${encodeURIComponent(randomSlug)}`;
+    } catch {
+      window.location.href = `profile.html?id=william-ruto`;
+    }
+  };
+
+  window.handleMenuToggleSoundtrack = function () {
+    const trackBtn = document.getElementById('soundtrack-btn');
+    if (trackBtn) {
+      trackBtn.click();
+      const isPlaying = trackBtn.classList.contains('is-playing');
+      const badge = document.getElementById('menu-soundtrack-badge');
+      if (badge) {
+        badge.textContent = isPlaying ? 'PLAYING ⏸' : 'PAUSED ▶';
+        badge.className = isPlaying ? 'card-badge badge-green' : 'card-badge badge-cyan';
+      }
+    } else {
+      // If soundtrack is on index.html, prompt navigation or play sound
+      const badge = document.getElementById('menu-soundtrack-badge');
+      if (badge) badge.textContent = 'OPENING INDEX...';
+      window.location.href = 'index.html?soundtrack=1';
+    }
+  };
+
+  // Close menu on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const overlay = document.getElementById('site-menu-overlay');
+      if (overlay && overlay.classList.contains('open')) {
+        window.closeSiteMenu();
+      }
+    }
+  });
+
   window.AgyGlobalSearch = {
     init: initSearchIndex,
     search: search,

@@ -2056,53 +2056,7 @@
     }
   }
 
-  .index-top-search-dock {
-    position: fixed;
-    top: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 440px;
-    max-width: calc(100vw - 500px);
-    z-index: 1000;
-  }
-  .index-top-right-nav {
-    position: fixed;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-  .index-top-right-nav .tracker-nav-btn {
-    position: static !important;
-  }
-    top: 18px;
-    right: 28px;
-    z-index: 1000;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-  .money-nav-btn {
-    border-color: rgba(214, 199, 158, 0.4);
-  }
-  @media (max-width: 1100px) {
-    .index-top-search-dock {
-      top: 66px;
-      left: 28px;
-      right: 28px;
-      transform: none;
-      width: auto;
-      max-width: none;
-    }
-  }
-  @media (max-width: 720px) {
-    .index-top-right-nav {
-      top: 64px;
-      right: 28px;
-    }
-    .index-top-search-dock {
-      top: 110px;
-    }
-  }
+  /* Deprecated floating nav rules removed for unified top-nav */
 
 
   .random-nav-btn {
@@ -2144,7 +2098,7 @@
 <div id="ambient-audio-container" class="ambient-audio-hidden" aria-hidden="true"></div>
 
 <!-- Top Fixed Soundtrack Shuffle Button (Persistent across scroll) -->
-<button id="soundtrack-btn" class="soundtrack-toggle-btn" type="button" aria-label="Play &amp; shuffle resistance soundtrack">
+<button id="soundtrack-btn" class="soundtrack-toggle-btn" type="button" aria-label="Play &amp; shuffle resistance soundtrack" style="display:none !important;">
   <span class="btn-icon" id="soundtrack-icon">▶</span>
   <span class="btn-title" id="soundtrack-title">play soundtrack</span>
   <span class="sound-eq" id="sound-eq" aria-hidden="true">
@@ -2152,36 +2106,159 @@
   </span>
 </button>
 
-<!-- Central Top Global Search Bar -->
-<div class="index-top-search-dock">
-  <div class="global-search-component">
-    <div class="search-input-wrapper">
-      <span class="search-icon-prefix">🔍</span>
-      <input type="text" class="global-search-input" placeholder="Global Search: 'Adani', 'KETRACO', 'Ksh 30B', 'Ruto'..." autocomplete="off">
-      <span class="search-kbd-shortcut">Ctrl K</span>
+  <!-- Unified Global Top Navigation Bar -->
+  <nav class="top-nav" id="site-top-nav">
+    <div class="nav-brand-wrap">
+      <a href="index.html" class="nav-brand">
+        <span class="brand-num">25.06.2024</span>
+        <span class="brand-tag">MEMORIAL</span>
+      </a>
+    </div>
+
+    <div class="nav-search-dock">
+      <div class="global-search-component">
+        <div class="search-input-wrapper">
+          <span class="search-icon-prefix">🔍</span>
+          <input type="text" class="global-search-input" placeholder="Search politicians, tenders, Adani, Ksh 30B..." autocomplete="off">
+          <span class="search-kbd-shortcut">Ctrl K</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-menu-wrap">
+      <button id="site-menu-btn" class="site-menu-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleSiteMenu(event)" aria-label="Open navigation menu">
+        <span class="menu-icon">☰</span>
+        <span class="menu-text">MENU</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Unified Categorized Navigation Overlay (Drawer / Modal) -->
+  <div id="site-menu-overlay" class="site-menu-overlay" onclick="closeSiteMenu(event)" aria-hidden="true">
+    <div class="site-menu-panel" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Main Navigation Menu">
+      <div class="site-menu-header">
+        <div class="menu-header-brand">
+          <span class="menu-header-kicker">25.06.2024 ARCHIVE</span>
+          <h3 class="menu-header-title">ARCHIVE &amp; INVESTIGATIVE TOOLS</h3>
+        </div>
+        <button class="site-menu-close" onclick="closeSiteMenu(event)" aria-label="Close menu">&times;</button>
+      </div>
+
+      <div class="site-menu-body">
+        <!-- CATEGORY 1: INTELLIGENCE -->
+        <section class="menu-category-section">
+          <div class="category-title">
+            <span class="cat-pill intel-pill">INTELLIGENCE</span>
+            <span class="cat-desc">Forensic dossiers, asset tracking &amp; sovereign financial ledgers</span>
+          </div>
+          <div class="category-grid">
+            <a href="promises-plunder.html" class="menu-item-card">
+              <span class="item-card-icon">📜</span>
+              <div class="item-card-content">
+                <div class="item-card-heading">Promises &amp; Plunder</div>
+                <div class="item-card-sub">Executive manifestos vs verified broken pledges</div>
+              </div>
+            </a>
+            <a href="money-trail.html" class="menu-item-card">
+              <span class="item-card-icon">💰</span>
+              <div class="item-card-content">
+                <div class="item-card-heading">Money Trail</div>
+                <div class="item-card-sub">Sovereign capital ledger, KETRACO, Adani &amp; pending bills</div>
+              </div>
+            </a>
+            <a href="nairobi-property.html" class="menu-item-card">
+              <span class="item-card-icon">🏛️</span>
+              <div class="item-card-content">
+                <div class="item-card-heading">Nairobi Property</div>
+                <div class="item-card-sub">Real estate dossiers, Muthaiga, Karen &amp; grabbed public land</div>
+              </div>
+            </a>
+            <a href="nse-tracker.html" class="menu-item-card">
+              <span class="item-card-icon">📈</span>
+              <div class="item-card-content">
+                <div class="item-card-heading">NSE Tracker</div>
+                <div class="item-card-sub">Market Watch, trade volume anomalies &amp; suspicious spikes</div>
+              </div>
+            </a>
+            <a href="nse-ledger.html" class="menu-item-card">
+              <span class="item-card-icon">📑</span>
+              <div class="item-card-content">
+                <div class="item-card-heading">NSE Corporate Ledger</div>
+                <div class="item-card-sub">Listed corporate concessions, state tenders &amp; insider ties</div>
+              </div>
+            </a>
+            <a href="scandal-graph.html" class="menu-item-card">
+              <span class="item-card-icon">🕸️</span>
+              <div class="item-card-content">
+                <div class="item-card-heading">Scandal Graph</div>
+                <div class="item-card-sub">Interactive force-directed node map of state capture cartels</div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- CATEGORY 2: GAMES -->
+        <section class="menu-category-section">
+          <div class="category-title">
+            <span class="cat-pill games-pill">GAMES</span>
+            <span class="cat-desc">Interactive psychological &amp; procurement simulations</span>
+          </div>
+          <div class="category-grid">
+            <a href="tender.html" class="menu-item-card card-tender">
+              <span class="item-card-icon" style="color:#3ddc84;">⚖️</span>
+              <div class="item-card-content">
+                <div class="item-card-heading" style="color:#86efac;">The Tender <span class="card-badge badge-green">PAPERS, PLEASE</span></div>
+                <div class="item-card-sub">Bureaucratic PPRA procurement desk survival game</div>
+              </div>
+            </a>
+            <a href="vigil.html" class="menu-item-card card-vigil">
+              <span class="item-card-icon" style="color:#ff6a4a;">👁</span>
+              <div class="item-card-content">
+                <div class="item-card-heading" style="color:#ff8870;">Play Vigil <span class="card-badge badge-red">3 AM SURVIVAL</span></div>
+                <div class="item-card-sub">Psychological surveillance QTE and stealth survival game</div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- CATEGORY 3: ACTION -->
+        <section class="menu-category-section">
+          <div class="category-title">
+            <span class="cat-pill action-pill">ACTION</span>
+            <span class="cat-desc">Immediate investigator triggers &amp; whistleblower submissions</span>
+          </div>
+          <div class="category-grid">
+            <button class="menu-item-card card-action-btn" onclick="handleMenuExposeRandom()">
+              <span class="item-card-icon" style="color:#facc15;">🎲</span>
+              <div class="item-card-content">
+                <div class="item-card-heading" style="color:#fde047;">Expose Random Politician</div>
+                <div class="item-card-sub">Instant roulette across verified national &amp; county dossiers</div>
+              </div>
+            </button>
+            <a href="contribute.html" class="menu-item-card">
+              <span class="item-card-icon" style="color:#38bdf8;">✍</span>
+              <div class="item-card-content">
+                <div class="item-card-heading" style="color:#7dd3fc;">Contribute</div>
+                <div class="item-card-sub">Submit whistleblower evidence or open GitHub pull requests</div>
+              </div>
+            </a>
+            <button class="menu-item-card card-action-btn" onclick="handleMenuToggleSoundtrack()">
+              <span class="item-card-icon" style="color:#f43f5e;">🎵</span>
+              <div class="item-card-content">
+                <div class="item-card-heading">Toggle Soundtrack <span id="menu-soundtrack-badge" class="card-badge badge-cyan">AUDIO</span></div>
+                <div class="item-card-sub">Stream resistance audio and memorial ambient soundscape</div>
+              </div>
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <div class="site-menu-footer">
+        <span>25.06.2024 MEMORIAL ARCHIVE &bull; NAIROBI, KENYA</span>
+        <span>Press <strong>ESC</strong> to close &bull; <strong>Ctrl + K</strong> to search</span>
+      </div>
     </div>
   </div>
-</div>
-
-<!-- Top Fixed Links to Trackers -->
-<div class="index-top-right-nav">
-  <button id="random-btn" class="tracker-nav-btn random-nav-btn" onclick="exposeRandomPolitician()" title="Expose a random corrupt politician profile">
-    <span>🎲</span>
-    <span>expose random</span>
-  </button>
-  <div class="dropdown-container">
-    <button id="investigations-menu-btn" class="tracker-nav-btn nav-menu-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleInvestigationsMenu(event)" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
-      <span style="color:var(--accent);">⚖</span>
-      <span>investigations ▼</span>
-    </button>
-    <div id="investigations-dropdown" class="investigations-dropdown-menu">
-      <div class="dropdown-header">Forensic Dossiers &amp; Trackers</div>
-      <a href="promises-plunder.html" class="dropdown-item">
-        <span class="item-icon">⚖</span>
-        <div>
-          <div class="item-title">Promises &amp; Plunder</div>
-          <div class="item-desc">Executive manifestos vs broken pledges</div>
-        </div>
       </a>
       <a href="money-trail.html" class="dropdown-item">
         <span class="item-icon">💰</span>

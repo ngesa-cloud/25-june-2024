@@ -11,7 +11,7 @@
 html,body{height:100%;margin:0;background:var(--bg);overflow:hidden;font-family:'Spectral',Georgia,serif;font-weight:300;color:var(--ink);user-select:none;-webkit-user-select:none}
 canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
 h1{position:fixed;top:calc(18px + env(safe-area-inset-top,0px));left:20px;margin:0;font-style:italic;font-size:22px;opacity:.85;pointer-events:none;letter-spacing:0.02em}
-.hud{position:fixed;top:calc(18px + env(safe-area-inset-top,0px));right:20px;width:190px;font-size:13px;text-align:right;pointer-events:none;font-family:'IBM Plex Mono',monospace;z-index:15}
+.hud{position:fixed;top:calc(72px + env(safe-area-inset-top,0px));right:20px;width:190px;font-size:13px;text-align:right;pointer-events:none;font-family:'IBM Plex Mono',monospace;z-index:15}
 .hud div{opacity:.9}
 .bar{height:6px;background:rgba(233,223,210,.15);border-radius:3px;overflow:hidden;margin:3px 0 8px}
 .bar i{display:block;height:100%;width:100%;background:#3ddc84;transition:width .1s linear}
@@ -54,13 +54,163 @@ button:focus-visible{outline:2px solid var(--ember);outline-offset:3px}
 .nav-back-anchor{position:fixed;top:calc(18px + env(safe-area-inset-top,0px));left:80px;color:rgba(233,223,210,0.65);font-size:12px;text-decoration:none;z-index:15;border:1px solid rgba(233,223,210,0.2);padding:4px 11px;border-radius:2px;background:rgba(11,5,7,0.6);backdrop-filter:blur(4px);font-family:'IBM Plex Mono',monospace;transition:all 0.2s}
 .nav-back-anchor:hover{color:#fff;border-color:#ff6a4a;background:rgba(180,71,47,0.25)}
 </style>
+  <link rel="stylesheet" href="global-search.css">
 </head>
 <body>
 <canvas id="c" aria-label="Game: an ember cigarette burns in front of a giant silhouette looming behind a wall"></canvas>
-<h1>Vigil</h1>
+  <!-- Unified Global Top Navigation Bar -->
+  <nav class="top-nav" id="site-top-nav">
+    <div class="nav-brand-wrap">
+      <a href="index.html" class="nav-brand">
+        <span class="brand-num">25.06.2024</span>
+        <span class="brand-tag">MEMORIAL</span>
+      </a>
+    </div>
 
-<a href="index.html" class="nav-back-anchor">&larr; 25 June Platform</a>
-<a href="tender.html" class="nav-back-anchor" style="left:235px;">⚖️ The Tender &rarr;</a>
+    <div class="nav-search-dock">
+      <div class="global-search-component">
+        <div class="search-input-wrapper">
+          <span class="search-icon-prefix">🔍</span>
+          <input type="text" class="global-search-input" placeholder="Search politicians, tenders, Adani, Ksh 30B..." autocomplete="off">
+          <span class="search-kbd-shortcut">Ctrl K</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-menu-wrap">
+      <button id="site-menu-btn" class="site-menu-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleSiteMenu(event)" aria-label="Open navigation menu">
+        <span class="menu-icon">☰</span>
+        <span class="menu-text">MENU</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Unified Categorized Navigation Overlay (Drawer / Modal) -->
+  <div id="site-menu-overlay" class="site-menu-overlay" onclick="closeSiteMenu(event)" aria-hidden="true">
+    <div class="site-menu-panel" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Main Navigation Menu">
+      <div class="site-menu-header">
+        <div class="menu-header-brand">
+          <span class="menu-header-kicker">25.06.2024 ARCHIVE</span>
+          <h3 class="menu-header-title">ARCHIVE &amp; INVESTIGATIVE TOOLS</h3>
+        </div>
+        <button class="site-menu-close" onclick="closeSiteMenu(event)" aria-label="Close menu">&times;</button>
+      </div>
+
+      <div class="site-menu-body">
+        <!-- CATEGORY 1: INTELLIGENCE -->
+        <section class="menu-category-section">
+          <div class="category-title">
+            <span class="cat-pill intel-pill">INTELLIGENCE</span>
+            <span class="cat-desc">Forensic dossiers, asset tracking &amp; sovereign financial ledgers</span>
+          </div>
+          <div class="category-grid">
+            <a href="promises-plunder.html" class="menu-item-card">
+              <span class="item-card-icon">📜</span>
+              <div class="item-card-content">
+                <div class="item-card-heading">Promises &amp; Plunder</div>
+                <div class="item-card-sub">Executive manifestos vs verified broken pledges</div>
+              </div>
+            </a>
+            <a href="money-trail.html" class="menu-item-card">
+              <span class="item-card-icon">💰</span>
+              <div class="item-card-content">
+                <div class="item-card-heading">Money Trail</div>
+                <div class="item-card-sub">Sovereign capital ledger, KETRACO, Adani &amp; pending bills</div>
+              </div>
+            </a>
+            <a href="nairobi-property.html" class="menu-item-card">
+              <span class="item-card-icon">🏛️</span>
+              <div class="item-card-content">
+                <div class="item-card-heading">Nairobi Property</div>
+                <div class="item-card-sub">Real estate dossiers, Muthaiga, Karen &amp; grabbed public land</div>
+              </div>
+            </a>
+            <a href="nse-tracker.html" class="menu-item-card">
+              <span class="item-card-icon">📈</span>
+              <div class="item-card-content">
+                <div class="item-card-heading">NSE Tracker</div>
+                <div class="item-card-sub">Market Watch, trade volume anomalies &amp; suspicious spikes</div>
+              </div>
+            </a>
+            <a href="nse-ledger.html" class="menu-item-card">
+              <span class="item-card-icon">📑</span>
+              <div class="item-card-content">
+                <div class="item-card-heading">NSE Corporate Ledger</div>
+                <div class="item-card-sub">Listed corporate concessions, state tenders &amp; insider ties</div>
+              </div>
+            </a>
+            <a href="scandal-graph.html" class="menu-item-card">
+              <span class="item-card-icon">🕸️</span>
+              <div class="item-card-content">
+                <div class="item-card-heading">Scandal Graph</div>
+                <div class="item-card-sub">Interactive force-directed node map of state capture cartels</div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- CATEGORY 2: GAMES -->
+        <section class="menu-category-section">
+          <div class="category-title">
+            <span class="cat-pill games-pill">GAMES</span>
+            <span class="cat-desc">Interactive psychological &amp; procurement simulations</span>
+          </div>
+          <div class="category-grid">
+            <a href="tender.html" class="menu-item-card card-tender">
+              <span class="item-card-icon" style="color:#3ddc84;">⚖️</span>
+              <div class="item-card-content">
+                <div class="item-card-heading" style="color:#86efac;">The Tender <span class="card-badge badge-green">PAPERS, PLEASE</span></div>
+                <div class="item-card-sub">Bureaucratic PPRA procurement desk survival game</div>
+              </div>
+            </a>
+            <a href="vigil.html" class="menu-item-card card-vigil">
+              <span class="item-card-icon" style="color:#ff6a4a;">👁</span>
+              <div class="item-card-content">
+                <div class="item-card-heading" style="color:#ff8870;">Play Vigil <span class="card-badge badge-red">3 AM SURVIVAL</span></div>
+                <div class="item-card-sub">Psychological surveillance QTE and stealth survival game</div>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- CATEGORY 3: ACTION -->
+        <section class="menu-category-section">
+          <div class="category-title">
+            <span class="cat-pill action-pill">ACTION</span>
+            <span class="cat-desc">Immediate investigator triggers &amp; whistleblower submissions</span>
+          </div>
+          <div class="category-grid">
+            <button class="menu-item-card card-action-btn" onclick="handleMenuExposeRandom()">
+              <span class="item-card-icon" style="color:#facc15;">🎲</span>
+              <div class="item-card-content">
+                <div class="item-card-heading" style="color:#fde047;">Expose Random Politician</div>
+                <div class="item-card-sub">Instant roulette across verified national &amp; county dossiers</div>
+              </div>
+            </button>
+            <a href="contribute.html" class="menu-item-card">
+              <span class="item-card-icon" style="color:#38bdf8;">✍</span>
+              <div class="item-card-content">
+                <div class="item-card-heading" style="color:#7dd3fc;">Contribute</div>
+                <div class="item-card-sub">Submit whistleblower evidence or open GitHub pull requests</div>
+              </div>
+            </a>
+            <button class="menu-item-card card-action-btn" onclick="handleMenuToggleSoundtrack()">
+              <span class="item-card-icon" style="color:#f43f5e;">🎵</span>
+              <div class="item-card-content">
+                <div class="item-card-heading">Toggle Soundtrack <span id="menu-soundtrack-badge" class="card-badge badge-cyan">AUDIO</span></div>
+                <div class="item-card-sub">Stream resistance audio and memorial ambient soundscape</div>
+              </div>
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <div class="site-menu-footer">
+        <span>25.06.2024 MEMORIAL ARCHIVE &bull; NAIROBI, KENYA</span>
+        <span>Press <strong>ESC</strong> to close &bull; <strong>Ctrl + K</strong> to search</span>
+      </div>
+    </div>
+  </div>
 <a href="slow-burn.html" style="position:fixed; bottom:calc(18px + env(safe-area-inset-bottom,0px)); right:20px; color:rgba(233,223,210,0.45); font-size:12px; text-decoration:none; z-index:15; font-style:italic;">Slow Burn Mode &rarr;</a>
 
 <div class="hud">
@@ -637,5 +787,6 @@ function frame(now){
 show('Vigil','A giant waits behind the wall. Your sanity drains unless you drag. Rapidly swipe up and down on the cigarette to burn, but when its eyes turn red, STOP. React to Whispers within 1.5s to evade detection.','Light it',()=>{level=1;score=0;begin()});
 requestAnimationFrame(frame);
 </script>
+  <script src="global-search.js"></script>
 </body>
 </html>
