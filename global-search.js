@@ -75,12 +75,18 @@
         .then(r => r.ok ? r.json() : fetch('api/nse_insider.json').then(r2 => r2.json()))
         .catch(() => []);
 
-      const [politicians, networkData, leaksData, propertiesData, nseData] = await Promise.all([
+      // 7. Fetch Kenya Market Watch (suspicious trade patterns)
+      const marketWatchPromise = fetch(`${base}market-watch.json`)
+        .then(r => r.ok ? r.json() : fetch('api/market-watch.json').then(r2 => r2.json()))
+        .catch(() => []);
+
+      const [politicians, networkData, leaksData, propertiesData, nseData, marketWatchData] = await Promise.all([
         Promise.all(politicianPromises),
         networkPromise,
         leaksPromise,
         propertiesPromise,
-        nsePromise
+        nsePromise,
+        marketWatchPromise
       ]);
 
       const validPoliticians = politicians.filter(Boolean);
@@ -331,6 +337,43 @@
         });
       });
 
+      // Index Kenya Market Watch Suspicious Trades
+      const validMw = Array.isArray(marketWatchData) ? marketWatchData : [];
+      validMw.forEach(mw => {
+        const ticker = mw.ticker || 'NSE';
+        const company = mw.company || 'Listed PLC';
+        const date = mw.date || '2024';
+        const pattern = mw.pattern_detected || '';
+        const level = mw.suspicion_level || 'HIGH';
+        const valKsh = mw.value_ksh ? `Ksh ${mw.value_ksh}` : 'Undisclosed';
+        const rawVal = parseAmountToNumber(mw.value_ksh);
+        const linked = mw.linked_politician || 'Under CMA Review';
+        const year = parseInt(date.split('-')[0]) || 2024;
+
+        indexRecords.push({
+          type: 'market_watch',
+          ticker: ticker,
+          politicianName: linked,
+          politicianId: 'william-ruto',
+          county: 'NSE Trade Anomaly',
+          entityName: `${company} (${ticker})`,
+          scandalName: `Trade Spike: ${ticker} (${date})`,
+          amount: valKsh,
+          rawAmount: rawVal,
+          status: `${level} Suspicion`,
+          year: year,
+          summary: pattern,
+          sentence: `[MARKET WATCH: ${ticker}] ${company} (${date}) — ${pattern}`,
+          targetUrl: 'nse-tracker.html',
+          evidenceCount: 1,
+          evidenceList: [],
+          tokens: [
+            ticker, company, pattern, linked, level, date, valKsh, String(mw.volume || ''),
+            'insider', 'market watch', 'suspicious trade', 'volume spike', 'nse', 'cma', 'front running'
+          ].map(t => String(t).toLowerCase())
+        });
+      });
+
       searchIndex = indexRecords;
       isLoaded = true;
       return searchIndex;
@@ -440,10 +483,12 @@
       const isScandal = res.type === 'financial_scandal';
       const isProperty = res.type === 'property_record';
       const isNSE = res.type === 'nse_equity';
+      const isMarketWatch = res.type === 'market_watch';
 
       let badgeClass = 'badge-network';
       let badgeText = 'NETWORK GRAPH';
       if (isLeak) { badgeClass = 'badge-leak'; badgeText = 'LEAKED FILE'; }
+      else if (isMarketWatch) { badgeClass = 'badge-market-watch'; badgeText = 'MARKET WATCH'; }
       else if (isProperty) { badgeClass = 'badge-property'; badgeText = 'PROPERTY'; }
       else if (isNSE) { badgeClass = 'badge-nse'; badgeText = 'NSE EQUITIES'; }
       else if (isScandal) { badgeClass = 'badge-scandal'; badgeText = 'MONEY TRAIL'; }
@@ -454,6 +499,8 @@
       if (isLeak) {
         targetUrl = res.githubUrl;
         targetAttr = 'target="_blank" rel="noopener noreferrer"';
+      } else if (isMarketWatch) {
+        targetUrl = 'nse-tracker.html';
       } else if (isProperty) {
         targetUrl = 'nairobi-property.html';
       } else if (isNSE) {
@@ -473,7 +520,7 @@
         : '';
 
       html += `
-        <a href="${escapeHtml(targetUrl)}" ${targetAttr} class="search-result-item ${isLeak ? 'item-leak' : (isProperty ? 'item-property' : (isNSE ? 'item-nse' : ''))}" data-index="${idx}">
+        <a href="${escapeHtml(targetUrl)}" ${targetAttr} class="search-result-item ${isLeak ? 'item-leak' : (isMarketWatch ? 'item-market-watch' : (isProperty ? 'item-property' : (isNSE ? 'item-nse' : '')))}" data-index="${idx}">
           <div class="result-top-row">
             <span class="result-badge ${badgeClass}">${badgeText}</span>
             ${extraFileBadge}
