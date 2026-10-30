@@ -3,47 +3,99 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Vigil</title>
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<title>Vigil — Psychological Surveillance Simulation</title>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,600;1,300;1,600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#e9dfd2;--ember:#ff6a1a;--bg:#0b0507;color-scheme:dark}
+:root{--ink:#e9dfd2;--ember:#ff6a1a;--bg:#0b0507;--crimson:#ff3b2f;color-scheme:dark}
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;background:var(--bg);overflow:hidden;font-family:Spectral,Georgia,serif;font-weight:300;color:var(--ink);user-select:none;-webkit-user-select:none}
+html,body{height:100%;margin:0;background:var(--bg);overflow:hidden;font-family:'Spectral',Georgia,serif;font-weight:300;color:var(--ink);user-select:none;-webkit-user-select:none}
 canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
-h1{position:fixed;top:calc(20px + env(safe-area-inset-top,0px));left:20px;margin:0;font-style:italic;font-size:22px;opacity:.8;pointer-events:none}
-.hud{position:fixed;top:calc(20px + env(safe-area-inset-top,0px));right:20px;width:170px;font-size:14px;text-align:right;pointer-events:none}
-.hud div{opacity:.85}
-.bar{height:6px;background:rgba(233,223,210,.15);border-radius:3px;overflow:hidden;margin:3px 0 9px}
-.bar i{display:block;height:100%;width:100%;background:#3ddc84}
-#nb{background:#ff3b2f}
-#st{font-style:italic;min-height:20px;transition:color .2s}
-#st.w{color:#ff6a4a}
-.hint{position:fixed;left:20px;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));margin:0;font-style:italic;font-size:15px;opacity:.65;pointer-events:none}
-.ov{position:fixed;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;padding:24px;text-align:center;background:rgba(11,5,7,.78);z-index:20}
+h1{position:fixed;top:calc(18px + env(safe-area-inset-top,0px));left:20px;margin:0;font-style:italic;font-size:22px;opacity:.85;pointer-events:none;letter-spacing:0.02em}
+.hud{position:fixed;top:calc(18px + env(safe-area-inset-top,0px));right:20px;width:190px;font-size:13px;text-align:right;pointer-events:none;font-family:'IBM Plex Mono',monospace;z-index:15}
+.hud div{opacity:.9}
+.bar{height:6px;background:rgba(233,223,210,.15);border-radius:3px;overflow:hidden;margin:3px 0 8px}
+.bar i{display:block;height:100%;width:100%;background:#3ddc84;transition:width .1s linear}
+#nb{background:var(--crimson)}
+#st{font-style:italic;min-height:20px;transition:color .2s;font-size:12.5px}
+#st.w{color:#ff6a4a;font-weight:600}
+.threat-badge{font-size:11px;color:#ffaa4a;letter-spacing:0.08em;margin-top:2px}
+
+/* Interactive Hint & Swipe Indicator */
+.hint-container{position:fixed;left:20px;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-between;align-items:flex-end;pointer-events:none;z-index:15}
+.hint{margin:0;font-style:italic;font-size:14px;opacity:.75;max-width:540px;line-height:1.4}
+.swipe-meter{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#ffaa4a;background:rgba(20,10,12,0.7);border:1px solid rgba(255,106,26,0.3);padding:4px 10px;border-radius:3px;opacity:0;transition:opacity .2s}
+.swipe-meter.active{opacity:1}
+
+/* QTE Whisper Overlay */
+.whisper-box{position:fixed;top:26%;left:50%;transform:translate(-50%,-50%);background:rgba(12,5,7,0.88);border:1px solid rgba(255,106,74,0.5);box-shadow:0 0 35px rgba(255,59,47,0.4),inset 0 0 20px rgba(0,0,0,0.8);backdrop-filter:blur(8px);padding:18px 28px;border-radius:4px;text-align:center;pointer-events:auto;cursor:pointer;z-index:25;display:none;animation:whisperPulse 0.8s infinite alternate ease-in-out;min-width:280px}
+.whisper-box.show{display:block}
+@keyframes whisperPulse{from{box-shadow:0 0 25px rgba(255,59,47,0.35)}to{box-shadow:0 0 45px rgba(255,106,74,0.65)}}
+.whisper-kicker{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#ff6a4a;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:4px}
+.whisper-prompt{font-family:'Spectral',Georgia,serif;font-size:28px;font-weight:600;color:#fff;letter-spacing:0.05em;margin:2px 0 8px}
+.whisper-timer-bar{height:4px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden;margin-bottom:8px}
+.whisper-timer-fill{height:100%;background:#ff3b2f;width:100%;transition:width 0.05s linear}
+.whisper-hint{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:rgba(233,223,210,0.7)}
+
+/* Floating Reaction Toast */
+.qte-feedback{position:fixed;top:38%;left:50%;transform:translate(-50%,-50%);font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;padding:6px 16px;border-radius:3px;pointer-events:none;z-index:30;opacity:0;transition:all 0.3s ease}
+.qte-feedback.success{color:#4ade80;background:rgba(74,222,128,0.18);border:1px solid rgba(74,222,128,0.4);opacity:1;transform:translate(-50%,-65%)}
+.qte-feedback.fail{color:#ff5555;background:rgba(220,38,38,0.25);border:1px solid rgba(220,38,38,0.5);opacity:1;transform:translate(-50%,-65%)}
+
+/* Overlay Modals */
+.ov{position:fixed;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;padding:24px;text-align:center;background:rgba(11,5,7,.82);z-index:40;backdrop-filter:blur(6px)}
 .ov.show{display:flex}
 .ov h2{font-weight:300;font-size:34px;margin:0 0 12px}
-.ov p{max-width:440px;line-height:1.5;opacity:.75;margin:0 0 24px}
-button{font:inherit;font-size:17px;color:var(--ink);background:rgba(10,5,7,.7);border:1px solid rgba(233,223,210,.45);padding:11px 22px;border-radius:2px;cursor:pointer}
+.ov p{max-width:460px;line-height:1.55;opacity:.8;margin:0 0 24px}
+button{font:inherit;font-size:16px;color:var(--ink);background:rgba(15,7,9,.8);border:1px solid rgba(233,223,210,.4);padding:11px 24px;border-radius:2px;cursor:pointer;transition:all 0.2s}
+button:hover{background:rgba(180,71,47,0.3);border-color:#ff6a4a;color:#fff}
 button:focus-visible{outline:2px solid var(--ember);outline-offset:3px}
+
+/* Nav back anchor */
+.nav-back-anchor{position:fixed;top:calc(18px + env(safe-area-inset-top,0px));left:80px;color:rgba(233,223,210,0.65);font-size:12px;text-decoration:none;z-index:15;border:1px solid rgba(233,223,210,0.2);padding:4px 11px;border-radius:2px;background:rgba(11,5,7,0.6);backdrop-filter:blur(4px);font-family:'IBM Plex Mono',monospace;transition:all 0.2s}
+.nav-back-anchor:hover{color:#fff;border-color:#ff6a4a;background:rgba(180,71,47,0.25)}
 </style>
 </head>
 <body>
-<canvas id="c" aria-label="Game: a cigarette burns in front of a giant silhouette behind a wall"></canvas>
+<canvas id="c" aria-label="Game: an ember cigarette burns in front of a giant silhouette looming behind a wall"></canvas>
 <h1>Vigil</h1>
+
+<a href="index.html" class="nav-back-anchor">&larr; 25 June Platform</a>
+<a href="slow-burn.html" style="position:fixed; bottom:calc(18px + env(safe-area-inset-bottom,0px)); right:20px; color:rgba(233,223,210,0.45); font-size:12px; text-decoration:none; z-index:15; font-style:italic;">Slow Burn Mode &rarr;</a>
+
 <div class="hud">
-  <div id="lv"></div><div id="sc"></div>
+  <div id="lv">Cigarette 1</div>
+  <div id="sc">Score 0</div>
+  <div id="th" class="threat-badge">Threat: NORMAL</div>
   <div style="margin-top:8px">Sanity</div><div class="bar"><i id="sb"></i></div>
   <div>Notice</div><div class="bar"><i id="nb" style="width:0"></i></div>
-  <div id="st"></div>
+  <div id="st">It looks away.</div>
 </div>
-<p class="hint">Hold anywhere, or Space, to drag. Dragging restores sanity. Never drag while it is looking.</p>
+
+<!-- QTE Whisper Modal Box -->
+<div class="whisper-box" id="whisper-box" role="alert">
+  <div class="whisper-kicker">👁 A WHISPER ECHOES</div>
+  <div class="whisper-prompt" id="whisper-text">LOOK LEFT</div>
+  <div class="whisper-timer-bar"><div class="whisper-timer-fill" id="whisper-bar"></div></div>
+  <div class="whisper-hint" id="whisper-zone-hint">Tap Left Side / Key: [←]</div>
+</div>
+
+<div class="qte-feedback" id="qte-feedback"></div>
+
+<div class="hint-container">
+  <p class="hint">Swipe up &amp; down on cigarette rapidly to drag. When its eyes turn RED, STOP. React to Whispers in 1.5s.</p>
+  <div class="swipe-meter" id="swipe-meter">🔥 DRAGGING</div>
+</div>
+
+<!-- Overlays -->
 <div class="ov show" id="ov" role="dialog" aria-live="polite">
-  <h2 id="ot">Vigil</h2><p id="os"></p><button id="ob">Light it</button>
+  <h2 id="ot">Vigil</h2>
+  <p id="os">A giant waits behind the wall. Your sanity drains unless you take drags. When its eyes turn red, it can see the ember. Drag when it looks away, and react to Whispers before the Watcher strikes.</p>
+  <button id="ob">Light it</button>
 </div>
 
 <!-- Easter Egg Truth Modal -->
 <div class="ov" id="unlocked-modal" role="dialog" aria-live="polite" style="background:rgba(11,5,7,0.94); border:1px solid #B4472F; box-shadow:0 0 60px rgba(180,71,47,0.5);">
-  <div style="font-family:monospace; font-size:12px; color:#ff6a4a; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:8px;">SURVEILLANCE EVADED • 25.06 RECON</div>
+  <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#ff6a4a; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:8px;">SURVEILLANCE EVADED • 25.06 RECON</div>
   <h2 style="color:#ff6a4a; font-family:'Spectral',Georgia,serif; font-size:32px; margin:0 0 14px; text-shadow:0 0 15px rgba(255,106,74,0.6);">The Watcher Has Looked Away</h2>
   <p style="max-width:480px; font-size:17px; line-height:1.6; color:#e9dfd2; opacity:0.9; margin:0 0 28px;">
     You have proven your resilience. The Watcher has looked away. The unredacted truth is now unlocked.
@@ -58,14 +110,12 @@ button:focus-visible{outline:2px solid var(--ember);outline-offset:3px}
   </div>
 </div>
 
-<!-- Navigation Anchors -->
-<a href="index.html" style="position:fixed; top:calc(20px + env(safe-area-inset-top,0px)); left:85px; color:rgba(233,223,210,0.6); font-size:12px; text-decoration:none; z-index:10; border:1px solid rgba(233,223,210,0.2); padding:3px 10px; border-radius:2px; background:rgba(11,5,7,0.5); backdrop-filter:blur(4px); font-family:sans-serif;">&larr; 25 June Platform</a>
-<a href="slow-burn.html" style="position:fixed; bottom:calc(18px + env(safe-area-inset-bottom,0px)); right:20px; color:rgba(233,223,210,0.45); font-size:12px; text-decoration:none; z-index:10; font-style:italic;">Slow Burn Mode &rarr;</a>
 <script>
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 const $=id=>document.getElementById(id);
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let W,H,DPR,wallTop,wallCanvas;
+
 function resize(){
   DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;
   cv.width=W*DPR;cv.height=H*DPR;wallTop=H*0.6;buildWall();
@@ -87,8 +137,8 @@ function buildWall(){
 addEventListener('resize',resize);resize();
 
 /* ---------- state ---------- */
-const BURN=60,PAPER=420,FILTER=110,R=16,ANG=-0.16;
-let t=0,p=0,ash=8,puff=0,pressing=false,mode='ready';
+const BURN=55,PAPER=420,FILTER=110,R=16,ANG=-0.16;
+let t=0,p=0,ash=8,puff=0,mode='ready';
 let level=1,sanity=100,notice=0,score=0,alive=0,gaze=0;
 let phase='away',phaseT=0,phaseDur=3.5,shownPhase='';
 let best=0;try{best=+localStorage.getItem('vigil-best')||0}catch(e){}
@@ -97,14 +147,210 @@ const scouts=Array.from({length:5},(_,i)=>({ph:i*1.3,sp:.35+i*.07,r:.9+i*.18,tra
 const rnd=(a,b)=>a+Math.random()*(b-a);
 const S=()=>Math.min(1,W/760);
 
-/* ---------- input ---------- */
-const inBtn=e=>e.target.closest&&e.target.closest('button');
-addEventListener('pointerdown',e=>{if(!inBtn(e))pressing=true});
-addEventListener('pointerup',()=>pressing=false);
-addEventListener('pointercancel',()=>pressing=false);
-addEventListener('blur',()=>pressing=false);
-addEventListener('keydown',e=>{if(e.code==='Space'&&!inBtn(e)){e.preventDefault();pressing=true}});
-addEventListener('keyup',e=>{if(e.code==='Space')pressing=false});
+/* ---------- Audio Engine (Heartbeat & Senses Synthesizer) ---------- */
+let audioCtx = null;
+let heartbeatTimer = 0;
+
+function initAudio(){
+  if(!audioCtx){
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if(AudioContext) audioCtx = new AudioContext();
+  }
+  if(audioCtx && audioCtx.state === 'suspended'){
+    audioCtx.resume();
+  }
+}
+
+function playHeartbeat(vol=0.5){
+  if(!audioCtx || audioCtx.state !== 'running') return;
+  const now = audioCtx.currentTime;
+
+  // Thump 1 (Lub)
+  const osc1 = audioCtx.createOscillator();
+  const gain1 = audioCtx.createGain();
+  osc1.type = 'sine';
+  osc1.frequency.setValueAtTime(56, now);
+  osc1.frequency.exponentialRampToValueAtTime(26, now + 0.12);
+  gain1.gain.setValueAtTime(vol * 0.4, now);
+  gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+  osc1.connect(gain1);
+  gain1.connect(audioCtx.destination);
+  osc1.start(now);
+  osc1.stop(now + 0.15);
+
+  // Thump 2 (Dub)
+  const osc2 = audioCtx.createOscillator();
+  const gain2 = audioCtx.createGain();
+  osc2.type = 'sine';
+  osc2.frequency.setValueAtTime(46, now + 0.13);
+  osc2.frequency.exponentialRampToValueAtTime(22, now + 0.25);
+  gain2.gain.setValueAtTime(vol * 0.25, now + 0.13);
+  gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.27);
+  osc2.connect(gain2);
+  gain2.connect(audioCtx.destination);
+  osc2.start(now + 0.13);
+  osc2.stop(now + 0.28);
+}
+
+function playTone(freq, dur, vol=0.15){
+  if(!audioCtx || audioCtx.state !== 'running') return;
+  const now = audioCtx.currentTime;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(freq, now);
+  gain.gain.setValueAtTime(vol, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + dur);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start(now);
+  osc.stop(now + dur);
+}
+
+/* ---------- QTE Whisper Engine ---------- */
+let threatLevel = 1;
+let nextWhisperTimer = rnd(3.0, 5.0);
+let activeWhisper = null; // { text, zone: 'left'|'center'|'right', timer: 1.5, total: 1.5 }
+
+const WHISPERS = [
+  { text: "LOOK LEFT", zone: "left", key: "ArrowLeft", hint: "Tap Left Zone / Key [←]" },
+  { text: "LOOK RIGHT", zone: "right", key: "ArrowRight", hint: "Tap Right Zone / Key [→]" },
+  { text: "DON'T BREATHE", zone: "center", key: "Space", hint: "Tap Center Zone / Key [Space]" },
+  { text: "DUCK", zone: "center", key: "ArrowDown", hint: "Tap Center Zone / Key [↓]" },
+  { text: "SHADOW LEFT", zone: "left", key: "KeyA", hint: "Tap Left Zone / Key [A]" },
+  { text: "SHADOW RIGHT", zone: "right", key: "KeyD", hint: "Tap Right Zone / Key [D]" }
+];
+
+function triggerWhisper(){
+  const pick = WHISPERS[Math.floor(Math.random() * WHISPERS.length)];
+  activeWhisper = { ...pick, timer: 1.5, total: 1.5 };
+  $('whisper-text').textContent = activeWhisper.text;
+  $('whisper-zone-hint').textContent = activeWhisper.hint;
+  $('whisper-box').classList.add('show');
+  playTone(280, 0.25, 0.2);
+}
+
+function resolveWhisper(success, reason=""){
+  if(!activeWhisper) return;
+  $('whisper-box').classList.remove('show');
+  const fb = $('qte-feedback');
+
+  if(success){
+    sanity = Math.min(100, sanity + 22);
+    score += 250;
+    notice = Math.max(0, notice - 10);
+    playTone(520, 0.2, 0.2);
+    setTimeout(()=>playTone(660, 0.25, 0.25), 100);
+    fb.className = 'qte-feedback success';
+    fb.textContent = '+22 SANITY • EVADED (+250)';
+  } else {
+    notice += 32;
+    gaze = Math.min(1.0, gaze + 0.45);
+    threatLevel++;
+    playTone(130, 0.35, 0.35);
+    fb.className = 'qte-feedback fail';
+    fb.textContent = 'MISSED! THE TITAN TURNS!';
+  }
+
+  activeWhisper = null;
+  nextWhisperTimer = rnd(3.2, 5.8);
+  setTimeout(()=>{ fb.className = 'qte-feedback'; }, 1100);
+}
+
+// Click on whisper box itself acts as center react
+$('whisper-box').onclick = (e) => {
+  e.stopPropagation();
+  if(!activeWhisper) return;
+  if(activeWhisper.zone === 'center') resolveWhisper(true);
+  else resolveWhisper(false);
+};
+
+/* ---------- Swipe Up/Down Drag Engine ---------- */
+let lastPointerY = null;
+let lastPointerX = null;
+let dragIntensity = 0; // decays per frame
+let isActivelyDragging = false;
+
+function onPointerStroke(clientY, clientX){
+  initAudio();
+  if(mode !== 'play') return;
+
+  if(activeWhisper){
+    // Resolve QTE zone
+    let clickedZone = 'center';
+    if(clientX < W * 0.33) clickedZone = 'left';
+    else if(clientX > W * 0.66) clickedZone = 'right';
+
+    if(clickedZone === activeWhisper.zone){
+      resolveWhisper(true);
+      return;
+    } else {
+      resolveWhisper(false);
+      return;
+    }
+  }
+
+  if(lastPointerY !== null){
+    const dy = Math.abs(clientY - lastPointerY);
+    if(dy > 6){
+      dragIntensity = Math.min(2.8, dragIntensity + dy * 0.045);
+    }
+  }
+  lastPointerY = clientY;
+  lastPointerX = clientX;
+}
+
+const inBtn = e => e.target.closest && (e.target.closest('button') || e.target.closest('a') || e.target.closest('.ov'));
+
+addEventListener('pointerdown', e => {
+  if(inBtn(e)) return;
+  lastPointerY = e.clientY;
+  lastPointerX = e.clientX;
+  onPointerStroke(e.clientY, e.clientX);
+});
+
+addEventListener('pointermove', e => {
+  if(e.buttons > 0 && !inBtn(e)){
+    onPointerStroke(e.clientY, e.clientX);
+  }
+});
+
+addEventListener('pointerup', () => { lastPointerY = null; });
+addEventListener('pointercancel', () => { lastPointerY = null; });
+
+// Wheel / Trackpad swipe drag support
+addEventListener('wheel', e => {
+  initAudio();
+  if(mode === 'play' && !inBtn(e)){
+    dragIntensity = Math.min(2.8, dragIntensity + Math.abs(e.deltaY) * 0.035);
+  }
+}, { passive: true });
+
+// Keyboard controls
+addEventListener('keydown', e => {
+  initAudio();
+  if(inBtn(e)) return;
+
+  if(activeWhisper){
+    if(e.code === activeWhisper.key || 
+       (activeWhisper.zone === 'left' && (e.code === 'ArrowLeft' || e.code === 'KeyA')) ||
+       (activeWhisper.zone === 'right' && (e.code === 'ArrowRight' || e.code === 'KeyD')) ||
+       (activeWhisper.zone === 'center' && (e.code === 'Space' || e.code === 'ArrowDown' || e.code === 'KeyS'))){
+      e.preventDefault();
+      resolveWhisper(true);
+      return;
+    } else if(e.code.startsWith('Arrow') || e.code === 'Space') {
+      e.preventDefault();
+      resolveWhisper(false);
+      return;
+    }
+  }
+
+  if(e.code === 'Space' || e.code === 'ArrowUp'){
+    e.preventDefault();
+    dragIntensity = Math.min(2.8, dragIntensity + 0.38);
+  }
+});
 
 /* ---------- game flow ---------- */
 let act=()=>{};
@@ -112,19 +358,27 @@ function show(title,sub,btn,fn){
   $('ot').textContent=title;$('os').textContent=sub;$('ob').textContent=btn;act=fn;
   $('ov').classList.add('show');$('ob').focus();
 }
-$('ob').onclick=()=>act();
+$('ob').onclick=()=>{ initAudio(); act(); };
+
 function begin(){
   p=0;ash=8;sanity=100;notice=0;alive=0;gaze=0;phase='away';phaseT=0;phaseDur=3.5;
+  threatLevel=1;dragIntensity=0;nextWhisperTimer=rnd(3.0,5.0);activeWhisper=null;
+  $('whisper-box').classList.remove('show');
   smoke.length=sparks.length=steam.length=chunks.length=0;
   $('ov').classList.remove('show');mode='play';
 }
+
 function saveBest(){best=Math.max(best,Math.round(score));try{localStorage.setItem('vigil-best',best)}catch(e){}}
+
 function lose(title,sub){
   mode='over';saveBest();
+  $('whisper-box').classList.remove('show');
   show(title,`${sub} Score ${Math.round(score)}. Best ${best}.`,'Start over',()=>{level=1;score=0;begin()});
 }
+
 function win(){
   mode='over';const bonus=Math.round(sanity*3+level*200);score+=bonus;saveBest();
+  $('whisper-box').classList.remove('show');
   if(score > 3000){
     const um = $('unlocked-modal');
     if(um){
@@ -135,58 +389,110 @@ function win(){
   }
   show('The last ember.',`+${bonus} for steady hands. Score ${Math.round(score)}. The next one is watched more closely.`,'Next cigarette',()=>{level++;begin()});
 }
+
 function nextPhase(){
   if(phase==='away'){phase='warn';phaseDur=Math.max(.55,1.1-level*.08)}
   else if(phase==='warn'){phase='watch';phaseDur=rnd(1.4+level*.25,2.4+level*.35)}
   else{phase='away';phaseDur=rnd(Math.max(1.6,4.2-level*.5),Math.max(2.6,6-level*.6))}
   phaseT=0;
 }
+
 function tip(){
   const x=FILTER+PAPER*(1-p)+ash,sc=S();
   const ox=W/2-(FILTER+PAPER*.5)*Math.cos(ANG)*sc,oy=H*0.8;
   return {ox,oy,x,wx:ox+x*Math.cos(ANG)*sc,wy:oy+x*Math.sin(ANG)*sc};
 }
+
+/* ---------- Game Logic Update Loop ---------- */
 function update(dt){
-  const drag=pressing&&mode==='play';
-  puff+=((drag?1:0)-puff)*.06;
-  const target=phase==='watch'?1:phase==='warn'?.35:0;
-  gaze+=(target-gaze)*Math.min(1,dt*5);
-  if(mode!=='play')return;
-  alive+=dt;phaseT+=dt;if(phaseT>=phaseDur)nextPhase();
-  if(drag){
-    sanity=Math.min(100,sanity+24*dt);
-    if(phase==='watch')notice+=70*dt;
-    else if(phase==='warn')notice+=18*dt;
-    else notice=Math.max(0,notice-15*dt);
-    score+=dt*level*(phase==='warn'?45:phase==='away'?12:0);
-  }else{
-    sanity=Math.max(0,sanity-(5+level*.8)*dt);
-    notice=Math.max(0,notice-25*dt);
+  // Drag intensity decay
+  dragIntensity = Math.max(0, dragIntensity - dt * 1.6);
+  isActivelyDragging = dragIntensity > 0.08;
+  $('swipe-meter').className = isActivelyDragging ? 'swipe-meter active' : 'swipe-meter';
+
+  puff += ((isActivelyDragging ? Math.min(1.4, dragIntensity) : 0) - puff) * 0.12;
+  const target = phase==='watch' ? 1 : phase==='warn' ? .35 : 0;
+  gaze += (target - gaze) * Math.min(1, dt * 5);
+
+  // Dynamic Heartbeat sound pace
+  heartbeatTimer += dt;
+  const beatInterval = phase === 'watch' ? 0.35 : phase === 'warn' ? 0.65 : Math.max(0.75, 1.25 - (gaze * 0.5));
+  if(heartbeatTimer >= beatInterval && mode === 'play'){
+    heartbeatTimer = 0;
+    const vol = phase === 'watch' ? 1.0 : phase === 'warn' ? 0.75 : 0.45;
+    playHeartbeat(vol);
   }
-  p+=dt/BURN*(1+puff*3);ash+=dt*(2.2+puff*8);
-  if(ash>44){
-    const k=tip();
-    for(let i=0;i<4;i++)chunks.push({x:k.wx-ash*.5*S()+i*8,y:k.wy,vx:(Math.random()-.3)*1.2,vy:-1,a:0,va:(Math.random()-.5)*.2,w:12+Math.random()*10,l:1});
-    ash=6;
+
+  if(mode !== 'play') return;
+  alive += dt;phaseT += dt;if(phaseT >= phaseDur) nextPhase();
+
+  // QTE Whisper countdown
+  if(activeWhisper){
+    activeWhisper.timer -= dt;
+    const pct = Math.max(0, (activeWhisper.timer / activeWhisper.total) * 100);
+    $('whisper-bar').style.width = pct + '%';
+    if(activeWhisper.timer <= 0){
+      resolveWhisper(false, 'timeout');
+    }
+  } else {
+    nextWhisperTimer -= dt;
+    if(nextWhisperTimer <= 0){
+      triggerWhisper();
+    }
   }
-  if(notice>=100)lose('The titan saw you.','You dragged while it was looking.');
-  else if(sanity<=0)lose('You broke.','You held your breath until the edges dissolved.');
-  else if(p>=1){p=1;win()}
+
+  // Active Swipe Drag Effects
+  if(isActivelyDragging){
+    sanity = Math.min(100, sanity + 34 * dt * Math.min(1.5, dragIntensity));
+    if(phase === 'watch'){
+      notice += (82 + threatLevel * 12) * dt; // Rapid penalty when red eyes look!
+    } else if(phase === 'warn'){
+      notice += 22 * dt;
+    } else {
+      notice = Math.max(0, notice - 14 * dt);
+    }
+    score += dt * level * (phase==='warn' ? 55 : phase==='away' ? 16 : 0) * (1 + dragIntensity * 0.5);
+  } else {
+    sanity = Math.max(0, sanity - (5.5 + level * 0.85) * dt);
+    notice = Math.max(0, notice - 26 * dt);
+  }
+
+  p += (dt / BURN) * (0.85 + puff * 3.4);
+  ash += dt * (2.2 + puff * 8.5);
+
+  if(ash > 44){
+    const k = tip();
+    for(let i=0;i<4;i++) chunks.push({x:k.wx-ash*.5*S()+i*8,y:k.wy,vx:(Math.random()-.3)*1.2,vy:-1,a:0,va:(Math.random()-.5)*.2,w:12+Math.random()*10,l:1});
+    ash = 6;
+  }
+
+  if(notice >= 100) lose('The Titan locked gaze.', 'You swiped while its eyes burned red.');
+  else if(sanity <= 0) lose('You dissolved.', 'Your breath broke in the dark.');
+  else if(p >= 1){ p = 1; win(); }
 }
+
 function hud(){
-  $('lv').textContent='Cigarette '+level;$('sc').textContent='Score '+Math.round(score);
-  const sb=$('sb');sb.style.width=sanity+'%';sb.style.background=sanity>50?'#3ddc84':sanity>25?'#ffb02e':'#ff3b2f';
-  $('nb').style.width=Math.min(100,notice)+'%';
-  if(shownPhase!==phase){
-    shownPhase=phase;const st=$('st');
-    st.textContent=phase==='away'?'It looks away.':phase==='warn'?'It stirs.':'It is looking.';
-    st.className=phase==='away'?'':'w';
+  $('lv').textContent = 'Cigarette ' + level;
+  $('sc').textContent = 'Score ' + Math.round(score);
+  $('th').textContent = threatLevel > 2 ? 'Threat: CRITICAL' : threatLevel > 1 ? 'Threat: ELEVATED' : 'Threat: NORMAL';
+  $('th').style.color = threatLevel > 2 ? '#ff3b2f' : threatLevel > 1 ? '#ffaa4a' : '#ffaa4a';
+
+  const sb = $('sb');
+  sb.style.width = sanity + '%';
+  sb.style.background = sanity > 50 ? '#3ddc84' : sanity > 25 ? '#ffb02e' : '#ff3b2f';
+
+  $('nb').style.width = Math.min(100, notice) + '%';
+  if(shownPhase !== phase){
+    shownPhase = phase;
+    const st = $('st');
+    st.textContent = phase==='away' ? 'It looks away.' : phase==='warn' ? 'It stirs in the mist.' : 'ITS EYES BURN RED.';
+    st.className = phase==='away' ? '' : 'w';
   }
 }
 
-/* ---------- drawing ---------- */
+/* ---------- Drawing Pipeline ---------- */
 function drawSky(){
-  const g=ctx.createLinearGradient(0,0,0,wallTop);
+  const g = ctx.createLinearGradient(0,0,0,wallTop);
   g.addColorStop(0,'#0b0507');g.addColorStop(.55,'#2a0f12');g.addColorStop(1,'#7a2f17');
   ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
 }
@@ -209,6 +515,7 @@ function drawTitan(tp){
   ctx.bezierCurveTo(cx+hw*1.4,hy+hh*1.05,cx+size*.7,hy+hh*.8,cx+size*.85,wallTop+4);
   ctx.closePath();ctx.fill();
   ctx.beginPath();ctx.ellipse(cx,hy,hw,hh,0,0,Math.PI*2);ctx.fill();ctx.restore();
+
   const g=gaze,flick=phase==='warn'?(Math.sin(t*40)>0?1:.35):1;
   const ey=hy-hh*.1+g*hh*.05,ex=-g*hw*.1;
   const col=`rgba(255,${190-140*g|0},${120-100*g|0},${(.6+.4*g)*flick})`;
@@ -216,7 +523,7 @@ function drawTitan(tp){
     const x=cx+ex+s*hw*.42;
     if(g>.1){
       const dg=ctx.createRadialGradient(x,ey,2,x,ey,hw*.9);
-      dg.addColorStop(0,`rgba(255,40,20,${g*.5})`);dg.addColorStop(1,'rgba(255,40,20,0)');
+      dg.addColorStop(0,`rgba(255,40,20,${g*.6})`);dg.addColorStop(1,'rgba(255,40,20,0)');
       ctx.fillStyle=dg;ctx.beginPath();ctx.arc(x,ey,hw*.9,0,7);ctx.fill();
     }
     ctx.fillStyle=col;ctx.beginPath();ctx.ellipse(x,ey,hw*(.13+.04*g),hw*(.07+.03*g),s*.15,0,Math.PI*2);ctx.fill();
@@ -268,7 +575,7 @@ function drawCig(){
   ctx.globalCompositeOperation='source-over';ctx.restore();
 }
 function drawParticles(k){
-  const n=pressing&&mode==='play'?3:1;
+  const n=isActivelyDragging&&mode==='play'?4:1;
   if(p<1)for(let i=0;i<n;i++)if(Math.random()<(reduce?.2:.7))smoke.push({x:k.wx,y:k.wy-4,vx:(Math.random()-.5)*.25,vy:-.6-Math.random()*.4,l:1,s:4+Math.random()*4,sd:Math.random()*6});
   for(let i=smoke.length-1;i>=0;i--){
     const s=smoke[i];s.l-=.0055;s.s+=.45;s.vy*=.998;
@@ -290,13 +597,24 @@ function drawParticles(k){
   }
 }
 
-/* ---------- loop ---------- */
+/* ---------- Main Frame Animation Loop with Screen Shake ---------- */
 let last=performance.now();
 function frame(now){
   const dt=Math.min(.05,(now-last)/1000);last=now;t+=dt;
   update(dt);hud();
+
+  // Screen shake on Red Eyes or Low Sanity
+  let shakeX = 0, shakeY = 0;
+  if(!reduce && mode === 'play'){
+    if(phase === 'watch' || gaze > 0.55){
+      const shakeAmt = (phase === 'watch' ? 12 : 6) * DPR;
+      shakeX = (Math.random() - 0.5) * shakeAmt;
+      shakeY = (Math.random() - 0.5) * shakeAmt;
+    }
+  }
   const j=(!reduce&&mode==='play'&&sanity<35)?(1-sanity/35)*5*DPR:0;
-  ctx.setTransform(DPR,0,0,DPR,(Math.random()-.5)*j,(Math.random()-.5)*j);
+  ctx.setTransform(DPR,0,0,DPR,((Math.random()-.5)*j)+shakeX,((Math.random()-.5)*j)+shakeY);
+
   drawSky();const tp=titanPos();drawSun(tp);
   const tf=drawTitan(tp);drawScouts(tf);
   ctx.drawImage(wallCanvas,0,wallTop);
@@ -308,13 +626,14 @@ function frame(now){
     const mx=tf.hx+tf.ex,my=tf.ey,dx=k.wx-mx,dy=k.wy-my,len=Math.hypot(dx,dy)||1;
     const nx=-dy/len*(30+gaze*50),ny=dx/len*(30+gaze*50);
     const bg=ctx.createLinearGradient(mx,my,k.wx,k.wy);
-    bg.addColorStop(0,`rgba(255,50,30,${gaze*.4})`);bg.addColorStop(1,`rgba(255,50,30,${gaze*.12})`);
+    bg.addColorStop(0,`rgba(255,50,30,${gaze*.45})`);bg.addColorStop(1,`rgba(255,50,30,${gaze*.15})`);
     ctx.fillStyle=bg;ctx.beginPath();ctx.moveTo(mx,my);ctx.lineTo(k.wx+nx,k.wy+ny);ctx.lineTo(k.wx-nx,k.wy-ny);ctx.closePath();ctx.fill();
   }
   drawCig();drawParticles(k);
   requestAnimationFrame(frame);
 }
-show('Vigil','A giant waits behind the wall. Your sanity drains unless you take drags, but when its eyes turn red it can see the ember. Drag when it looks away, and burn the cigarette down.','Light it',()=>{level=1;score=0;begin()});
+
+show('Vigil','A giant waits behind the wall. Your sanity drains unless you drag. Rapidly swipe up and down on the cigarette to burn, but when its eyes turn red, STOP. React to Whispers within 1.5s to evade detection.','Light it',()=>{level=1;score=0;begin()});
 requestAnimationFrame(frame);
 </script>
 </body>

@@ -651,6 +651,44 @@
     });
   });
 
+  // Investigations Dropdown Toggle Handler
+  window.toggleInvestigationsMenu = function (e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const menu = document.getElementById('investigations-dropdown');
+    const btn = document.getElementById('investigations-menu-btn');
+    if (!menu) return;
+    const isShown = menu.classList.contains('show');
+    if (isShown) {
+      menu.classList.remove('show');
+      if (btn) {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    } else {
+      menu.classList.add('show');
+      if (btn) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+  };
+
+  document.addEventListener('click', (e) => {
+    const wrap = e.target.closest('.dropdown-container');
+    if (!wrap) {
+      const menu = document.getElementById('investigations-dropdown');
+      const btn = document.getElementById('investigations-menu-btn');
+      if (menu) menu.classList.remove('show');
+      if (btn) {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+  });
+
   window.AgyGlobalSearch = {
     init: initSearchIndex,
     search: search,

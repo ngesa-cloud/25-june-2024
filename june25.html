@@ -2169,30 +2169,74 @@
     <span>🎲</span>
     <span>expose random</span>
   </button>
-  <a href="promises-plunder.html" class="tracker-nav-btn" aria-label="Open Promises & Plunder Tracker">
-    <span style="color:var(--accent);">⚖</span>
-    <span>promises &amp; plunder</span>
-  </a>
-  <a href="money-trail.html" class="tracker-nav-btn money-nav-btn" aria-label="Open Financial Ledger">
-    <span style="color:var(--focus);">💰</span>
-    <span>money trail</span>
-  </a>
-  <a href="nairobi-property.html" class="tracker-nav-btn" aria-label="Open Nairobi Property Tracker">
-    <span style="color:var(--cyan);">🏡</span>
-    <span>properties</span>
-  </a>
-  <a href="nse-tracker.html" class="tracker-nav-btn" aria-label="Open Kenya Market Watch (NSE Tracker)">
-    <span style="color:#ff6b6b;">⚡</span>
-    <span>market watch</span>
-  </a>
-  <a href="nse-ledger.html" class="tracker-nav-btn" aria-label="Open NSE Insider Ledger">
-    <span style="color:#4ade80;">📈</span>
-    <span>nse ledger</span>
-  </a>
-  <a href="vigil.html" class="tracker-nav-btn nav-btn-vigil" aria-label="Play Vigil Surveillance Mini-Game">
-    <span>👁</span>
-    <span>play vigil</span>
-  </a>
+  <div class="dropdown-container">
+    <button id="investigations-menu-btn" class="tracker-nav-btn nav-menu-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleInvestigationsMenu(event)" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+      <span style="color:var(--accent);">⚖</span>
+      <span>investigations ▼</span>
+    </button>
+    <div id="investigations-dropdown" class="investigations-dropdown-menu">
+      <div class="dropdown-header">Forensic Dossiers &amp; Trackers</div>
+      <a href="promises-plunder.html" class="dropdown-item">
+        <span class="item-icon">⚖</span>
+        <div>
+          <div class="item-title">Promises &amp; Plunder</div>
+          <div class="item-desc">Executive manifestos vs broken pledges</div>
+        </div>
+      </a>
+      <a href="money-trail.html" class="dropdown-item">
+        <span class="item-icon">💰</span>
+        <div>
+          <div class="item-title">Money Trail</div>
+          <div class="item-desc">Sovereign capital &amp; procurement ledger</div>
+        </div>
+      </a>
+      <a href="nairobi-property.html" class="dropdown-item">
+        <span class="item-icon">🏡</span>
+        <div>
+          <div class="item-title">Properties</div>
+          <div class="item-desc">Nairobi real estate &amp; land holdings</div>
+        </div>
+      </a>
+      <a href="nse-tracker.html" class="dropdown-item">
+        <span class="item-icon">⚡</span>
+        <div>
+          <div class="item-title">Market Watch</div>
+          <div class="item-desc">Suspicious trade patterns &amp; volume anomalies</div>
+        </div>
+      </a>
+      <a href="nse-ledger.html" class="dropdown-item">
+        <span class="item-icon">📈</span>
+        <div>
+          <div class="item-title">NSE Ledger</div>
+          <div class="item-desc">Listed corporate concessions &amp; filings</div>
+        </div>
+      </a>
+      <a href="scandal-graph.html" class="dropdown-item">
+        <span class="item-icon">🕸️</span>
+        <div>
+          <div class="item-title">Scandal Graph</div>
+          <div class="item-desc">Network map of state capture connections</div>
+        </div>
+      </a>
+      <div class="dropdown-divider"></div>
+      <a href="vigil.html" class="dropdown-item item-vigil">
+        <span class="item-icon" style="color:#ff6a4a;">👁</span>
+        <div>
+          <div class="item-title" style="color:#ff8870;">Play Vigil</div>
+          <div class="item-desc">Psychological surveillance mini-game</div>
+        </div>
+        <span class="badge-mini-vigil">PLAY</span>
+      </a>
+      <div class="dropdown-divider"></div>
+      <a href="contribute.html" class="dropdown-item">
+        <span class="item-icon" style="color:var(--cyan);">✍</span>
+        <div>
+          <div class="item-title" style="color:var(--cyan);">Contribute</div>
+          <div class="item-desc">Submit whistleblower evidence or PRs</div>
+        </div>
+      </a>
+    </div>
+  </div>
 </div>
 
 
