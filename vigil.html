@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vigil</title>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#e9dfd2;--ember:#ff6a1a;--bg:#0b0507;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);overflow:hidden;font-family:Spectral,Georgia,serif;font-weight:300;color:var(--ink);user-select:none;-webkit-user-select:none}
+canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+h1{position:fixed;top:calc(20px + env(safe-area-inset-top,0px));left:20px;margin:0;font-style:italic;font-size:22px;opacity:.8;pointer-events:none}
+.hud{position:fixed;top:calc(20px + env(safe-area-inset-top,0px));right:20px;width:170px;font-size:14px;text-align:right;pointer-events:none}
+.hud div{opacity:.85}
+.bar{height:6px;background:rgba(233,223,210,.15);border-radius:3px;overflow:hidden;margin:3px 0 9px}
+.bar i{display:block;height:100%;width:100%;background:#3ddc84}
+#nb{background:#ff3b2f}
+#st{font-style:italic;min-height:20px;transition:color .2s}
+#st.w{color:#ff6a4a}
+.hint{position:fixed;left:20px;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));margin:0;font-style:italic;font-size:15px;opacity:.65;pointer-events:none}
+.ov{position:fixed;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;padding:24px;text-align:center;background:rgba(11,5,7,.78);z-index:20}
+.ov.show{display:flex}
+.ov h2{font-weight:300;font-size:34px;margin:0 0 12px}
+.ov p{max-width:440px;line-height:1.5;opacity:.75;margin:0 0 24px}
+button{font:inherit;font-size:17px;color:var(--ink);background:rgba(10,5,7,.7);border:1px solid rgba(233,223,210,.45);padding:11px 22px;border-radius:2px;cursor:pointer}
+button:focus-visible{outline:2px solid var(--ember);outline-offset:3px}
+</style>
+</head>
+<body>
+<canvas id="c" aria-label="Game: a cigarette burns in front of a giant silhouette behind a wall"></canvas>
+<h1>Vigil</h1>
+<div class="hud">
+  <div id="lv"></div><div id="sc"></div>
+  <div style="margin-top:8px">Sanity</div><div class="bar"><i id="sb"></i></div>
+  <div>Notice</div><div class="bar"><i id="nb" style="width:0"></i></div>
+  <div id="st"></div>
+</div>
+<p class="hint">Hold anywhere, or Space, to drag. Dragging restores sanity. Never drag while it is looking.</p>
+<div class="ov show" id="ov" role="dialog" aria-live="polite">
+  <h2 id="ot">Vigil</h2><p id="os"></p><button id="ob">Light it</button>
+</div>
+
+<!-- Easter Egg Truth Modal -->
+<div class="ov" id="unlocked-modal" role="dialog" aria-live="polite" style="background:rgba(11,5,7,0.94); border:1px solid #B4472F; box-shadow:0 0 60px rgba(180,71,47,0.5);">
+  <div style="font-family:monospace; font-size:12px; color:#ff6a4a; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:8px;">SURVEILLANCE EVADED • 25.06 RECON</div>
+  <h2 style="color:#ff6a4a; font-family:'Spectral',Georgia,serif; font-size:32px; margin:0 0 14px; text-shadow:0 0 15px rgba(255,106,74,0.6);">The Watcher Has Looked Away</h2>
+  <p style="max-width:480px; font-size:17px; line-height:1.6; color:#e9dfd2; opacity:0.9; margin:0 0 28px;">
+    You have proven your resilience. The Watcher has looked away. The unredacted truth is now unlocked.
+  </p>
+  <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+    <a href="money-trail.html?unlocked=true" style="text-decoration:none; font-size:15.5px; color:#fff; background:#B4472F; border:1px solid #ff6a4a; padding:12px 26px; border-radius:2px; font-weight:500; box-shadow:0 0 20px rgba(180,71,47,0.4); display:inline-flex; align-items:center; gap:8px;">
+      <span>🔓</span> View Unredacted Financial Ledger &rarr;
+    </a>
+    <button onclick="document.getElementById('unlocked-modal').classList.remove('show'); level++; begin();" style="font-size:14.5px; color:#a9a599; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.2); padding:12px 20px; border-radius:2px; cursor:pointer;">
+      Light Next Cigarette (Level Up)
+    </button>
+  </div>
+</div>
+
+<!-- Navigation Anchors -->
+<a href="index.html" style="position:fixed; top:calc(20px + env(safe-area-inset-top,0px)); left:85px; color:rgba(233,223,210,0.6); font-size:12px; text-decoration:none; z-index:10; border:1px solid rgba(233,223,210,0.2); padding:3px 10px; border-radius:2px; background:rgba(11,5,7,0.5); backdrop-filter:blur(4px); font-family:sans-serif;">&larr; 25 June Platform</a>
+<a href="slow-burn.html" style="position:fixed; bottom:calc(18px + env(safe-area-inset-bottom,0px)); right:20px; color:rgba(233,223,210,0.45); font-size:12px; text-decoration:none; z-index:10; font-style:italic;">Slow Burn Mode &rarr;</a>
+<script>
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const $=id=>document.getElementById(id);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let W,H,DPR,wallTop,wallCanvas;
+function resize(){
+  DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;
+  cv.width=W*DPR;cv.height=H*DPR;wallTop=H*0.6;buildWall();
+}
+function buildWall(){
+  wallCanvas=document.createElement('canvas');wallCanvas.width=W;wallCanvas.height=H-wallTop;
+  const g=wallCanvas.getContext('2d');
+  const gr=g.createLinearGradient(0,0,0,H-wallTop);gr.addColorStop(0,'#1c0f12');gr.addColorStop(1,'#070304');
+  g.fillStyle=gr;g.fillRect(0,0,W,H-wallTop);
+  g.strokeStyle='rgba(0,0,0,.55)';g.lineWidth=1.5;
+  const bh=26;let row=0;
+  for(let y=0;y<H-wallTop;y+=bh,row++){
+    g.beginPath();g.moveTo(0,y);g.lineTo(W,y);g.stroke();
+    const bw=64+(row%3)*6;
+    for(let x=(row%2)*bw/2;x<W;x+=bw){g.beginPath();g.moveTo(x,y);g.lineTo(x,y+bh);g.stroke();}
+  }
+  g.fillStyle='rgba(255,106,26,.18)';g.fillRect(0,0,W,3);
+}
+addEventListener('resize',resize);resize();
+
+/* ---------- state ---------- */
+const BURN=60,PAPER=420,FILTER=110,R=16,ANG=-0.16;
+let t=0,p=0,ash=8,puff=0,pressing=false,mode='ready';
+let level=1,sanity=100,notice=0,score=0,alive=0,gaze=0;
+let phase='away',phaseT=0,phaseDur=3.5,shownPhase='';
+let best=0;try{best=+localStorage.getItem('vigil-best')||0}catch(e){}
+const smoke=[],sparks=[],steam=[],chunks=[];
+const scouts=Array.from({length:5},(_,i)=>({ph:i*1.3,sp:.35+i*.07,r:.9+i*.18,trail:[]}));
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const S=()=>Math.min(1,W/760);
+
+/* ---------- input ---------- */
+const inBtn=e=>e.target.closest&&e.target.closest('button');
+addEventListener('pointerdown',e=>{if(!inBtn(e))pressing=true});
+addEventListener('pointerup',()=>pressing=false);
+addEventListener('pointercancel',()=>pressing=false);
+addEventListener('blur',()=>pressing=false);
+addEventListener('keydown',e=>{if(e.code==='Space'&&!inBtn(e)){e.preventDefault();pressing=true}});
+addEventListener('keyup',e=>{if(e.code==='Space')pressing=false});
+
+/* ---------- game flow ---------- */
+let act=()=>{};
+function show(title,sub,btn,fn){
+  $('ot').textContent=title;$('os').textContent=sub;$('ob').textContent=btn;act=fn;
+  $('ov').classList.add('show');$('ob').focus();
+}
+$('ob').onclick=()=>act();
+function begin(){
+  p=0;ash=8;sanity=100;notice=0;alive=0;gaze=0;phase='away';phaseT=0;phaseDur=3.5;
+  smoke.length=sparks.length=steam.length=chunks.length=0;
+  $('ov').classList.remove('show');mode='play';
+}
+function saveBest(){best=Math.max(best,Math.round(score));try{localStorage.setItem('vigil-best',best)}catch(e){}}
+function lose(title,sub){
+  mode='over';saveBest();
+  show(title,`${sub} Score ${Math.round(score)}. Best ${best}.`,'Start over',()=>{level=1;score=0;begin()});
+}
+function win(){
+  mode='over';const bonus=Math.round(sanity*3+level*200);score+=bonus;saveBest();
+  if(score > 3000){
+    const um = $('unlocked-modal');
+    if(um){
+      $('ov').classList.remove('show');
+      um.classList.add('show');
+      return;
+    }
+  }
+  show('The last ember.',`+${bonus} for steady hands. Score ${Math.round(score)}. The next one is watched more closely.`,'Next cigarette',()=>{level++;begin()});
+}
+function nextPhase(){
+  if(phase==='away'){phase='warn';phaseDur=Math.max(.55,1.1-level*.08)}
+  else if(phase==='warn'){phase='watch';phaseDur=rnd(1.4+level*.25,2.4+level*.35)}
+  else{phase='away';phaseDur=rnd(Math.max(1.6,4.2-level*.5),Math.max(2.6,6-level*.6))}
+  phaseT=0;
+}
+function tip(){
+  const x=FILTER+PAPER*(1-p)+ash,sc=S();
+  const ox=W/2-(FILTER+PAPER*.5)*Math.cos(ANG)*sc,oy=H*0.8;
+  return {ox,oy,x,wx:ox+x*Math.cos(ANG)*sc,wy:oy+x*Math.sin(ANG)*sc};
+}
+function update(dt){
+  const drag=pressing&&mode==='play';
+  puff+=((drag?1:0)-puff)*.06;
+  const target=phase==='watch'?1:phase==='warn'?.35:0;
+  gaze+=(target-gaze)*Math.min(1,dt*5);
+  if(mode!=='play')return;
+  alive+=dt;phaseT+=dt;if(phaseT>=phaseDur)nextPhase();
+  if(drag){
+    sanity=Math.min(100,sanity+24*dt);
+    if(phase==='watch')notice+=70*dt;
+    else if(phase==='warn')notice+=18*dt;
+    else notice=Math.max(0,notice-15*dt);
+    score+=dt*level*(phase==='warn'?45:phase==='away'?12:0);
+  }else{
+    sanity=Math.max(0,sanity-(5+level*.8)*dt);
+    notice=Math.max(0,notice-25*dt);
+  }
+  p+=dt/BURN*(1+puff*3);ash+=dt*(2.2+puff*8);
+  if(ash>44){
+    const k=tip();
+    for(let i=0;i<4;i++)chunks.push({x:k.wx-ash*.5*S()+i*8,y:k.wy,vx:(Math.random()-.3)*1.2,vy:-1,a:0,va:(Math.random()-.5)*.2,w:12+Math.random()*10,l:1});
+    ash=6;
+  }
+  if(notice>=100)lose('The titan saw you.','You dragged while it was looking.');
+  else if(sanity<=0)lose('You broke.','You held your breath until the edges dissolved.');
+  else if(p>=1){p=1;win()}
+}
+function hud(){
+  $('lv').textContent='Cigarette '+level;$('sc').textContent='Score '+Math.round(score);
+  const sb=$('sb');sb.style.width=sanity+'%';sb.style.background=sanity>50?'#3ddc84':sanity>25?'#ffb02e':'#ff3b2f';
+  $('nb').style.width=Math.min(100,notice)+'%';
+  if(shownPhase!==phase){
+    shownPhase=phase;const st=$('st');
+    st.textContent=phase==='away'?'It looks away.':phase==='warn'?'It stirs.':'It is looking.';
+    st.className=phase==='away'?'':'w';
+  }
+}
+
+/* ---------- drawing ---------- */
+function drawSky(){
+  const g=ctx.createLinearGradient(0,0,0,wallTop);
+  g.addColorStop(0,'#0b0507');g.addColorStop(.55,'#2a0f12');g.addColorStop(1,'#7a2f17');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+}
+function titanPos(){
+  const cx=W*(W<700?.5:.66)+Math.sin(t*.12)*6,size=Math.min(W,H)*.5;
+  const rise=reduce?1:Math.min(1,.55+t/40);
+  return {cx,size,top:wallTop-size*1.05*rise+Math.sin(t*.5)*3};
+}
+function drawSun(tp){
+  const g=ctx.createRadialGradient(tp.cx,tp.top+tp.size*.35,10,tp.cx,tp.top+tp.size*.35,tp.size*1.8);
+  g.addColorStop(0,'rgba(255,120,50,.85)');g.addColorStop(.25,'rgba(190,60,25,.45)');g.addColorStop(1,'rgba(40,10,12,0)');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,wallTop+2);
+}
+function drawTitan(tp){
+  const {cx,size}=tp,hw=size*.2,hh=size*.27,hy=tp.top+hh;
+  ctx.save();ctx.fillStyle='#090305';ctx.shadowColor='rgba(255,110,40,.7)';ctx.shadowBlur=22;
+  ctx.beginPath();ctx.moveTo(cx-size*.85,wallTop+4);
+  ctx.bezierCurveTo(cx-size*.7,hy+hh*.8,cx-hw*1.4,hy+hh*1.05,cx-hw*.55,hy+hh*.9);
+  ctx.lineTo(cx+hw*.55,hy+hh*.9);
+  ctx.bezierCurveTo(cx+hw*1.4,hy+hh*1.05,cx+size*.7,hy+hh*.8,cx+size*.85,wallTop+4);
+  ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx,hy,hw,hh,0,0,Math.PI*2);ctx.fill();ctx.restore();
+  const g=gaze,flick=phase==='warn'?(Math.sin(t*40)>0?1:.35):1;
+  const ey=hy-hh*.1+g*hh*.05,ex=-g*hw*.1;
+  const col=`rgba(255,${190-140*g|0},${120-100*g|0},${(.6+.4*g)*flick})`;
+  for(const s of[-1,1]){
+    const x=cx+ex+s*hw*.42;
+    if(g>.1){
+      const dg=ctx.createRadialGradient(x,ey,2,x,ey,hw*.9);
+      dg.addColorStop(0,`rgba(255,40,20,${g*.5})`);dg.addColorStop(1,'rgba(255,40,20,0)');
+      ctx.fillStyle=dg;ctx.beginPath();ctx.arc(x,ey,hw*.9,0,7);ctx.fill();
+    }
+    ctx.fillStyle=col;ctx.beginPath();ctx.ellipse(x,ey,hw*(.13+.04*g),hw*(.07+.03*g),s*.15,0,Math.PI*2);ctx.fill();
+  }
+  ctx.strokeStyle='rgba(255,170,110,.55)';ctx.lineWidth=2;
+  const my=hy+hh*.5;
+  ctx.beginPath();ctx.moveTo(cx-hw*.7,my-hh*.04);ctx.quadraticCurveTo(cx,my+hh*(.22+g*.1),cx+hw*.7,my-hh*.04);ctx.stroke();
+  if(!reduce&&Math.random()<.6)steam.push({x:cx+(Math.random()-.5)*hw*1.4,y:tp.top+hh*.3,vx:(Math.random()-.5)*.3,vy:-.5-Math.random()*.6,l:1,s:10+Math.random()*14});
+  for(let i=steam.length-1;i>=0;i--){
+    const s=steam[i];s.x+=s.vx;s.y+=s.vy;s.l-=.006;s.s+=.25;
+    if(s.l<=0){steam.splice(i,1);continue}
+    ctx.fillStyle=`rgba(255,200,170,${s.l*.12})`;ctx.beginPath();ctx.arc(s.x,s.y,s.s,0,7);ctx.fill();
+  }
+  return {hx:cx,hy,hw,hh,ey,ex};
+}
+function drawScouts(tf){
+  for(const s of scouts){
+    const a=t*s.sp+s.ph,rr=tf.hh*(1.6+s.r*.9);
+    const x=tf.hx+Math.cos(a)*rr*1.25,y=tf.hy+Math.sin(a*1.3)*rr*.55-tf.hh*.2;
+    s.trail.push([x,y]);if(s.trail.length>26)s.trail.shift();
+    ctx.lineWidth=1;ctx.strokeStyle='rgba(240,200,170,.22)';
+    ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(tf.hx+Math.cos(a+1.5)*tf.hw*.9,tf.hy+tf.hh*.55);ctx.stroke();
+    ctx.beginPath();s.trail.forEach(([px,py],i)=>i?ctx.lineTo(px,py):ctx.moveTo(px,py));
+    ctx.strokeStyle='rgba(255,200,150,.25)';ctx.stroke();
+    ctx.fillStyle='#f3e3d0';ctx.fillRect(x-1.5,y-1.5,3,3);
+  }
+}
+function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function drawCig(){
+  const k=tip(),sc=S();
+  ctx.save();ctx.translate(k.ox,k.oy);ctx.scale(sc,sc);ctx.rotate(ANG);
+  const len=PAPER*(1-p),r=R;
+  ctx.fillStyle='rgba(0,0,0,.35)';ctx.fillRect(0,r+6,FILTER+len+ash,8);
+  let g=ctx.createLinearGradient(0,-r,0,r);g.addColorStop(0,'#e8a456');g.addColorStop(.5,'#c9822f');g.addColorStop(1,'#8a5214');
+  ctx.fillStyle=g;rr(0,-r,FILTER,r*2,4);ctx.fill();
+  ctx.strokeStyle='rgba(60,30,5,.4)';for(let x=8;x<FILTER;x+=7){ctx.beginPath();ctx.moveTo(x,-r+3);ctx.lineTo(x,r-3);ctx.stroke()}
+  g=ctx.createLinearGradient(0,-r,0,r);g.addColorStop(0,'#fbf6ee');g.addColorStop(.6,'#e5dccd');g.addColorStop(1,'#b7ab98');
+  ctx.fillStyle=g;ctx.fillRect(FILTER,-r,len,r*2);
+  const ex=FILTER+len;
+  const cg=ctx.createLinearGradient(ex-26,0,ex,0);cg.addColorStop(0,'rgba(40,25,18,0)');cg.addColorStop(1,'rgba(30,14,8,.95)');
+  ctx.fillStyle=cg;ctx.fillRect(ex-26,-r,26,r*2);
+  const ag=ctx.createLinearGradient(0,-r,0,r);ag.addColorStop(0,'#cfcac2');ag.addColorStop(1,'#6f6a65');
+  ctx.fillStyle=ag;rr(ex,-r+1,ash,r*2-2,3);ctx.fill();
+  ctx.strokeStyle='rgba(30,25,25,.35)';for(let x=ex+6;x<ex+ash;x+=9){ctx.beginPath();ctx.moveTo(x,-r+3);ctx.lineTo(x+3,r-3);ctx.stroke()}
+  const glow=.55+Math.sin(t*3.1)*.08+Math.sin(t*7.3)*.05+puff*.9;
+  const eg=ctx.createRadialGradient(ex+ash,0,2,ex+ash,0,r*(2.8+puff*3));
+  eg.addColorStop(0,`rgba(255,${150+puff*80|0},60,${Math.min(1,glow)})`);eg.addColorStop(.4,`rgba(255,80,20,${glow*.5})`);eg.addColorStop(1,'rgba(255,60,10,0)');
+  ctx.globalCompositeOperation='lighter';ctx.fillStyle=eg;ctx.fillRect(ex+ash-r*6,-r*6,r*12,r*12);
+  ctx.globalCompositeOperation='source-over';ctx.restore();
+}
+function drawParticles(k){
+  const n=pressing&&mode==='play'?3:1;
+  if(p<1)for(let i=0;i<n;i++)if(Math.random()<(reduce?.2:.7))smoke.push({x:k.wx,y:k.wy-4,vx:(Math.random()-.5)*.25,vy:-.6-Math.random()*.4,l:1,s:4+Math.random()*4,sd:Math.random()*6});
+  for(let i=smoke.length-1;i>=0;i--){
+    const s=smoke[i];s.l-=.0055;s.s+=.45;s.vy*=.998;
+    s.x+=s.vx+Math.sin(t*.9+s.y*.015+s.sd)*.55;s.y+=s.vy;
+    if(s.l<=0){smoke.splice(i,1);continue}
+    const g=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.s);g.addColorStop(0,`rgba(220,210,205,${s.l*s.l*.16})`);g.addColorStop(1,'rgba(220,210,205,0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(s.x,s.y,s.s,0,7);ctx.fill();
+  }
+  if(p<1&&Math.random()<(puff>.5?.5:.06))sparks.push({x:k.wx,y:k.wy,vx:(Math.random()-.5)*1.2,vy:-.5-Math.random()*1.2,l:1});
+  for(let i=sparks.length-1;i>=0;i--){
+    const s=sparks[i];s.x+=s.vx+Math.sin(t*3+i)*.3;s.y+=s.vy;s.vy+=.008;s.l-=.012;
+    if(s.l<=0){sparks.splice(i,1);continue}
+    ctx.fillStyle=`rgba(255,${120+s.l*100|0},40,${s.l})`;ctx.fillRect(s.x,s.y,2,2);
+  }
+  for(let i=chunks.length-1;i>=0;i--){
+    const c=chunks[i];c.x+=c.vx;c.y+=c.vy;c.vy+=.12;c.a+=c.va;c.l-=.012;
+    if(c.l<=0||c.y>H){chunks.splice(i,1);continue}
+    ctx.save();ctx.translate(c.x,c.y);ctx.rotate(c.a);ctx.fillStyle=`rgba(150,145,140,${c.l})`;ctx.fillRect(-c.w/2,-3,c.w,6);ctx.restore();
+  }
+}
+
+/* ---------- loop ---------- */
+let last=performance.now();
+function frame(now){
+  const dt=Math.min(.05,(now-last)/1000);last=now;t+=dt;
+  update(dt);hud();
+  const j=(!reduce&&mode==='play'&&sanity<35)?(1-sanity/35)*5*DPR:0;
+  ctx.setTransform(DPR,0,0,DPR,(Math.random()-.5)*j,(Math.random()-.5)*j);
+  drawSky();const tp=titanPos();drawSun(tp);
+  const tf=drawTitan(tp);drawScouts(tf);
+  ctx.drawImage(wallCanvas,0,wallTop);
+  const dark=.65+(sanity<50?(1-sanity/50)*.3:0);
+  const vg=ctx.createRadialGradient(W/2,H*.7,H*.2,W/2,H*.7,H*.95);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,`rgba(0,0,0,${dark})`);
+  ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);
+  const k=tip();
+  if(gaze>.05){
+    const mx=tf.hx+tf.ex,my=tf.ey,dx=k.wx-mx,dy=k.wy-my,len=Math.hypot(dx,dy)||1;
+    const nx=-dy/len*(30+gaze*50),ny=dx/len*(30+gaze*50);
+    const bg=ctx.createLinearGradient(mx,my,k.wx,k.wy);
+    bg.addColorStop(0,`rgba(255,50,30,${gaze*.4})`);bg.addColorStop(1,`rgba(255,50,30,${gaze*.12})`);
+    ctx.fillStyle=bg;ctx.beginPath();ctx.moveTo(mx,my);ctx.lineTo(k.wx+nx,k.wy+ny);ctx.lineTo(k.wx-nx,k.wy-ny);ctx.closePath();ctx.fill();
+  }
+  drawCig();drawParticles(k);
+  requestAnimationFrame(frame);
+}
+show('Vigil','A giant waits behind the wall. Your sanity drains unless you take drags, but when its eyes turn red it can see the ember. Drag when it looks away, and burn the cigarette down.','Light it',()=>{level=1;score=0;begin()});
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

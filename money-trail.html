@@ -600,6 +600,7 @@
       <a href="nairobi-property.html" class="nav-link">Properties</a>
       <a href="nse-tracker.html" class="nav-link">NSE Tracker</a>
       <a href="nse-ledger.html" class="nav-link">NSE Ledger</a>
+      <a href="vigil.html" class="nav-btn-vigil" title="Play Vigil — Surveillance Psychology Mini-game">👁 Play Vigil</a>
       <a href="scandal-graph.html" class="nav-btn-graph">
         <span>&odot;</span> Scandal Graph &rarr;
       </a>
@@ -833,6 +834,11 @@
               tableInput.value = qParam;
               renderTable();
             }
+          }
+
+          // Check if URL has ?unlocked=true Easter Egg param
+          if (urlParams.get('unlocked') === 'true') {
+            showUnlockedToast();
           }
         } catch (err) {
           console.error('Failed to load ledger data:', err);
@@ -1101,6 +1107,35 @@
           link.click();
           document.body.removeChild(link);
         });
+      }
+
+      function showUnlockedToast() {
+        const toast = document.createElement('div');
+        toast.className = 'unlocked-glass-toast';
+        toast.innerHTML = `
+          <span class="toast-eye">👁</span>
+          <div>
+            <div class="toast-title">Vigilance Confirmed</div>
+            <div class="toast-msg">You are viewing the unredacted financial ledger.</div>
+          </div>
+          <button class="toast-close" onclick="this.parentElement.remove()" title="Close notification">&times;</button>
+        `;
+        document.body.appendChild(toast);
+
+        // Visual pulse on the total capital KPI card
+        const kpi = document.querySelector('.card-money');
+        if (kpi) {
+          kpi.style.borderColor = 'var(--crimson)';
+          kpi.style.boxShadow = '0 0 25px rgba(180, 71, 47, 0.45)';
+        }
+
+        setTimeout(() => {
+          if (toast.parentElement) {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(16px)';
+            setTimeout(() => toast.remove(), 400);
+          }
+        }, 9000);
       }
 
       // Initialize

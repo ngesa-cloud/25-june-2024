@@ -1,0 +1,8 @@
+# lcode local project configuration
+model = "qwen2.5-coder:7b"
+backend = "ollama"
+ollama_host = "http://localhost:11434"
+context = 32768
+permission_mode = "ask"
+auto_edit = false
+mode = "code"

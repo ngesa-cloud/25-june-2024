@@ -2067,6 +2067,13 @@
   }
   .index-top-right-nav {
     position: fixed;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .index-top-right-nav .tracker-nav-btn {
+    position: static !important;
+  }
     top: 18px;
     right: 28px;
     z-index: 1000;
@@ -2181,6 +2188,10 @@
   <a href="nse-ledger.html" class="tracker-nav-btn" aria-label="Open NSE Insider Ledger">
     <span style="color:#4ade80;">📈</span>
     <span>nse ledger</span>
+  </a>
+  <a href="vigil.html" class="tracker-nav-btn nav-btn-vigil" aria-label="Play Vigil Surveillance Mini-Game">
+    <span>👁</span>
+    <span>play vigil</span>
   </a>
 </div>
 

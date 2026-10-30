@@ -1,0 +1,11 @@
+# Project Instructions: 25 June 2024 Accountability Platform
+
+1. You are working on a high-security OSINT platform tracking corruption in Kenya.
+2. Never execute `git push` automatically. Always generate a patch or a diff for the user to review.
+3. When editing HTML or JSON, ensure you do not break the existing `global-search.js` integration.
+4. Always validate JSON syntax before saving.
+
+## Platform Standards:
+- All datasets must reside in `public/api/` and be mirrored to `api/` for dual-path compatibility.
+- Ensure all investigative claims and financial figures cite verified public records (Kenya Gazette, Hansard, EACC, CMA, Court of Appeal).
+- Preserve the investigative dark aesthetic using the established CSS variables (`--bg: #12140F`, `--surface: #181B14`, `--border: #2C3125`, `--crimson: #B4472F`, `--amber: #D97706`, `--cyan: #38bdf8`, `--paper: #EAE6DA`).
