@@ -23,6 +23,8 @@
       "year": 2011,
       "name": "Kazi Kwa Vijana (KKV) World Bank Audit",
       "amount": "Ksh 4.3 Billion",
+      "raw_amount": 4300000000,
+      "entity": "World Bank / Office of the Prime Minister (OPM)",
       "status": "Cleared by EACC / World Bank Audit Completed",
       "summary": "World Bank forensic inquiry raised documentation queries over youth empowerment program under Prime Minister's office; cleared of direct culpability."
     },
@@ -30,6 +32,8 @@
       "year": 2003,
       "name": "Kisumu Molasses Plant Privatization",
       "amount": "Ksh 1.2 Billion",
+      "raw_amount": 1200000000,
+      "entity": "Spectre International Ltd",
       "status": "Parliamentary Public Accounts Committee Review",
       "summary": "Parliamentary review into asset privatization and state debt write-offs concerning Spectre International enterprise acquisition."
     }

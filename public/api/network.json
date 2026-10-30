@@ -1,34 +1,151 @@
 {
   "nodes": [
-    {"id": "ruto", "label": "William Ruto", "type": "politician"},
-    {"id": "gachagua", "label": "Rigathi Gachagua", "type": "politician"},
-    {"id": "raila", "label": "Raila Odinga", "type": "politician"},
-    {"id": "kalonzo", "label": "Kalonzo Musyoka", "type": "politician"},
-    {"id": "adani", "label": "Adani Group", "type": "company"},
-    {"id": "ketraco", "label": "KETRACO", "type": "institution"},
-    {"id": "spectre", "label": "Spectre International", "type": "company"},
-    {"id": "world_bank", "label": "World Bank", "type": "institution"},
-    {"id": "nys", "label": "National Youth Service (NYS)", "type": "institution"},
-    {"id": "high_court", "label": "High Court of Kenya", "type": "institution"},
-    {"id": "jkia", "label": "JKIA Airport Lease (Ksh 30B)", "type": "scandal"},
-    {"id": "ketraco_deal", "label": "Power Transmission PPA (Ksh 95B)", "type": "scandal"},
-    {"id": "gachagua_impeachment", "label": "Unexplained Wealth Impeachment (Ksh 5.2B)", "type": "scandal"},
-    {"id": "nyeri_tender", "label": "Nyeri Tender Case (Ksh 7.3B)", "type": "scandal"},
-    {"id": "kkv_audit", "label": "Kazi Kwa Vijana Audit (Ksh 4.3B)", "type": "scandal"},
-    {"id": "yatta_land", "label": "Yatta NYS Land Inquiry (Ksh 350M)", "type": "scandal"}
+    {
+      "id": "ruto",
+      "label": "William Ruto",
+      "type": "politician"
+    },
+    {
+      "id": "gachagua",
+      "label": "Rigathi Gachagua",
+      "type": "politician"
+    },
+    {
+      "id": "raila",
+      "label": "Raila Odinga",
+      "type": "politician"
+    },
+    {
+      "id": "kalonzo",
+      "label": "Kalonzo Musyoka",
+      "type": "politician"
+    },
+    {
+      "id": "adani",
+      "label": "Adani Group",
+      "type": "company"
+    },
+    {
+      "id": "ketraco",
+      "label": "KETRACO",
+      "type": "institution"
+    },
+    {
+      "id": "spectre",
+      "label": "Spectre International",
+      "type": "company"
+    },
+    {
+      "id": "world_bank",
+      "label": "World Bank",
+      "type": "institution"
+    },
+    {
+      "id": "nys",
+      "label": "National Youth Service (NYS)",
+      "type": "institution"
+    },
+    {
+      "id": "high_court",
+      "label": "High Court of Kenya",
+      "type": "institution"
+    },
+    {
+      "id": "jkia",
+      "label": "JKIA Airport Lease (Ksh 30B)",
+      "type": "scandal"
+    },
+    {
+      "id": "ketraco_deal",
+      "label": "Power Transmission PPA (Ksh 95B)",
+      "type": "scandal"
+    },
+    {
+      "id": "gachagua_impeachment",
+      "label": "Unexplained Wealth Impeachment (Ksh 5.2B)",
+      "type": "scandal"
+    },
+    {
+      "id": "nyeri_tender",
+      "label": "Nyeri Tender Case (Ksh 7.3B)",
+      "type": "scandal"
+    },
+    {
+      "id": "kkv_audit",
+      "label": "Kazi Kwa Vijana Audit (Ksh 4.3B)",
+      "type": "scandal"
+    },
+    {
+      "id": "yatta_land",
+      "label": "Yatta NYS Land Inquiry (Ksh 350M)",
+      "type": "scandal"
+    }
   ],
   "edges": [
-    {"from": "ruto", "to": "adani", "label": "Sponsored PPP Deal"},
-    {"from": "adani", "to": "jkia", "label": "30-Year Lease Bid"},
-    {"from": "high_court", "to": "jkia", "label": "Issued Conservatory Injunction"},
-    {"from": "adani", "to": "ketraco_deal", "label": "Signed Ksh 95B Deal"},
-    {"from": "ketraco", "to": "ketraco_deal", "label": "Awarded Contract"},
-    {"from": "gachagua", "to": "gachagua_impeachment", "label": "Impeached by Senate"},
-    {"from": "gachagua", "to": "nyeri_tender", "label": "ARA Frozen Funds Withdrawn"},
-    {"from": "raila", "to": "kkv_audit", "label": "Prime Minister Oversight"},
-    {"from": "world_bank", "to": "kkv_audit", "label": "Funded & Forensic Review"},
-    {"from": "raila", "to": "spectre", "label": "Family Equity Interest"},
-    {"from": "kalonzo", "to": "yatta_land", "label": "Investigated & Cleared by DCI"},
-    {"from": "nys", "to": "yatta_land", "label": "Bordering Parcel"}
+    {
+      "from": "ruto",
+      "to": "adani",
+      "label": "Sponsored PPP Deal"
+    },
+    {
+      "from": "adani",
+      "to": "jkia",
+      "label": "30-Year Lease Bid"
+    },
+    {
+      "from": "high_court",
+      "to": "jkia",
+      "label": "Issued Conservatory Injunction"
+    },
+    {
+      "from": "adani",
+      "to": "ketraco_deal",
+      "label": "Signed Ksh 95B Deal"
+    },
+    {
+      "from": "ketraco",
+      "to": "ketraco_deal",
+      "label": "Awarded Contract"
+    },
+    {
+      "from": "gachagua",
+      "to": "gachagua_impeachment",
+      "label": "Impeached by Senate"
+    },
+    {
+      "from": "gachagua",
+      "to": "nyeri_tender",
+      "label": "ARA Frozen Funds Withdrawn"
+    },
+    {
+      "from": "raila",
+      "to": "kkv_audit",
+      "label": "Prime Minister Oversight"
+    },
+    {
+      "from": "world_bank",
+      "to": "kkv_audit",
+      "label": "Funded & Forensic Review"
+    },
+    {
+      "from": "raila",
+      "to": "spectre",
+      "label": "Family Equity Interest"
+    },
+    {
+      "from": "kalonzo",
+      "to": "yatta_land",
+      "label": "Investigated & Cleared by DCI"
+    },
+    {
+      "from": "nys",
+      "to": "yatta_land",
+      "label": "Bordering Parcel"
+    },
+    {
+      "from": "high_court",
+      "to": "ketraco_deal",
+      "label": "Issued Stay Orders"
+    }
   ]
 }

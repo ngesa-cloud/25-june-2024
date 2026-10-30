@@ -441,6 +441,7 @@
     }
     .api-dock a { color: var(--cyan); text-decoration: underline; }
   </style>
+  <link rel="stylesheet" href="global-search.css">
 </head>
 <body>
 
@@ -449,11 +450,24 @@
     <a href="index.html" class="nav-brand">
       <span>&larr;</span> 25.06.2024 MEMORIAL
     </a>
+
+    <!-- Central Global Search Engine Component -->
+    <div class="nav-search-wrap" style="flex: 1; max-width: 480px; margin: 0 16px;">
+      <div class="global-search-component">
+        <div class="search-input-wrapper">
+          <span class="search-icon-prefix">🔍</span>
+          <input type="text" class="global-search-input" placeholder="Global Search: 'Adani', 'KETRACO', 'Ksh 30B', 'Ruto'..." autocomplete="off">
+          <span class="search-kbd-shortcut">Ctrl K</span>
+        </div>
+      </div>
+    </div>
+
     <div class="nav-links">
+      <a href="promises-plunder.html" class="nav-link active" style="color: #fff; font-weight:600;">Promises &amp; Plunder</a>
+      <a href="money-trail.html" class="nav-link">Financial Ledger</a>
       <a href="scandal-graph.html" class="nav-btn-graph">
-        <span>&odot;</span> Open Scandal Graph &rarr;
+        <span>&odot;</span> Scandal Graph &rarr;
       </a>
-      <a href="public/api/politicians/index.json" target="_blank" class="nav-link">Politicians API Index &nearr;</a>
     </div>
   </nav>
 
@@ -576,7 +590,13 @@
       allPoliticians = politiciansList;
       renderPoliticiansGrid(allPoliticians);
       if (allPoliticians.length > 0) {
-        renderDossier(allPoliticians[0].id);
+        const hash = window.location.hash.replace('#', '');
+        const target = allPoliticians.find(p => p.id === hash);
+        if (target) {
+          selectPolitician(target.id);
+        } else {
+          renderDossier(allPoliticians[0].id);
+        }
       }
     }
 
@@ -776,5 +796,6 @@
 
     document.addEventListener('DOMContentLoaded', loadPoliticiansEngine);
   </script>
+  <script src="global-search.js"></script>
 </body>
 </html>

@@ -257,6 +257,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="global-search.css">
 </head>
 <body>
 
@@ -265,9 +266,22 @@
     <a href="index.html" class="nav-brand">
       <span>&larr;</span> 25.06.2024 MEMORIAL
     </a>
-    <div class="nav-actions">
-      <a href="promises-plunder.html" class="nav-btn">Promises &amp; Plunder Tracker &rarr;</a>
-      <a href="public/api/network.json" target="_blank" class="nav-btn">network.json &nearr;</a>
+
+    <!-- Central Global Search Engine Component -->
+    <div class="nav-search-wrap" style="flex: 1; max-width: 440px; margin: 0 16px;">
+      <div class="global-search-component">
+        <div class="search-input-wrapper">
+          <span class="search-icon-prefix">🔍</span>
+          <input type="text" class="global-search-input" placeholder="Global Search: 'Adani', 'KETRACO', '30B'..." autocomplete="off">
+          <span class="search-kbd-shortcut">Ctrl K</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-actions" style="display:flex; gap:10px; align-items:center;">
+      <a href="promises-plunder.html" class="nav-btn">Promises &amp; Plunder</a>
+      <a href="money-trail.html" class="nav-btn">Financial Ledger</a>
+      <a href="public/api/network.json" target="_blank" class="nav-btn" style="color:var(--paper-dark);">JSON &nearr;</a>
     </div>
   </nav>
 
@@ -431,6 +445,19 @@
           closeInspector();
         }
       });
+
+      // Handle focus query param from search
+      const urlParams = new URLSearchParams(window.location.search);
+      const focusParam = urlParams.get('focus');
+      if (focusParam) {
+        setTimeout(() => {
+          inspectNode(focusParam);
+          if (network) {
+            network.focus(focusParam, { scale: 1.25, animation: { duration: 600, easingFunction: 'easeInOutQuad' } });
+            network.selectNodes([focusParam]);
+          }
+        }, 350);
+      }
     }
 
     function inspectNode(nodeId) {
@@ -522,5 +549,6 @@
 
     document.addEventListener('DOMContentLoaded', initNetworkGraph);
   </script>
+  <script src="global-search.js"></script>
 </body>
 </html>

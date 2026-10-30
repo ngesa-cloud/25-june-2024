@@ -2055,7 +2055,50 @@
       min-height: auto;
     }
   }
+
+  .index-top-search-dock {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 440px;
+    max-width: calc(100vw - 500px);
+    z-index: 1000;
+  }
+  .index-top-right-nav {
+    position: fixed;
+    top: 18px;
+    right: 28px;
+    z-index: 1000;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .money-nav-btn {
+    border-color: rgba(214, 199, 158, 0.4);
+  }
+  @media (max-width: 1100px) {
+    .index-top-search-dock {
+      top: 66px;
+      left: 28px;
+      right: 28px;
+      transform: none;
+      width: auto;
+      max-width: none;
+    }
+  }
+  @media (max-width: 720px) {
+    .index-top-right-nav {
+      top: 64px;
+      right: 28px;
+    }
+    .index-top-search-dock {
+      top: 110px;
+    }
+  }
+
 </style>
+  <link rel="stylesheet" href="global-search.css">
 </head>
 <body>
 
@@ -2089,11 +2132,28 @@
   </span>
 </button>
 
-<!-- Top Fixed Link to Promises & Plunder Tracker -->
-<a href="promises-plunder.html" class="tracker-nav-btn" aria-label="Open Promises & Plunder Tracker">
-  <span style="color:var(--accent);">⚖</span>
-  <span>promises &amp; plunder &rarr;</span>
-</a>
+<!-- Central Top Global Search Bar -->
+<div class="index-top-search-dock">
+  <div class="global-search-component">
+    <div class="search-input-wrapper">
+      <span class="search-icon-prefix">🔍</span>
+      <input type="text" class="global-search-input" placeholder="Global Search: 'Adani', 'KETRACO', 'Ksh 30B', 'Ruto'..." autocomplete="off">
+      <span class="search-kbd-shortcut">Ctrl K</span>
+    </div>
+  </div>
+</div>
+
+<!-- Top Fixed Links to Trackers -->
+<div class="index-top-right-nav">
+  <a href="promises-plunder.html" class="tracker-nav-btn" aria-label="Open Promises & Plunder Tracker">
+    <span style="color:var(--accent);">⚖</span>
+    <span>promises &amp; plunder</span>
+  </a>
+  <a href="money-trail.html" class="tracker-nav-btn money-nav-btn" aria-label="Open Financial Ledger">
+    <span style="color:var(--focus);">💰</span>
+    <span>money trail</span>
+  </a>
+</div>
 
 
 <header class="hero">
@@ -4356,5 +4416,6 @@
 })();
 </script>
 
+  <script src="global-search.js"></script>
 </body>
 </html>

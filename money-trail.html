@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Money Trail Ledger — 25 June Accountability Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global-search.css">
+  <style>
+    :root {
+      --bg: #12140F;
+      --surface: #181B14;
+      --surface-elevated: #20241B;
+      --border: #2C3125;
+      --border-highlight: #3D4433;
+      --crimson: #B4472F;
+      --crimson-soft: #f87171;
+      --amber: #D97706;
+      --amber-soft: #fbbf24;
+      --cyan: #38bdf8;
+      --green: #6C7A5A;
+      --green-bright: #4ade80;
+      --paper: #EAE6DA;
+      --paper-dim: #A9A599;
+      --paper-dark: #62605B;
+      --font-serif: 'Newsreader', Georgia, serif;
+      --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--paper);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      padding: 0 0 100px;
+    }
+
+    /* Pinned Navigation */
+    .top-nav {
+      background: rgba(24, 27, 20, 0.95);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 24px;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      gap: 16px;
+    }
+    .nav-brand {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--paper);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: var(--crimson); }
+    .nav-search-wrap {
+      flex: 1;
+      max-width: 520px;
+    }
+    .nav-links { display: flex; gap: 12px; align-items: center; white-space: nowrap; }
+    .nav-link {
+      color: var(--paper-dim);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-family: var(--font-mono);
+      transition: color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--paper); }
+    .nav-btn-graph {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--cyan);
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .nav-btn-graph:hover {
+      background: rgba(56, 189, 248, 0.22);
+      border-color: var(--cyan);
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 36px 24px 0;
+    }
+
+    /* Header Section */
+    .header-section {
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+    }
+    .kicker {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--crimson);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .kicker::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--crimson);
+      border-radius: 50%;
+    }
+    h1.main-title {
+      font-family: var(--font-serif);
+      font-size: clamp(34px, 5vw, 50px);
+      font-weight: 500;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .subtitle {
+      font-size: 16px;
+      color: var(--paper-dim);
+      max-width: 880px;
+      line-height: 1.6;
+    }
+
+    /* Telemetry KPI Cards */
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px 22px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .stat-card:hover {
+      border-color: var(--border-highlight);
+      transform: translateY(-2px);
+    }
+    .stat-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: var(--border);
+    }
+    .stat-card.card-money::before { background: var(--crimson); }
+    .stat-card.card-deals::before { background: var(--amber); }
+    .stat-card.card-entity::before { background: var(--cyan); }
+    .stat-card.card-injunction::before { background: var(--green-bright); }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--paper-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .stat-sub {
+      font-size: 12.5px;
+      color: var(--paper-dim);
+    }
+
+    /* Ledger Controls & Filter Bar */
+    .ledger-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 14px 18px;
+      border-radius: 6px;
+    }
+    .controls-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .filter-chip {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--paper-dim);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-chip:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--paper);
+    }
+    .filter-chip.active {
+      background: rgba(180, 71, 47, 0.18);
+      border-color: var(--crimson);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .controls-right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex: 1;
+      max-width: 440px;
+      justify-content: flex-end;
+    }
+    .table-search-input {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--paper);
+      padding: 7px 12px;
+      font-size: 13px;
+      font-family: var(--font-sans);
+      border-radius: 4px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .table-search-input:focus {
+      border-color: var(--cyan);
+    }
+    .export-btn {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--paper);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      padding: 7px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .export-btn:hover {
+      border-color: var(--paper-dim);
+      background: #252a20;
+    }
+
+    /* The Main Ledger Table */
+    .table-responsive {
+      overflow-x: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    table.ledger-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13.5px;
+    }
+    table.ledger-table th {
+      background: #141711;
+      color: var(--paper-dim);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 14px 16px;
+      border-bottom: 2px solid var(--border);
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+      transition: color 0.15s, background 0.15s;
+    }
+    table.ledger-table th:hover {
+      color: #fff;
+      background: #191c15;
+    }
+    table.ledger-table th.sorted {
+      color: var(--cyan);
+    }
+    .sort-indicator {
+      display: inline-block;
+      margin-left: 6px;
+      font-size: 10px;
+      color: var(--paper-dark);
+    }
+    table.ledger-table th.sorted .sort-indicator {
+      color: var(--cyan);
+    }
+
+    table.ledger-table td {
+      padding: 16px;
+      border-bottom: 1px solid rgba(44, 49, 37, 0.6);
+      vertical-align: middle;
+    }
+    table.ledger-table tbody tr {
+      transition: background 0.15s;
+    }
+    table.ledger-table tbody tr:hover {
+      background: rgba(32, 36, 27, 0.6);
+    }
+    table.ledger-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .td-year {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--paper-dim);
+      font-weight: 600;
+    }
+    .td-project {
+      max-width: 320px;
+    }
+    .project-title {
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+      line-height: 1.35;
+    }
+    .project-summary-toggle {
+      font-size: 11.5px;
+      color: var(--paper-dim);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .project-summary-toggle:hover { color: var(--cyan); }
+    .project-summary-text {
+      display: none;
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--paper-dim);
+      background: rgba(0, 0, 0, 0.25);
+      padding: 8px 10px;
+      border-radius: 4px;
+      border-left: 2px solid var(--border-highlight);
+    }
+
+    .td-amount {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 14.5px;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .amount-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .td-entity {
+      max-width: 240px;
+    }
+    .entity-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--paper);
+    }
+    .entity-type-badge {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      padding: 1px 4px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .type-company { background: rgba(56, 189, 248, 0.15); color: var(--cyan); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .type-institution { background: rgba(217, 119, 6, 0.15); color: var(--amber-soft); border: 1px solid rgba(217, 119, 6, 0.3); }
+
+    .td-politician a {
+      color: var(--paper);
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s;
+    }
+    .td-politician a:hover {
+      color: var(--cyan);
+      text-decoration: underline;
+    }
+    .pol-avatar-circle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--paper-dim);
+    }
+
+    .status-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    .status-blocked {
+      background: rgba(180, 71, 47, 0.2);
+      color: var(--crimson-soft);
+      border: 1px solid rgba(180, 71, 47, 0.45);
+    }
+    .status-review {
+      background: rgba(217, 119, 6, 0.2);
+      color: var(--amber-soft);
+      border: 1px solid rgba(217, 119, 6, 0.45);
+    }
+    .status-cleared {
+      background: rgba(108, 122, 90, 0.25);
+      color: #bbf7d0;
+      border: 1px solid rgba(108, 122, 90, 0.5);
+    }
+
+    /* Empty state */
+    .no-results-row td {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--paper-dim);
+    }
+
+    /* Modal / Detail Drawer for In-Depth Legal Citations */
+    .ledger-footer-note {
+      margin-top: 24px;
+      padding: 16px 20px;
+      background: rgba(24, 27, 20, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 12.5px;
+      color: var(--paper-dim);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .ledger-footer-note .note-icon {
+      color: var(--amber);
+      font-size: 16px;
+    }
+
+    @media (max-width: 860px) {
+      .top-nav { flex-wrap: wrap; }
+      .nav-search-wrap { order: 3; width: 100%; max-width: none; }
+      .ledger-controls { flex-direction: column; align-items: stretch; }
+      .controls-right { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pinned Sticky Navigation -->
+  <nav class="top-nav">
+    <a href="index.html" class="nav-brand">
+      <span>&larr;</span> 25.06.2024 MEMORIAL
+    </a>
+
+    <!-- Central Global Search Engine Component -->
+    <div class="nav-search-wrap">
+      <div class="global-search-component">
+        <div class="search-input-wrapper">
+          <span class="search-icon-prefix">🔍</span>
+          <input type="text" class="global-search-input" placeholder="Global Search: 'Adani', 'KETRACO', 'Ksh 30B', 'Ruto'..." autocomplete="off">
+          <span class="search-kbd-shortcut">Ctrl K</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a href="promises-plunder.html" class="nav-link">Promises &amp; Plunder</a>
+      <a href="money-trail.html" class="nav-link active">Financial Ledger</a>
+      <a href="scandal-graph.html" class="nav-btn-graph">
+        <span>&odot;</span> Scandal Graph &rarr;
+      </a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header-section">
+      <div class="kicker">Sovereign Capital &amp; Procurement Scrutiny &bull; Financial Ledger</div>
+      <h1 class="main-title">The Money Trail Ledger</h1>
+      <p class="subtitle">A centralized forensic register cross-referencing multi-billion shilling government contracts, privatizations, public-private partnerships (PPP), and parliamentary impeachment filings across executive leadership in Kenya.</p>
+    </header>
+
+    <!-- Telemetry Cards -->
+    <section class="telemetry-grid">
+      <div class="stat-card card-money">
+        <div class="stat-label">Total Money Tracked</div>
+        <div class="stat-value" id="kpi-total-money">Ksh 143.35B</div>
+        <div class="stat-sub" id="kpi-total-raw">Ksh 143,350,000,000 public capital queried</div>
+      </div>
+      <div class="stat-card card-deals">
+        <div class="stat-label">Contracts &amp; Dockets Tracked</div>
+        <div class="stat-value" id="kpi-total-contracts">7 Dockets</div>
+        <div class="stat-sub">Spanning national infrastructure &amp; wealth cases</div>
+      </div>
+      <div class="stat-card card-entity">
+        <div class="stat-label">Most Mentioned Entity</div>
+        <div class="stat-value" id="kpi-top-entity">Adani Group</div>
+        <div class="stat-sub" id="kpi-top-entity-sub">2 Mega Concessions (Ksh 125.0B exposure)</div>
+      </div>
+      <div class="stat-card card-injunction">
+        <div class="stat-label">Judicial Injunction / Intercepted</div>
+        <div class="stat-value" id="kpi-blocked-money">Ksh 125.0B</div>
+        <div class="stat-sub">High Court conservatory orders sustained</div>
+      </div>
+    </section>
+
+    <!-- Ledger Controls & Filters -->
+    <div class="ledger-controls">
+      <div class="controls-left">
+        <button class="filter-chip active" data-filter="all">All Records (<span id="count-all">0</span>)</button>
+        <button class="filter-chip" data-filter="mega">Mega Dockets (&gt; Ksh 5B)</button>
+        <button class="filter-chip" data-filter="blocked">Blocked / Injunction</button>
+        <button class="filter-chip" data-filter="cleared">Cleared / Closed</button>
+      </div>
+      <div class="controls-right">
+        <input type="text" id="table-filter-input" class="table-search-input" placeholder="Filter ledger by company, project, or amount...">
+        <button id="export-csv-btn" class="export-btn" title="Export Ledger to CSV">
+          <span>&darr;</span> CSV
+        </button>
+      </div>
+    </div>
+
+    <!-- The Ledger Table -->
+    <div class="table-responsive">
+      <table class="ledger-table" id="money-ledger-table">
+        <thead>
+          <tr>
+            <th data-sort="year">Year <span class="sort-indicator">&udarr;</span></th>
+            <th data-sort="project">Project / Scandal <span class="sort-indicator">&udarr;</span></th>
+            <th data-sort="amount" class="sorted">Amount (Ksh) <span class="sort-indicator">&darr;</span></th>
+            <th data-sort="entity">Entity Involved <span class="sort-indicator">&udarr;</span></th>
+            <th data-sort="politician">Linked Politician <span class="sort-indicator">&udarr;</span></th>
+            <th data-sort="status">Status <span class="sort-indicator">&udarr;</span></th>
+          </tr>
+        </thead>
+        <tbody id="ledger-body">
+          <tr>
+            <td colspan="6" style="text-align:center; padding: 40px; color: var(--paper-dim);">
+              Loading verified procurement &amp; wealth records...
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Legal Citation / Evidentiary Note -->
+    <div class="ledger-footer-note">
+      <span class="note-icon">&#9888;</span>
+      <div>
+        <strong>Evidentiary Standard &amp; Verification Protocol:</strong> All ledger entries are corroborated against official documents from the Kenya High Court, National Assembly Hansard records, Auditor General forensic reports, Ethics and Anti-Corruption Commission (EACC) releases, and the Public Procurement Regulatory Authority (PPRA). Uncorroborated rumors or partisan allegations are strictly excluded.
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Global Search Engine Script -->
+  <script src="global-search.js"></script>
+
+  <!-- Money Trail Ledger Page Script -->
+  <script>
+    (function () {
+      'use strict';
+
+      let ledgerData = [];
+      let currentFilter = 'all';
+      let currentSort = { column: 'amount', direction: 'desc' };
+
+      // Helper to parse amount strings to integers
+      function parseAmount(str) {
+        if (!str) return 0;
+        const clean = str.toLowerCase().replace(/,/g, '').trim();
+        const m = clean.match(/([\d.]+)/);
+        if (!m) return 0;
+        const val = parseFloat(m[1]);
+        if (clean.includes('billion') || clean.includes('b')) return Math.round(val * 1000000000);
+        if (clean.includes('million') || clean.includes('m')) return Math.round(val * 1000000);
+        return Math.round(val);
+      }
+
+      function formatBillion(amount) {
+        if (amount >= 1000000000) {
+          const b = amount / 1000000000;
+          return 'Ksh ' + (Number.isInteger(b) ? b : b.toFixed(2)) + 'B';
+        }
+        if (amount >= 1000000) {
+          const m = amount / 1000000;
+          return 'Ksh ' + (Number.isInteger(m) ? m : m.toFixed(1)) + 'M';
+        }
+        return 'Ksh ' + amount.toLocaleString();
+      }
+
+      function getStatusBadge(status) {
+        const s = (status || '').toLowerCase();
+        let cls = 'status-review';
+        if (s.includes('blocked') || s.includes('impeached') || s.includes('suspended')) {
+          cls = 'status-blocked';
+        } else if (s.includes('cleared') || s.includes('withdrawn')) {
+          cls = 'status-cleared';
+        }
+        return `<span class="status-badge ${cls}">${escapeHtml(status)}</span>`;
+      }
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      async function loadLedgerData() {
+        const isPublic = window.location.pathname.includes('/public/');
+        const base = isPublic ? 'api/' : 'public/api/';
+
+        try {
+          let indexRes = await fetch(`${base}politicians/index.json`).catch(() => null);
+          if (!indexRes || !indexRes.ok) {
+            indexRes = await fetch('api/politicians/index.json').catch(() => null);
+          }
+          const slugs = indexRes && indexRes.ok ? await indexRes.json() : ['william-ruto', 'raila-odinga', 'rigathi-gachagua', 'kalonzo-musyoka'];
+
+          const fetchPromises = slugs.map(slug =>
+            fetch(`${base}politicians/${slug}.json`)
+              .then(r => r.ok ? r.json() : fetch(`api/politicians/${slug}.json`).then(r2 => r2.json()))
+              .catch(() => null)
+          );
+
+          const dossiers = await Promise.all(fetchPromises);
+          const entries = [];
+
+          dossiers.filter(Boolean).forEach(pol => {
+            const polName = pol.name || pol.id;
+            const polId = pol.id;
+            const party = pol.party || '';
+
+            if (Array.isArray(pol.scandals)) {
+              pol.scandals.forEach(scandal => {
+                const rawAmt = scandal.raw_amount || parseAmount(scandal.amount);
+                const entityName = scandal.entity || 'Public Tender / State Project';
+                const isCompany = entityName.toLowerCase().includes('adani') || 
+                                  entityName.toLowerCase().includes('spectre') || 
+                                  entityName.toLowerCase().includes('wamunyoro') ||
+                                  entityName.toLowerCase().includes('holdings') ||
+                                  entityName.toLowerCase().includes('ltd');
+
+                entries.push({
+                  year: scandal.year || 2024,
+                  project: scandal.name || 'Untitled Docket',
+                  amountStr: scandal.amount || 'Ksh 0',
+                  amountNum: rawAmt,
+                  entity: entityName,
+                  isCompany: isCompany,
+                  politicianName: polName,
+                  politicianId: polId,
+                  party: party,
+                  status: scandal.status || 'Active Inquiry',
+                  summary: scandal.summary || 'Official parliamentary and court documentation in public record.'
+                });
+              });
+            }
+          });
+
+          ledgerData = entries;
+          updateTelemetry(ledgerData);
+          renderTable();
+
+          // Check if URL has ?q= query param
+          const urlParams = new URLSearchParams(window.location.search);
+          const qParam = urlParams.get('q');
+          if (qParam) {
+            const tableInput = document.getElementById('table-filter-input');
+            if (tableInput) {
+              tableInput.value = qParam;
+              renderTable();
+            }
+          }
+        } catch (err) {
+          console.error('Failed to load ledger data:', err);
+          document.getElementById('ledger-body').innerHTML = `
+            <tr><td colspan="6" style="text-align:center; padding:30px; color:var(--crimson-soft);">
+              Failed to load financial records. Please refresh or check connection.
+            </td></tr>
+          `;
+        }
+      }
+
+      function updateTelemetry(data) {
+        let totalRaw = 0;
+        let blockedRaw = 0;
+        const entityCounts = {};
+
+        data.forEach(item => {
+          totalRaw += item.amountNum;
+          const statusLower = item.status.toLowerCase();
+          if (statusLower.includes('blocked') || statusLower.includes('suspended')) {
+            blockedRaw += item.amountNum;
+          }
+
+          // Count entity mentions
+          let ent = item.entity;
+          if (ent.toLowerCase().includes('adani')) ent = 'Adani Group';
+          else if (ent.toLowerCase().includes('world bank')) ent = 'World Bank';
+          else if (ent.toLowerCase().includes('nys')) ent = 'National Youth Service';
+          else if (ent.toLowerCase().includes('spectre')) ent = 'Spectre International';
+          
+          entityCounts[ent] = (entityCounts[ent] || 0) + 1;
+        });
+
+        // Top entity
+        let topEntity = 'Adani Group';
+        let topCount = 0;
+        for (const [ent, count] of Object.entries(entityCounts)) {
+          if (count > topCount) {
+            topCount = count;
+            topEntity = ent;
+          }
+        }
+
+        document.getElementById('kpi-total-money').textContent = formatBillion(totalRaw);
+        document.getElementById('kpi-total-raw').textContent = `Ksh ${totalRaw.toLocaleString()} public capital queried`;
+        document.getElementById('kpi-total-contracts').textContent = `${data.length} Dockets`;
+        document.getElementById('kpi-top-entity').textContent = topEntity;
+        document.getElementById('kpi-blocked-money').textContent = formatBillion(blockedRaw);
+        document.getElementById('count-all').textContent = data.length;
+      }
+
+      function renderTable() {
+        const tbody = document.getElementById('ledger-body');
+        const filterInput = document.getElementById('table-filter-input');
+        const searchVal = filterInput ? filterInput.value.trim().toLowerCase() : '';
+
+        // 1. Filter
+        let filtered = ledgerData.filter(item => {
+          if (currentFilter === 'mega' && item.amountNum < 5000000000) return false;
+          if (currentFilter === 'blocked') {
+            const s = item.status.toLowerCase();
+            if (!s.includes('blocked') && !s.includes('impeached') && !s.includes('suspended')) return false;
+          }
+          if (currentFilter === 'cleared') {
+            const s = item.status.toLowerCase();
+            if (!s.includes('cleared') && !s.includes('withdrawn')) return false;
+          }
+
+          if (searchVal) {
+            const haystack = [
+              item.project,
+              item.entity,
+              item.politicianName,
+              item.amountStr,
+              item.status,
+              String(item.year),
+              item.summary
+            ].join(' ').toLowerCase();
+
+            // Support exact terms
+            const terms = searchVal.split(/\s+/);
+            const matchesAll = terms.every(t => haystack.includes(t));
+            if (!matchesAll) return false;
+          }
+
+          return true;
+        });
+
+        // 2. Sort
+        filtered.sort((a, b) => {
+          let valA = a[currentSort.column];
+          let valB = b[currentSort.column];
+
+          if (currentSort.column === 'amount') {
+            valA = a.amountNum;
+            valB = b.amountNum;
+          }
+
+          if (typeof valA === 'string') {
+            const cmp = valA.localeCompare(valB);
+            return currentSort.direction === 'asc' ? cmp : -cmp;
+          }
+
+          return currentSort.direction === 'asc' ? (valA - valB) : (valB - valA);
+        });
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `
+            <tr class="no-results-row">
+              <td colspan="6">
+                No financial records match the current filter criteria.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        let html = '';
+        filtered.forEach((item, idx) => {
+          const typeBadge = item.isCompany
+            ? `<span class="entity-type-badge type-company">Company</span>`
+            : `<span class="entity-type-badge type-institution">State / Multi</span>`;
+
+          const initial = item.politicianName.charAt(0);
+
+          html += `
+            <tr id="row-${item.politicianId}-${idx}">
+              <td class="td-year">${item.year}</td>
+              <td class="td-project">
+                <div class="project-title">${escapeHtml(item.project)}</div>
+                <span class="project-summary-toggle" onclick="toggleSummary('${item.politicianId}-${idx}')">Legal / Audit Summary &darr;</span>
+                <div class="project-summary-text" id="summary-${item.politicianId}-${idx}">
+                  ${escapeHtml(item.summary)}
+                </div>
+              </td>
+              <td class="td-amount">
+                <span class="amount-badge">${escapeHtml(item.amountStr)}</span>
+              </td>
+              <td class="td-entity">
+                <div class="entity-tag">
+                  ${typeBadge}
+                  <span>${escapeHtml(item.entity)}</span>
+                </div>
+              </td>
+              <td class="td-politician">
+                <a href="promises-plunder.html#${item.politicianId}" title="View politician dossier">
+                  <span class="pol-avatar-circle">${initial}</span>
+                  <span>${escapeHtml(item.politicianName)}</span>
+                </a>
+              </td>
+              <td class="td-status">
+                ${getStatusBadge(item.status)}
+              </td>
+            </tr>
+          `;
+        });
+
+        tbody.innerHTML = html;
+      }
+
+      window.toggleSummary = function (id) {
+        const el = document.getElementById(`summary-${id}`);
+        if (!el) return;
+        el.style.display = el.style.display === 'block' ? 'none' : 'block';
+      };
+
+      // Header sorting click handlers
+      document.querySelectorAll('#money-ledger-table th[data-sort]').forEach(th => {
+        th.addEventListener('click', () => {
+          const col = th.getAttribute('data-sort');
+          if (currentSort.column === col) {
+            currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+          } else {
+            currentSort.column = col;
+            currentSort.direction = (col === 'amount' || col === 'year') ? 'desc' : 'asc';
+          }
+
+          document.querySelectorAll('#money-ledger-table th').forEach(h => {
+            h.classList.remove('sorted');
+            const ind = h.querySelector('.sort-indicator');
+            if (ind) ind.innerHTML = '&udarr;';
+          });
+
+          th.classList.add('sorted');
+          const indicator = th.querySelector('.sort-indicator');
+          if (indicator) {
+            indicator.innerHTML = currentSort.direction === 'asc' ? '&uarr;' : '&darr;';
+          }
+
+          renderTable();
+        });
+      });
+
+      // Filter chips
+      document.querySelectorAll('.filter-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          currentFilter = chip.getAttribute('data-filter');
+          renderTable();
+        });
+      });
+
+      // Live search input
+      const tableInput = document.getElementById('table-filter-input');
+      if (tableInput) {
+        tableInput.addEventListener('input', () => renderTable());
+      }
+
+      // CSV Export
+      const exportBtn = document.getElementById('export-csv-btn');
+      if (exportBtn) {
+        exportBtn.addEventListener('click', () => {
+          const headers = ['Year', 'Project / Scandal', 'Amount (Ksh)', 'Amount Numeric', 'Entity Involved', 'Linked Politician', 'Status', 'Summary'];
+          const rows = ledgerData.map(item => [
+            item.year,
+            `"${item.project.replace(/"/g, '""')}"`,
+            `"${item.amountStr}"`,
+            item.amountNum,
+            `"${item.entity.replace(/"/g, '""')}"`,
+            `"${item.politicianName.replace(/"/g, '""')}"`,
+            `"${item.status.replace(/"/g, '""')}"`,
+            `"${item.summary.replace(/"/g, '""')}"`
+          ]);
+
+          const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+          const encodedUri = encodeURI(csvContent);
+          const link = document.createElement('a');
+          link.setAttribute('href', encodedUri);
+          link.setAttribute('download', 'kenya-sovereign-capital-ledger.csv');
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+      }
+
+      // Initialize
+      loadLedgerData();
+    })();
+  </script>
+</body>
+</html>

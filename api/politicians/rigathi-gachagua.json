@@ -23,6 +23,8 @@
       "year": 2024,
       "name": "Parliamentary & Senate Impeachment on Unexplained Wealth",
       "amount": "Ksh 5.2 Billion",
+      "raw_amount": 5200000000,
+      "entity": "National Assembly & Senate / Wamunyoro Investments",
       "status": "Impeached by National Assembly and Senate",
       "summary": "National Assembly and Senate sustained impeachment articles citing unexplained asset accumulation, conflict of interest, and constitutional violations; contested in High Court."
     },
@@ -30,6 +32,8 @@
       "year": 2022,
       "name": "Nyeri County Government Tender Recovery Case",
       "amount": "Ksh 7.3 Billion",
+      "raw_amount": 7300000000,
+      "entity": "Nyeri County Government / Assets Recovery Agency (ARA)",
       "status": "Withdrawn by ODPP / ARA in late 2022",
       "summary": "Asset Recovery Agency (ARA) frozen bank accounts case dropped by prosecutors citing insufficient corroborating forensic evidence."
     }

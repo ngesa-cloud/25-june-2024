@@ -23,8 +23,19 @@
       "year": 2024,
       "name": "Adani Group Airport Lease",
       "amount": "Ksh 30 Billion",
+      "raw_amount": 30000000000,
+      "entity": "Adani Group / Kenya Airports Authority (KAA)",
       "status": "Blocked by High Court",
-      "summary": "Secretive lease agreement to give Adani control of JKIA for 30 years in exchange for upgrades."
+      "summary": "Secretive 30-year lease agreement to give Adani Group control of JKIA in exchange for refurbishment; suspended by High Court conservatory orders following public interest litigation."
+    },
+    {
+      "year": 2024,
+      "name": "KETRACO Power Transmission PPP Deal",
+      "amount": "Ksh 95 Billion",
+      "raw_amount": 95000000000,
+      "entity": "Adani Energy Solutions / KETRACO",
+      "status": "Blocked by High Court",
+      "summary": "Privately Initiated Proposal (PIP) concession awarded to Adani Energy Solutions to construct 422km of high-voltage transmission lines; halted by High Court pending constitutional challenge."
     }
   ],
   "net_worth": {
