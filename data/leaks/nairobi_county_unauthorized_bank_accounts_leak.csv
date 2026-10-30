@@ -1,0 +1,6 @@
+account_id,bank_name,account_number,account_title,currency,flagged_variance_ksh,oversight_body,status
+ACC-001,National Bank of Kenya,01071239847100,Nairobi City County Revenue Collection,KES,"10,600,000,000",Senate CPAC & Auditor General,Under Forensic Audit
+ACC-002,Cooperative Bank of Kenya,01129481920100,Nairobi County Special Trust Operations,KES,"450,000,000",Senate CPAC,Undeclared Account
+ACC-003,Equity Bank Kenya,02401829301920,NairobiPay Transit Discrepancy Pool,KES,"1,200,000,000",Nairobi County Assembly,Unreconciled
+ACC-004,KCB Bank Kenya,11029384750100,City Inspectorate Enforcement Forfeiture,KES,"320,000,000",EACC Investigation,Frozen
+ACC-005,Standard Chartered Kenya,01050293847100,Nairobi Legal Settlement Account,KES,"2,100,000,000",Auditor General,Disputed Legal Bills

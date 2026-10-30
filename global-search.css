@@ -297,3 +297,58 @@
   padding: 1px 6px;
   border-radius: 3px;
 }
+
+/* Special OSINT Leaked File Styles */
+.badge-leak {
+  background: rgba(220, 38, 38, 0.28) !important;
+  color: #ff5555 !important;
+  border: 1px solid rgba(220, 38, 38, 0.65) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em;
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.3);
+}
+
+.item-leak {
+  border-left: 3px solid #dc2626 !important;
+  background: rgba(30, 18, 18, 0.45);
+}
+
+.item-leak:hover {
+  background: rgba(45, 20, 20, 0.7) !important;
+}
+
+.result-filetype {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  color: #ff7777;
+  background: rgba(220, 38, 38, 0.15);
+  border: 1px solid rgba(220, 38, 38, 0.35);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.county-leak {
+  color: #ff9999 !important;
+  background: rgba(220, 38, 38, 0.15) !important;
+  border-color: rgba(220, 38, 38, 0.3) !important;
+}
+
+.status-leak {
+  color: #ff8888 !important;
+  background: rgba(220, 38, 38, 0.15) !important;
+  border-color: rgba(220, 38, 38, 0.35) !important;
+}
+
+.amount-leak {
+  color: #ff5555 !important;
+  background: rgba(220, 38, 38, 0.15) !important;
+  border-color: rgba(220, 38, 38, 0.35) !important;
+}
+
+.sentence-leak {
+  color: #fde8e8 !important;
+  font-family: var(--font-mono, monospace);
+  font-size: 12.5px !important;
+  line-height: 1.5;
+}

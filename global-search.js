@@ -60,9 +60,15 @@
         .then(r => r.ok ? r.json() : fetch('api/network.json').then(r2 => r2.json()))
         .catch(() => ({ nodes: [], edges: [] }));
 
-      const [politicians, networkData] = await Promise.all([
+      // 4. Fetch OSINT leaks index
+      const leaksPromise = fetch(`${base}leaks/index.json`)
+        .then(r => r.ok ? r.json() : fetch('api/leaks/index.json').then(r2 => r2.json()))
+        .catch(() => []);
+
+      const [politicians, networkData, leaksData] = await Promise.all([
         Promise.all(politicianPromises),
-        networkPromise
+        networkPromise,
+        leaksPromise
       ]);
 
       const validPoliticians = politicians.filter(Boolean);
@@ -203,6 +209,45 @@
         }
       });
 
+      // Index OSINT Leaks Archive
+      const validLeaks = Array.isArray(leaksData) ? leaksData : [];
+      validLeaks.forEach(leak => {
+        const filename = leak.filename || 'leak_document';
+        const fileType = (leak.file_type || 'txt').toUpperCase();
+        const snippet = leak.snippet || '';
+        const ghUrl = leak.github_url || `https://github.com/ngesa-cloud/25-june-2024/blob/main/data/leaks/${filename}`;
+        
+        // Clean display snippet
+        const firstLine = snippet.split('\n').filter(Boolean)[0] || filename;
+        const displaySnippet = snippet.length > 175 ? snippet.slice(0, 175) + '...' : snippet;
+
+        indexRecords.push({
+          type: 'leak_file',
+          id: leak.id,
+          filename: filename,
+          fileType: fileType,
+          politicianName: 'OSINT Whistleblower Archive',
+          politicianId: leak.id,
+          county: 'OSINT Leak',
+          entityName: filename,
+          scandalName: `Leaked OSINT File: ${filename}`,
+          amount: 'LEAKED EVIDENCE',
+          rawAmount: 0,
+          status: 'Whistleblower Document',
+          year: 2024,
+          summary: displaySnippet,
+          sentence: `[LEAK] ${filename}: "${displaySnippet.replace(/\s+/g, ' ')}"`,
+          githubUrl: ghUrl,
+          evidenceCount: 1,
+          evidenceList: [],
+          tokens: [
+            filename, leak.id, fileType, 'leak', 'leaked', 'whistleblower', 'osint', 'secret',
+            ...filename.toLowerCase().replace(/\./g, '_').split('_'),
+            ...snippet.toLowerCase().split(/[\s,;:="'+*#\/\\<>\[\]{}()_]+/).filter(w => w.length > 2)
+          ].map(t => String(t).toLowerCase())
+        });
+      });
+
       searchIndex = indexRecords;
       isLoaded = true;
       return searchIndex;
@@ -261,6 +306,7 @@
       });
 
       if (item.type === 'financial_scandal') score += 5;
+      if (item.type === 'leak_file') score += 12;
       if (item.evidenceCount > 0) score += 3;
 
       if (matchedTerm && score > 0) {
@@ -307,36 +353,45 @@
     `;
 
     results.forEach((res, idx) => {
+      const isLeak = res.type === 'leak_file';
       const isScandal = res.type === 'financial_scandal';
-      const badgeClass = isScandal ? 'badge-scandal' : (res.type === 'promise' ? 'badge-promise' : 'badge-network');
-      const badgeText = isScandal ? 'MONEY TRAIL' : (res.type === 'promise' ? 'PROMISE' : 'NETWORK GRAPH');
+      const badgeClass = isLeak ? 'badge-leak' : (isScandal ? 'badge-scandal' : (res.type === 'promise' ? 'badge-promise' : 'badge-network'));
+      const badgeText = isLeak ? 'LEAKED FILE' : (isScandal ? 'MONEY TRAIL' : (res.type === 'promise' ? 'PROMISE' : 'NETWORK GRAPH'));
       
-      const targetUrl = `profile.html?id=${encodeURIComponent(res.politicianId)}`;
+      const targetUrl = isLeak ? res.githubUrl : `profile.html?id=${encodeURIComponent(res.politicianId)}`;
+      const targetAttr = isLeak ? 'target="_blank" rel="noopener noreferrer"' : '';
 
-      const evBadge = res.evidenceCount > 0 
+      const evBadge = (!isLeak && res.evidenceCount > 0)
         ? `<span class="result-ev-count" title="${res.evidenceCount} verified documents in Evidence Locker">🗄 ${res.evidenceCount} Evidences</span>` 
         : '';
 
       const countyBadge = res.county 
-        ? `<span class="result-county-badge">${escapeHtml(res.county)}</span>` 
+        ? `<span class="result-county-badge ${isLeak ? 'county-leak' : ''}">${escapeHtml(res.county)}</span>` 
+        : '';
+
+      const extraFileBadge = isLeak 
+        ? `<span class="result-filetype">${escapeHtml(res.fileType)}</span>` 
         : '';
 
       html += `
-        <a href="${targetUrl}" class="search-result-item" data-index="${idx}">
+        <a href="${escapeHtml(targetUrl)}" ${targetAttr} class="search-result-item ${isLeak ? 'item-leak' : ''}" data-index="${idx}">
           <div class="result-top-row">
             <span class="result-badge ${badgeClass}">${badgeText}</span>
+            ${extraFileBadge}
             ${countyBadge}
-            ${res.amount && res.amount !== 'Manifesto Commitment' ? `<span class="result-amount">${escapeHtml(res.amount)}</span>` : ''}
+            ${res.amount && res.amount !== 'Manifesto Commitment' ? `<span class="result-amount ${isLeak ? 'amount-leak' : ''}">${escapeHtml(res.amount)}</span>` : ''}
             <span class="result-year">${res.year}</span>
             ${evBadge}
-            <span class="result-status status-pill">${escapeHtml(res.status)}</span>
+            <span class="result-status status-pill ${isLeak ? 'status-leak' : ''}">${escapeHtml(res.status)}</span>
           </div>
-          <div class="result-sentence">
+          <div class="result-sentence ${isLeak ? 'sentence-leak' : ''}">
             ${highlightTerms(res.sentence, query)}
           </div>
           <div class="result-meta">
-            <span class="meta-entity">🏢 <strong>Entity:</strong> ${escapeHtml(res.entityName)}</span>
-            <span class="meta-politician">👤 <strong>Dossier:</strong> ${escapeHtml(res.politicianName)}</span>
+            ${isLeak 
+              ? `<span class="meta-entity">📂 <strong>File:</strong> ${escapeHtml(res.filename)}</span><span class="meta-politician" style="color:var(--crimson-soft); margin-left:auto;">🔓 View Raw Leak on GitHub &nearr;</span>`
+              : `<span class="meta-entity">🏢 <strong>Entity:</strong> ${escapeHtml(res.entityName)}</span><span class="meta-politician">👤 <strong>Dossier:</strong> ${escapeHtml(res.politicianName)}</span>`
+            }
           </div>
         </a>
       `;

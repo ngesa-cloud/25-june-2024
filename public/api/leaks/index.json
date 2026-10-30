@@ -1,0 +1,29 @@
+[
+  {
+    "id": "adani_jkia_concession_internal_memo",
+    "filename": "adani_jkia_concession_internal_memo.txt",
+    "file_type": "txt",
+    "snippet": "CONFIDENTIAL INVESTIGATIVE MEMORANDUM // OSINT ARCHIVE\nDOCUMENT REF: KAA/PPP/JKIA-EXP/2024-LEAK-01\nSUBJECT: PRIVATELY INITIATED PROPOSAL (PIP) BY ADANI AIRPORTS HOLDINGS LIMITED (AAHL)\nDATED: MARCH 2024 // SOURCE: INTERNAL WHISTLEBLOWER DISCLOSURE\n\n1. EXECUTIVE SUMMARY:\nA 30-year concession proposed by Adani Airports Holdings Limited for the Build-Operate-Transfer (BOT) redevelopment of Jomo Kenyatta International Airport (JKIA), Nairobi. The proposal projects an initial capital investment of USD 1.85 Billion (approx. Ksh 238 Billion) in exchange for exclusive aeronautical and non-aeronautical revenue collection rights.\n\n2. FLAGGED IRREGULARITIES & SOVEREIGN RISK FACTORS:\n- Exemption from national public procurement competition (PPADA 2015, Section 43) via single-sourced Privately Initiated Proposal.\n- Clause 14.2: Mandates Kenyan government sovereign guarantee against operational loss, requiring taxpayers to underwrite commercial debt.\n- Clause 19.8: Tax holiday provisions and custom duty waivers exceeding statutory limits under the Kenya Revenue Authority (KRA) Act.\n- Transfer of key national security infrastructure (Terminal 1A, 1B, 1C, Terminal 2, and new runway) to private foreign holding without parliamentary ratification under Article 118 of the Constitution of Kenya.\n\n3. LEGAL INTERVENTION STATUS:\nHigh Court Constitutional Petition E371 of 2024 (Okiya Omtatah & Law Society of Kenya v. KAA & Adani Group). Conservatory orders granted by Justice Chacha Mwita staying all implementation steps pending inter-partes determination.",
+    "date_added": "2026-10-30T18:37:36.868339+00:00",
+    "size_bytes": 1557,
+    "github_url": "https://github.com/ngesa-cloud/25-june-2024/blob/main/data/leaks/adani_jkia_concession_internal_memo.txt"
+  },
+  {
+    "id": "nairobi_assembly_biometric_voting_audit",
+    "filename": "nairobi_assembly_biometric_voting_audit.json",
+    "file_type": "json",
+    "snippet": "{\n  \"document_id\": \"NCCA-PAC-ICT-2023-LEAK\",\n  \"title\": \"Nairobi City County Assembly Public Accounts Committee Audit Excerpt\",\n  \"docket\": \"Electronic Chamber Voting & Audio-Visual Hansard Digitization Tender\",\n  \"contract_sum_ksh\": \"50,000,000\",\n  \"investigating_entity\": \"Nairobi City County Assembly Public Accounts Committee\",\n  \"oversight_officer\": \"Robert Alai Onyango (MCA, Kileleshwa Ward)\",\n  \"flagged_issues\": [\n    \"Procurement of biometric fingerprint voting consoles at 300% markup over market rate\",\n    \"Single-source selective tendering without approval of Assembly Service Board\",\n    \"Missing asset inventory tags for chamber audio streaming servers and display consoles\",\n    \"Delayed project sign-off with contractor paid 85% advance before functional acceptance testing\"\n  ],\n  \"recommendations\": [\n    \"Forensic audit by Auditor General into Nairobi County Assembly Service Board procurement\",\n    \"Summoning of Assembly Clerk and Head of ICT to appear before Public Accounts Committee\"\n  ]\n}",
+    "date_added": "2026-10-30T18:37:36.871339+00:00",
+    "size_bytes": 1016,
+    "github_url": "https://github.com/ngesa-cloud/25-june-2024/blob/main/data/leaks/nairobi_assembly_biometric_voting_audit.json"
+  },
+  {
+    "id": "nairobi_county_unauthorized_bank_accounts_leak",
+    "filename": "nairobi_county_unauthorized_bank_accounts_leak.csv",
+    "file_type": "csv",
+    "snippet": "account_id,bank_name,account_number,account_title,currency,flagged_variance_ksh,oversight_body,status\nACC-001,National Bank of Kenya,01071239847100,Nairobi City County Revenue Collection,KES,\"10,600,000,000\",Senate CPAC & Auditor General,Under Forensic Audit\nACC-002,Cooperative Bank of Kenya,01129481920100,Nairobi County Special Trust Operations,KES,\"450,000,000\",Senate CPAC,Undeclared Account\nACC-003,Equity Bank Kenya,02401829301920,NairobiPay Transit Discrepancy Pool,KES,\"1,200,000,000\",Nairobi County Assembly,Unreconciled\nACC-004,KCB Bank Kenya,11029384750100,City Inspectorate Enforcement Forfeiture,KES,\"320,000,000\",EACC Investigation,Frozen\nACC-005,Standard Chartered Kenya,01050293847100,Nairobi Legal Settlement Account,KES,\"2,100,000,000\",Auditor General,Disputed Legal Bills",
+    "date_added": "2026-10-30T18:37:36.864339+00:00",
+    "size_bytes": 792,
+    "github_url": "https://github.com/ngesa-cloud/25-june-2024/blob/main/data/leaks/nairobi_county_unauthorized_bank_accounts_leak.csv"
+  }
+]
