@@ -2077,14 +2077,10 @@
 <body>
 <nav class="top-nav" style="position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: rgba(24,27,20,0.95); border-bottom: 1px solid #2C3125; z-index: 9999;">
     <a href="index.html" style="color: #EAE6DA; text-decoration: none; font-family: monospace; font-weight: bold;">&larr; 25.06.2024</a>
-    
     <div style="flex: 1; max-width: 500px; margin: 0 20px;">
         <input type="text" id="global-search-input" placeholder="Global Search: 'Adani', 'Ksh 30B'..." style="width: 100%; padding: 8px; background: #12140F; border: 1px solid #2C3125; color: #EAE6DA; border-radius: 4px; font-family: monospace;">
     </div>
-
-    <button onclick="toggleMenu()" style="background: transparent; border: 1px solid #2C3125; color: #EAE6DA; padding: 8px 16px; cursor: pointer; font-family: monospace;">
-        ☰ MENU
-    </button>
+    <button onclick="toggleMenu()" style="background: transparent; border: 1px solid #2C3125; color: #EAE6DA; padding: 8px 16px; cursor: pointer; font-family: monospace;">☰ MENU</button>
 </nav>
 
 <div id="menu-overlay" style="display: none; position: fixed; top: 60px; right: 20px; background: #181B14; border: 1px solid #2C3125; padding: 20px; z-index: 10000; border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); font-family: monospace;">
@@ -2094,11 +2090,9 @@
     <a href="nairobi-property.html" class="menu-link">Nairobi Property</a>
     <a href="nse-tracker.html" class="menu-link">NSE Tracker</a>
     <a href="scandal-graph.html" class="menu-link">Scandal Graph</a>
-    
     <div style="margin-top: 15px; margin-bottom: 10px; color: #38bdf8; font-size: 12px; letter-spacing: 1px;">GAMES</div>
     <a href="tender.html" class="menu-link" style="color: #fbbf24;">⚖ The Tender</a>
     <a href="vigil.html" class="menu-link" style="color: #fbbf24;">👁 Play Vigil</a>
-    
     <div style="margin-top: 15px; margin-bottom: 10px; color: #38bdf8; font-size: 12px; letter-spacing: 1px;">ACTION</div>
     <a href="contribute.html" class="menu-link">✍ Contribute Evidence</a>
 </div>
@@ -2106,6 +2100,7 @@
 <style>
     .menu-link { display: block; color: #EAE6DA; text-decoration: none; padding: 8px 0; border-bottom: 1px solid #2C3125; font-size: 14px; }
     .menu-link:hover { color: #ff5555; }
+    body { padding-top: 60px !important; }
 </style>
 
 <script>
@@ -2115,10 +2110,13 @@ function toggleMenu() {
 }
 document.addEventListener('click', function(e) {
     const menu = document.getElementById('menu-overlay');
+    if (menu && !e.target.closest('#menu-overlay') && !e.target.closest('button')) {
         menu.style.display = 'none';
     }
 });
 </script>
+
+
 
 
 <!-- Ambient Kenyan Flag Shadowbox Background (Task 2) -->
