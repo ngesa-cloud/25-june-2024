@@ -1,0 +1,240 @@
+[
+  {
+    "id": "eric-kaiyioni",
+    "name": "Eric Kaiyioni Shieni",
+    "age": 27,
+    "location": "Parliament Road, outer Senate perimeter fence",
+    "coordinates": {
+      "lat": -1.2895,
+      "lon": 36.8188
+    },
+    "cause_of_death": "Live Ammunition (Rifle)",
+    "source": "BBC Africa Eye, IPOA report & family funeral records",
+    "officer_status": "0 Officers Charged",
+    "case_status": "Active IPOA Inquiry"
+  },
+  {
+    "id": "rex-masai",
+    "name": "Rex Kanyike Masai",
+    "age": 29,
+    "location": "Moi Avenue / City Hall Way junction (outside Club Vybe)",
+    "coordinates": {
+      "lat": -1.2863,
+      "lon": 36.8248
+    },
+    "cause_of_death": "Live Ammunition (Handgun)",
+    "source": "CCTV forensic analysis & Chief Govt Pathologist autopsy",
+    "officer_status": "0 Officers Charged",
+    "case_status": "ODPP Inquest Pending"
+  },
+  {
+    "id": "edwin-makana",
+    "name": "Edwin Makana",
+    "age": 25,
+    "location": "Nairobi CBD protest route",
+    "coordinates": {
+      "lat": -1.285,
+      "lon": 36.821
+    },
+    "cause_of_death": "Live Ammunition",
+    "source": "Memorial card & family tribute",
+    "officer_status": "0 Officers Charged",
+    "case_status": "Stalled / No Public Update"
+  },
+  {
+    "id": "david-chege",
+    "name": "David Chege",
+    "age": 39,
+    "location": "City Hall Way / Parliament Road junction",
+    "coordinates": {
+      "lat": -1.2889,
+      "lon": 36.8202
+    },
+    "cause_of_death": "Live Ammunition (Rifle)",
+    "source": "IPOA casualty release, Kiambu TV & Citizen TV",
+    "officer_status": "0 Officers Charged",
+    "case_status": "Active IPOA Inquiry"
+  },
+  {
+    "id": "erickson-mutisya",
+    "name": "Erickson Kyalo Mutisya",
+    "age": 25,
+    "location": "Harambee Avenue / Parliament Road approach",
+    "coordinates": {
+      "lat": -1.2898,
+      "lon": 36.8205
+    },
+    "cause_of_death": "Live Ammunition",
+    "source": "IPOA casualty release, Citizen TV & Daily Nation",
+    "officer_status": "0 Officers Charged",
+    "case_status": "Stalled / No Public Update"
+  },
+  {
+    "id": "ibrahim-kamau",
+    "name": "Ibrahim Kamau Wanjiru",
+    "age": 19,
+    "location": "Parliament perimeter / Harambee Avenue",
+    "coordinates": {
+      "lat": -1.2892,
+      "lon": 36.8198
+    },
+    "cause_of_death": "Live Ammunition (Cervical Spine)",
+    "source": "IPOA casualty release, AFP News Agency & family testimony",
+    "officer_status": "0 Officers Charged",
+    "case_status": "Active IPOA Inquiry"
+  },
+  {
+    "id": "evans-kiratu",
+    "name": "Evans Kiratu",
+    "age": 24,
+    "location": "Nairobi CBD demonstration route",
+    "coordinates": {
+      "lat": -1.2858,
+      "lon": 36.8219
+    },
+    "cause_of_death": "Tear Gas Canister Kinetic Impact",
+    "source": "Chief Government Pathologist autopsy, Citizen TV & IMLU",
+    "officer_status": "0 Officers Charged",
+    "case_status": "Active IPOA Inquiry"
+  },
+  {
+    "id": "kennedy-onyango",
+    "name": "Kennedy Onyango",
+    "age": 12,
+    "location": "Ongata Rongai, Kajiado / Nairobi border",
+    "coordinates": {
+      "lat": -1.3963,
+      "lon": 36.7601
+    },
+    "cause_of_death": "Live Ammunition (8 Rounds)",
+    "source": "Citizen TV family memorial records, IMLU & Reuters reporting",
+    "officer_status": "0 Officers Charged",
+    "case_status": "ODPP Review / Active Homicide"
+  },
+  {
+    "id": "benson-scotts",
+    "name": "Benson Scotts Mbithi",
+    "age": 29,
+    "location": "Jomo Kenyatta Highway near Kondele, Kisumu",
+    "coordinates": {
+      "lat": -0.0894,
+      "lon": 34.7678
+    },
+    "cause_of_death": "Live Ammunition (9 Rounds)",
+    "source": "Amnesty International Kenya & JOOTRH medical records",
+    "officer_status": "0 Officers Charged",
+    "case_status": "Active IPOA Inquiry"
+  },
+  {
+    "id": "emmanuel-tata",
+    "name": "Emmanuel Giggs Tata",
+    "age": 20,
+    "location": "Mikindani, Jomvu Sub-County, Mombasa",
+    "coordinates": {
+      "lat": -4.0042,
+      "lon": 39.6331
+    },
+    "cause_of_death": "Tear Gas Canister Kinetic Impact",
+    "source": "The Star Kenya family interview, KNCHR & CGTRH report",
+    "officer_status": "0 Officers Charged",
+    "case_status": "Active IPOA Inquiry"
+  },
+  {
+    "id": "kelvin-odhiambo",
+    "name": "Kelvin Odhiambo Maina",
+    "age": 21,
+    "location": "CBD Parliament area / Lang'ata Cemetery",
+    "coordinates": {
+      "lat": -1.2894,
+      "lon": 36.8192
+    },
+    "cause_of_death": "Live Ammunition",
+    "source": "Citizen TV Lang'ata burial coverage & IPOA Parliament casualty release",
+    "officer_status": "0 Officers Charged",
+    "case_status": "Active IPOA Inquiry"
+  },
+  {
+    "id": "wilson-sitati",
+    "name": "Wilson Sitati",
+    "age": 21,
+    "location": "CBD Parliament perimeter / Kimilili",
+    "coordinates": {
+      "lat": -1.2885,
+      "lon": 36.8203
+    },
+    "cause_of_death": "Blunt Force Kinetic Trauma",
+    "source": "TV47 Kenya Kimilili memorial coverage, People Daily & IPOA casualty release",
+    "officer_status": "0 Officers Charged",
+    "case_status": "Stalled / No Public Update"
+  },
+  {
+    "id": "denzel-omondi",
+    "name": "Denzel Omondi",
+    "age": 23,
+    "location": "Parliament Complex / Mashimoni Quarry, Juja",
+    "coordinates": {
+      "lat": -1.2893,
+      "lon": 36.8189
+    },
+    "cause_of_death": "Abduction & Severe Blunt Trauma / Drowning",
+    "source": "Chief Government Pathologist autopsy, IPOA homicide investigation & Kenya Digital News",
+    "officer_status": "0 Officers Charged",
+    "case_status": "ODPP Review / Homicide Probe"
+  },
+  {
+    "id": "earnest-kanyi",
+    "name": "Earnest Kanyi",
+    "age": null,
+    "location": "CBD Parliament area",
+    "coordinates": {
+      "lat": -1.2891,
+      "lon": 36.8195
+    },
+    "cause_of_death": "Live Ammunition",
+    "source": "IPOA official Parliament casualty release",
+    "officer_status": "0 Officers Charged",
+    "case_status": "Stalled / No Public Update"
+  },
+  {
+    "id": "kenneth-mwangi",
+    "name": "Kenneth Njiru Mwangi",
+    "age": 19,
+    "location": "CBD Parliament area",
+    "coordinates": {
+      "lat": -1.2887,
+      "lon": 36.8199
+    },
+    "cause_of_death": "Blunt Force Kinetic Trauma",
+    "source": "IPOA official Parliament casualty release",
+    "officer_status": "0 Officers Charged",
+    "case_status": "Stalled / No Public Update"
+  },
+  {
+    "id": "beasley-kogi",
+    "name": "Beasley Kogi",
+    "age": null,
+    "location": "Protest corridor between Uhuru Highway and Parliament",
+    "coordinates": {
+      "lat": -1.288,
+      "lon": 36.817
+    },
+    "cause_of_death": "Blunt Force Trauma",
+    "source": "IPOA official Parliament casualty release & Amnesty Kenya",
+    "officer_status": "0 Officers Charged",
+    "case_status": "Stalled / No Public Update"
+  },
+  {
+    "id": "gredo-oyaro",
+    "name": "Gredo Oyaro",
+    "age": 17,
+    "location": "Uganda Road / Oginga Odinga Street junction, Eldoret",
+    "coordinates": {
+      "lat": 0.5186,
+      "lon": 35.2758
+    },
+    "cause_of_death": "Live Ammunition (Cranial Shot)",
+    "source": "Moi Teaching & Referral Hospital records & The Standard",
+    "officer_status": "0 Officers Charged",
+    "case_status": "Active IPOA Inquiry"
+  }
+]

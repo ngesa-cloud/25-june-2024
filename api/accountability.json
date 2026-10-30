@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "incident_date": "2024-06-25T00:00:00Z",
+  "last_updated": "2026-10-30T17:29:34.918Z",
+  "days_elapsed": 857,
+  "total_documented_fatalities": 17,
+  "officers_charged": 0,
+  "officers_convicted": 0,
+  "justice_delay_rate": "100%",
+  "accountability_metric": "857 Days Since 25 June 2024 — 0 Officers Charged",
+  "status_breakdown": {
+    "active_ipoa_inquiry": 8,
+    "odpp_review_or_inquest": 3,
+    "stalled_or_unupdated": 6
+  },
+  "human_rights_standards": [
+    "UN Basic Principles on the Use of Force and Firearms by Law Enforcement Officials",
+    "African Charter on Human and Peoples' Rights (Article 4: Right to Life)",
+    "Constitution of Kenya 2010 (Article 26, Article 37)"
+  ]
+}

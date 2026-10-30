@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25 June 2024 — Live Intelligence & Accountability Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #12140F;
+            --surface: #181B14;
+            --surface-elevated: #20241B;
+            --border: #282D22;
+            --crimson: #B4472F;
+            --crimson-glow: rgba(180, 71, 47, 0.2);
+            --paper: #E6E4DF;
+            --paper-dim: #9C9A94;
+            --paper-dark: #62605B;
+            --amber: #D97706;
+            --font-serif: 'Newsreader', serif;
+            --font-sans: 'IBM Plex Sans', -apple-system, sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--paper);
+            font-family: var(--font-sans);
+            padding: 32px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .brand-title {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: #fff;
+        }
+
+        .brand-sub {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--paper-dim);
+            margin-top: 4px;
+        }
+
+        .badge-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            background: var(--crimson-glow);
+            color: #f87171;
+            border: 1px solid rgba(180, 71, 47, 0.4);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--crimson);
+            box-shadow: 0 0 10px var(--crimson);
+        }
+
+        /* Accountability Clock Hero */
+        .clock-hero {
+            background: linear-gradient(135deg, rgba(24, 27, 20, 0.95), rgba(32, 36, 27, 0.85));
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--crimson);
+            border-radius: 8px;
+            padding: 28px;
+            margin-bottom: 36px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+        }
+
+        .clock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .clock-label {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--paper-dim);
+        }
+
+        .clock-action-badge {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            padding: 3px 8px;
+            background: #24291F;
+            border: 1px solid var(--border);
+            color: var(--paper-dim);
+            border-radius: 4px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .metric-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 18px;
+        }
+
+        .metric-val {
+            font-family: var(--font-mono);
+            font-size: 36px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.1;
+        }
+
+        .metric-val.crimson { color: var(--crimson); }
+        .metric-val.amber { color: var(--amber); }
+
+        .metric-title {
+            font-size: 13px;
+            color: var(--paper-dim);
+            margin-top: 8px;
+        }
+
+        /* Section layout */
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            margin-bottom: 16px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .api-tag {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--paper-dim);
+            background: var(--surface);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        .victims-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .victim-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .victim-card:hover {
+            border-color: rgba(180, 71, 47, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .victim-name {
+            font-family: var(--font-serif);
+            font-size: 19px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .victim-age {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--paper-dim);
+        }
+
+        .cause-badge {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(180, 71, 47, 0.15);
+            color: #f87171;
+            border: 1px solid rgba(180, 71, 47, 0.3);
+            margin-bottom: 12px;
+        }
+
+        .info-row {
+            font-size: 13px;
+            margin-bottom: 6px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .info-label {
+            color: var(--paper-dark);
+            min-width: 80px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+
+        .info-val {
+            color: var(--paper);
+            word-break: break-word;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            background: #20241B;
+            border: 1px solid var(--border);
+            color: var(--amber);
+        }
+
+        .footer-terminal {
+            background: #0D0F0B;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            font-family: var(--font-mono);
+            font-size: 12.5px;
+            color: var(--paper-dim);
+            line-height: 1.6;
+        }
+
+        .footer-terminal code {
+            color: #4ade80;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1 class="brand-title">25.06.2024 ARCHIVAL RECORD</h1>
+                <div class="brand-sub">Phase 1: Victim JSON Database & Automated Accountability Clock</div>
+            </div>
+            <div class="badge-live">
+                <span class="pulse-dot"></span>
+                LIVE AUDIT TELEMETRY
+            </div>
+        </header>
+
+        <!-- Accountability Clock Hero -->
+        <div class="clock-hero">
+            <div class="clock-header">
+                <div class="clock-label">Automated Accountability Clock (GitHub Actions Cron)</div>
+                <div class="clock-action-badge">daily @ 00:00 UTC | node .github/scripts/update-accountability-clock.js</div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-val crimson" id="metric-days">857</div>
+                    <div class="metric-title">Days Since 25 June 2024</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-val" id="metric-fatalities">17</div>
+                    <div class="metric-title">Documented Fatalities</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-val crimson">0</div>
+                    <div class="metric-title">Police Officers Charged</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-val amber">100%</div>
+                    <div class="metric-title">Impunity / Delay Rate</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <span>Verified Victims Database</span>
+            <span class="api-tag">Endpoint: <code>public/api/victims.json</code> (17 Records)</span>
+        </div>
+
+        <div class="victims-grid" id="victims-container">
+            <!-- Dynamically populated or fallback rendered -->
+        </div>
+
+        <div class="footer-terminal">
+            <p><strong>[!] Phase 1 API Verification:</strong></p>
+            <p>• Clean JSON Schema Verified: <code>public/api/victims.json</code> & <code>api/victims.json</code></p>
+            <p>• Automation Action Deployed: <code>.github/workflows/accountability-clock.yml</code></p>
+            <p>• Clock Ticking Script: <code>.github/scripts/update-accountability-clock.js</code></p>
+            <p>• Real-time Test Command: <code>curl -s http://localhost:8000/public/api/victims.json | jq .[0]</code></p>
+        </div>
+    </div>
+
+    <script>
+        // Load victims data directly from public/api/victims.json
+        fetch('public/api/victims.json')
+            .then(res => res.json())
+            .then(data => renderCards(data))
+            .catch(() => {
+                // If opened via file:// protocol directly without web server
+                fetch('api/victims.json')
+                    .then(r => r.json())
+                    .then(d => renderCards(d));
+            });
+
+        function renderCards(victims) {
+            const container = document.getElementById('victims-container');
+            if (!container) return;
+
+            container.innerHTML = victims.map(v => `
+                <div class="victim-card">
+                    <div>
+                        <div class="card-top">
+                            <h3 class="victim-name">${escapeHtml(v.name)}</h3>
+                            <span class="victim-age">${v.age ? v.age + ' yrs' : 'Age unreleased'}</span>
+                        </div>
+                        <div class="cause-badge">${escapeHtml(v.cause_of_death)}</div>
+                        <div class="info-row">
+                            <span class="info-label">Location:</span>
+                            <span class="info-val">${escapeHtml(v.location)}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Coords:</span>
+                            <span class="info-val" style="font-family: var(--font-mono); font-size:11px;">
+                                ${v.coordinates.lat.toFixed(4)}, ${v.coordinates.lon.toFixed(4)}
+                            </span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Source:</span>
+                            <span class="info-val" style="color:var(--paper-dim); font-size:12px;">${escapeHtml(v.source)}</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+                        <span class="status-pill">${escapeHtml(v.case_status)}</span>
+                        <span style="font-family:var(--font-mono); font-size:11px; color:var(--crimson); font-weight:600;">
+                            ${escapeHtml(v.officer_status)}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function escapeHtml(str) {
+            return (str || '').replace(/[&<>"']/g, m => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[m]);
+        }
+    </script>
+</body>
+</html>

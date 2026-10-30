@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 <style>
   :root{
@@ -1792,6 +1794,230 @@
     z-index:1;
   }
 
+
+  /* ---------- Phase 2: Leaflet Interactive Accountability Map ---------- */
+  .map-section {
+    padding: 70px 0 80px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--bg);
+    position: relative;
+    z-index: 2;
+  }
+  .map-wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .map-head {
+    margin-bottom: 24px;
+  }
+  .map-kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin: 0 0 8px;
+  }
+  .map-title {
+    font-size: clamp(28px, 4.5vw, 42px);
+    line-height: 1.15;
+    color: var(--paper);
+    margin: 0 0 10px;
+  }
+  .map-desc {
+    color: var(--paper-dim);
+    font-size: 15px;
+    max-width: 760px;
+    margin: 0;
+  }
+  .map-flex-container {
+    display: flex;
+    flex-direction: row;
+    background: var(--bg-raised);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+    min-height: 540px;
+    margin-top: 20px;
+  }
+  .map-canvas-wrap {
+    flex: 0 0 70%;
+    width: 70%;
+    position: relative;
+    min-height: 520px;
+    background: #0d0f0b;
+  }
+  #accountability-leaflet-map {
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+    background: #0d0f0b;
+  }
+  .map-sidebar-pane {
+    flex: 0 0 30%;
+    width: 30%;
+    border-left: 1px solid var(--rule);
+    background: #141711;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 20px;
+  }
+  .map-sidebar-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 18px;
+  }
+  .map-sidebar-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .map-sidebar-reset {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--paper-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .map-sidebar-reset:hover {
+    color: var(--paper);
+    border-color: var(--paper-dim);
+  }
+  #victim-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .victim-empty-prompt {
+    margin: auto 0;
+    text-align: center;
+    padding: 40px 10px;
+    color: var(--paper-dim);
+  }
+  .victim-empty-prompt .pulse-ring {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: rgba(180, 71, 47, 0.15);
+    border: 1px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+  }
+  .victim-empty-prompt p {
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .victim-active-dossier {
+    animation: fadeIn 0.3s ease-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .victim-active-dossier h3 {
+    font-family: 'Newsreader', serif;
+    font-size: 24px;
+    line-height: 1.15;
+    color: #fff;
+    margin: 0 0 6px;
+  }
+  .victim-meta-row {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--paper-dim);
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  .victim-field-box {
+    margin-bottom: 14px;
+  }
+  .victim-field-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--paper-dim);
+    margin-bottom: 3px;
+  }
+  .victim-field-val {
+    color: var(--paper);
+    font-size: 13.5px;
+    line-height: 1.45;
+  }
+  .victim-officer-status {
+    color: #f87171;
+    font-weight: 700;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13.5px;
+    display: inline-block;
+    padding: 3px 8px;
+    background: rgba(248, 113, 113, 0.1);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    border-radius: 4px;
+  }
+  .victim-status-tag {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    background: #20241B;
+    border: 1px solid var(--rule);
+    color: #D97706;
+  }
+  .leaflet-dark-tooltip {
+    background: #181B14 !important;
+    border: 1px solid #34372C !important;
+    color: #EAE6DA !important;
+    font-family: 'IBM Plex Sans', sans-serif !important;
+    font-size: 12px !important;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6) !important;
+    border-radius: 4px !important;
+    padding: 6px 10px !important;
+  }
+  .leaflet-dark-tooltip::before {
+    border-top-color: #34372C !important;
+  }
+
+  @media (max-width: 860px) {
+    .map-flex-container {
+      flex-direction: column;
+    }
+    .map-canvas-wrap {
+      flex: 0 0 100%;
+      width: 100%;
+      min-height: 380px;
+    }
+    #accountability-leaflet-map {
+      min-height: 380px;
+    }
+    .map-sidebar-pane {
+      flex: 0 0 100%;
+      width: 100%;
+      border-left: none;
+      border-top: 1px solid var(--rule);
+      min-height: auto;
+    }
+  }
 </style>
 </head>
 <body>
@@ -1891,6 +2117,35 @@
   </div>
   <div class="hero-scroll-cue" aria-hidden="true"><span class="line"></span> scroll</div>
 </header>
+
+<section id="accountability-map" class="map-section">
+  <div class="wrap map-wrap">
+    <div class="map-head">
+      <p class="map-kicker">Geospatial Forensic Intelligence &bull; 17 Documented Fatalities</p>
+      <h2 class="map-title">The Accountability Map</h2>
+      <p class="map-desc">Interactive geospatial reconstruction of the 17 documented fatalities across Kenya during the 25 June 2024 protests. Click any marker to inspect the victim's verified legal dossier, ballistic findings, and prosecutorial status.</p>
+    </div>
+
+    <div class="map-flex-container">
+      <div class="map-canvas-wrap">
+        <div id="accountability-leaflet-map" role="region" aria-label="Interactive map of verified 25 June 2024 victims across Kenya"></div>
+      </div>
+      <aside class="map-sidebar-pane" aria-label="Selected Victim Dossier">
+        <div class="map-sidebar-top">
+          <span class="map-sidebar-label">INCIDENT DOSSIER</span>
+          <button type="button" id="map-reset-btn" class="map-sidebar-reset" title="Reset map view to entire country">Reset View &circlearrowright;</button>
+        </div>
+        <div id="victim-details">
+          <div class="victim-empty-prompt">
+            <div class="pulse-ring">&odot;</div>
+            <p>Click on any marker on the map to inspect victim profile, ballistic cause of death, GPS coordinates, and current prosecution status.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
 
 <section class="tight">
   <div class="wrap">
@@ -3849,5 +4104,213 @@
 
 <!-- Privacy-first Visitor Telemetry (GoatCounter: zero-cookie, GDPR compliant) -->
 <script data-goatcounter="https://ngesa-25june.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+<!-- Phase 2: Leaflet Interactive Accountability Map -->
+<script>
+(function() {
+  let map = null;
+  let markersLayer = null;
+  let activeMarker = null;
+
+  async function initMap() {
+    const mapElement = document.getElementById('accountability-leaflet-map');
+    if (!mapElement) return;
+
+    // Center the map on Kenya [0.0236, 37.9062] with zoom level 6
+    map = L.map('accountability-leaflet-map', {
+      scrollWheelZoom: false
+    }).setView([0.0236, 37.9062], 6);
+
+    map.on('focus', function() {
+      map.scrollWheelZoom.enable();
+    });
+
+    // Dark matter tile layer (CartoDB Dark Matter)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap &copy; CARTO',
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(map);
+
+    markersLayer = L.layerGroup().addTo(map);
+
+    // Fetch victims.json data with GitHub Pages relative path support
+    let victims = null;
+    const candidatePaths = [
+      'api/victims.json',
+      'public/api/victims.json',
+      './api/victims.json',
+      './public/api/victims.json',
+      '/api/victims.json',
+      '/25-june-2024/api/victims.json'
+    ];
+
+    for (const p of candidatePaths) {
+      try {
+        const res = await fetch(p);
+        if (res.ok) {
+          victims = await res.json();
+          break;
+        }
+      } catch (err) {}
+    }
+
+    // Offline / file protocol fallback to embedded rememberedVictims array
+    if (!victims && typeof rememberedVictims !== 'undefined') {
+      victims = rememberedVictims.map(function(r, idx) {
+        const m = (typeof memorial !== 'undefined' && memorial[idx]) ? memorial[idx] : {};
+        return {
+          id: m.id || 'victim-' + idx,
+          name: r.name,
+          age: r.age ? parseInt(r.age, 10) : null,
+          location: r.location,
+          coordinates: { lat: r.lat, lon: r.lon },
+          cause_of_death: m.weaponLabel || "Live Ammunition",
+          source: r.source,
+          officer_status: "0 Officers Charged",
+          case_status: m.stageLabel || "Active IPOA Inquiry"
+        };
+      });
+    }
+
+    if (!victims || !Array.isArray(victims)) {
+      console.warn('Unable to load victims.json dataset');
+      return;
+    }
+
+    // Loop through victims and add circle markers
+    victims.forEach(function(victim) {
+      if (!victim.coordinates || typeof victim.coordinates.lat !== 'number' || typeof victim.coordinates.lon !== 'number') {
+        return;
+      }
+
+      const marker = L.circleMarker([victim.coordinates.lat, victim.coordinates.lon], {
+        radius: 8,
+        color: '#ffffff',
+        weight: 1.5,
+        fillColor: '#B4472F',
+        fillOpacity: 0.85
+      });
+
+      marker.bindTooltip('<strong>' + escapeHtml(victim.name) + '</strong><br/><span style="font-size:11px; opacity:0.8;">' + escapeHtml(victim.location) + '</span>', {
+        direction: 'top',
+        offset: [0, -6],
+        className: 'leaflet-dark-tooltip'
+      });
+
+      marker.on('click', function() {
+        populateSidebar(victim, marker);
+      });
+
+      markersLayer.addLayer(marker);
+    });
+
+    const resetBtn = document.getElementById('map-reset-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function() {
+        map.flyTo([0.0236, 37.9062], 6, { duration: 1.2 });
+        if (activeMarker) {
+          activeMarker.setStyle({
+            radius: 8,
+            fillColor: '#B4472F',
+            color: '#ffffff',
+            weight: 1.5,
+            fillOpacity: 0.85
+          });
+          activeMarker = null;
+        }
+        const detailsEl = document.getElementById('victim-details');
+        if (detailsEl) {
+          detailsEl.innerHTML = '<div class="victim-empty-prompt"><div class="pulse-ring">&odot;</div><p>Click on any marker on the map to inspect victim profile, ballistic cause of death, GPS coordinates, and current prosecution status.</p></div>';
+        }
+      });
+    }
+  }
+
+  function populateSidebar(v, marker) {
+    if (activeMarker && activeMarker !== marker) {
+      activeMarker.setStyle({
+        radius: 8,
+        fillColor: '#B4472F',
+        color: '#ffffff',
+        weight: 1.5,
+        fillOpacity: 0.85
+      });
+    }
+
+    marker.setStyle({
+      radius: 12,
+      fillColor: '#f87171',
+      color: '#ffffff',
+      weight: 2.5,
+      fillOpacity: 1
+    });
+    activeMarker = marker;
+
+    // map.flyTo() to smoothly center on victim coordinates and zoom to 13
+    map.flyTo([v.coordinates.lat, v.coordinates.lon], 13, {
+      duration: 1.5,
+      easeLinearity: 0.25
+    });
+
+    const detailsEl = document.getElementById('victim-details');
+    if (!detailsEl) return;
+
+    const ageStr = v.age ? v.age + ' years old' : 'Age unreleased';
+    const coordsStr = v.coordinates.lat.toFixed(4) + ', ' + v.coordinates.lon.toFixed(4);
+
+    detailsEl.innerHTML = 
+      '<div class="victim-active-dossier">' +
+        '<h3>' + escapeHtml(v.name) + '</h3>' +
+        '<div class="victim-meta-row">' +
+          '<span>&bull; ' + escapeHtml(ageStr) + '</span><br/>' +
+          '<span>&bull; ' + escapeHtml(v.location) + '</span>' +
+        '</div>' +
+
+        '<div class="victim-field-box">' +
+          '<div class="victim-field-title">Reported Cause of Death</div>' +
+          '<div class="victim-field-val" style="color:#fca5a5; font-weight:500;">' +
+            escapeHtml(v.cause_of_death) +
+          '</div>' +
+        '</div>' +
+
+        '<div class="victim-field-box">' +
+          '<div class="victim-field-title">Official Case Status</div>' +
+          '<div class="victim-field-val">' +
+            '<span class="victim-status-tag">' + escapeHtml(v.case_status) + '</span>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="victim-field-box">' +
+          '<div class="victim-field-title">Officer & Indictment Status</div>' +
+          '<div class="victim-field-val">' +
+            '<span class="victim-officer-status">' + escapeHtml(v.officer_status) + '</span>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="victim-field-box" style="margin-top:14px; padding-top:10px; border-top:1px solid var(--rule);">' +
+          '<div class="victim-field-title">GPS Coordinates & Corroborating Source</div>' +
+          '<div class="victim-field-val" style="font-family: var(--font-mono, monospace); font-size: 11.5px; color: var(--paper-dim);">' +
+            '<span>' + coordsStr + '</span><br/>' +
+            '<span style="font-size:11px; margin-top:3px; display:inline-block;">Source: ' + escapeHtml(v.source) + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function escapeHtml(str) {
+    return (str || '').replace(/[&<>"']/g, function(m) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMap);
+  } else {
+    initMap();
+  }
+})();
+</script>
+
 </body>
 </html>

@@ -1,0 +1,46 @@
+name: "Accountability Clock"
+
+on:
+  schedule:
+    # Run daily at 00:00 UTC to update elapsed days since 25 June 2024
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'public/api/victims.json'
+      - '.github/scripts/update-accountability-clock.js'
+
+permissions:
+  contents: write
+
+jobs:
+  tick-clock:
+    name: "Tick Accountability Clock"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Accountability Clock Script
+        run: |
+          node .github/scripts/update-accountability-clock.js
+
+      - name: Commit and Push Updated Accountability Telemetry
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/api/ api/
+          if git diff --staged --quiet; then
+            echo "No clock changes detected."
+          else
+            DAYS=$(node -e "console.log(require('./public/api/accountability.json').days_elapsed)")
+            git commit -m "chore(accountability): tick clock to day ${DAYS} [0 officers charged]"
+            git push
+          fi
