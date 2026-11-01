@@ -1,13 +1,13 @@
 {
   "schema_version": "1.0.0",
   "incident_date": "2024-06-25T00:00:00Z",
-  "last_updated": "2026-10-31T04:29:43.248Z",
-  "days_elapsed": 858,
+  "last_updated": "2026-11-01T04:49:43.835Z",
+  "days_elapsed": 859,
   "total_documented_fatalities": 17,
   "officers_charged": 0,
   "officers_convicted": 0,
   "justice_delay_rate": "100%",
-  "accountability_metric": "858 Days Since 25 June 2024 — 0 Officers Charged",
+  "accountability_metric": "859 Days Since 25 June 2024 — 0 Officers Charged",
   "status_breakdown": {
     "active_ipoa_inquiry": 8,
     "odpp_review_or_inquest": 3,
